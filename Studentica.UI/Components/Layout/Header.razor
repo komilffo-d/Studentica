@@ -1,15 +1,22 @@
 ﻿<div class="header">
     <div class="header__inner">
         <div class="header-search">
-            <input type="text" class="header-search__field" />
+            <input type="text" class="header-search__field" placeholder="Поиск..."/>
             <img src="/icons/search.svg" alt="Поиск" class="header-search__icon" />
         </div>
+        <div class="header-utility">
+            <div class="header-utility__reader">
+                <img src="/icons/notification.svg" id="header-utility__reader_notification" alt="Уведомления для вашего аккаунта" />
+                <img src="/icons/email.svg" id="header-utility__reader_email" alt="Письма для вашего аккаунта" />
+            </div>
+            <span class="vertical-red-line"></span>
+            <div class="header-utility__writer">
+                <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
+                    <MudIcon Color="Color.Dark" Icon="@Icons.Custom.Uncategorized.Radioactive" Size="Size.Large" />
+                </MudAvatar>
+            </div>
+        </div>
 
-        <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
-            <MudIcon Color="Color.Dark" Icon="@Icons.Custom.Uncategorized.Radioactive" Size="Size.Large" />
-        </MudAvatar>
-        <img src="/icons/notification.svg" alt="Уведомления для вашего аккаунта" />
-        <img src="/icons/email.svg" alt="Письма для вашего аккаунта" />
     </div>
 </div>
 

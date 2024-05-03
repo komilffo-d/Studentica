@@ -2,5 +2,9 @@
   {
     "outputFile": "Components/Layout/Header.razor.css",
     "inputFile": "Components/Layout/Header.razor.scss"
+  },
+  {
+    "outputFile": "wwwroot/app.css",
+    "inputFile": "wwwroot/app.scss"
   }
 ]
