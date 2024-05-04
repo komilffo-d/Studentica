@@ -1,4 +1,5 @@
-$primary-color: #ffffff;
+@use '/wwwroot/scss/variables.scss' as var;
+
 
 .header {
     &__inner {
@@ -15,7 +16,7 @@ $primary-color: #ffffff;
         &__field {
             height: 99px;
             box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
-            background: $primary-color;
+            background: var.$primary-color;
             width: 100%;
         }
 
