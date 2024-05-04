@@ -4,6 +4,7 @@
 
 html, body {
     background-color: var.$main-background-color;
+    height:100%;
 }
 
 html {
@@ -12,10 +13,52 @@ html {
 body {
    @include mix.montserrat-font-style(400,normal);
 }
+input {
+    &[type="text"], &[type="text"]:hover, &[type="text"] :focus{
+        outline: none;
+        border: none;
+    }
+}
+.main {
+    display: flex;
+    align-items: stretch;
+    height: inherit;
+
+    &-content {
+        padding-left: var.$main-content-padding-horizontal-left;
+        padding-right: var.$main-content-padding-horizontal-right;
+        padding-top: var.$main-content-padding-vertical-top;
+        padding-bottom: var.$main-content-padding-vertical-bottom;
+        flex: 1;
+
+        &__inner {
+        }
+
+        &__supstring {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #000;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 21px;
+
+            &:after {
+                content: "";
+                width: 25%;
+                position: absolute;
+                height: 4px;
+                background: #fb2f30;
+                left: 0;
+                bottom: -5px;
+            }
+        }
+    }
+}
 .vertical {
     &-red {
         &-line {
             width: 1px;
+            height:100%;
             background: #d60a0b; 
         }
     }

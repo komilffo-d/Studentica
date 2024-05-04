@@ -1,0 +1,9 @@
+.navbar {
+    width: 256px;
+    height: 100%;
+
+    background-color: #D60A0B;
+    &__inner {
+        height: inherit;
+    }
+}

@@ -2,11 +2,13 @@
 @use 'mixins' as mix;
 
 .header {
+    padding-left: var.$main-content-padding-horizontal-left;
+    padding-right: var.$main-content-padding-horizontal-right;
+    background: var.$primary-color;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+
     &__inner {
         display: flex;
-        gap: 30px;
-        background: var.$primary-color;
-        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
     }
 
     &-search {
@@ -18,26 +20,26 @@
         &__field {
             height: 99px;
             width: 100%;
-            padding: 0px 92px;
+            padding-left: 52px;
             font-size: 1.3rem;
             @include mix.montserrat-font(600);
         }
 
         &__icon {
             position: absolute;
-            left: 40px;
-            top: 50%;
-            transform: translateY(-50%);
+            align-self: center;
+            pointer-events: none;
             line-height: 0;
         }
     }
 
     &-utility {
         display: flex;
+        gap: 17px;
 
         &__reader {
             display: flex;
-            gap: 10px;
+            gap: 14px;
 
             & > img {
                 cursor: pointer;
@@ -45,6 +47,9 @@
         }
 
         &__writer {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
     }
 }

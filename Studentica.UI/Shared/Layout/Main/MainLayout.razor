@@ -1,13 +1,30 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
-
 <HeadContent>
     <_Favicons></_Favicons>
 </HeadContent>
-<Header></Header>
-<main class="content">
-    @Body
-</main>
+
+<div class="main">
+    <NavBar></NavBar>
+    <main class="main-content">
+        <Header></Header>
+        <div class="main-content__inner">
+            <div class="main-content__supstring">
+                <SectionOutlet SectionName="SupstringSection" />
+            </div>
+
+            @Body
+        </div>
+        
+    </main>
+</div>
 
 
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+@code{
+
+}
