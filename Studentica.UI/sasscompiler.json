@@ -1,0 +1,18 @@
+{
+  "Source": "wwwroot/scss",
+  "Target": "wwwroot/css",
+  "Arguments": "--style=compressed",
+  "GenerateScopedCss": true,
+  "ScopedCssFolders": ["Components" ],
+  "IncludePaths": ["wwwroot/scss"],
+
+  "Compilations": [
+    {
+      "Source": "wwwroot/scss/main.scss",
+      "Target": "wwwroot/css/main.min.css"
+    }
+  ],
+
+  "Configurations": {
+  }
+}
