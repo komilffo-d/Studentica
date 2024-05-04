@@ -1,21 +1,16 @@
 @use 'fonts';
 @use 'variables' as var;
-@mixin montserrat-font($weight) {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: $weight;
+@use 'mixins' as mix;
+
+html, body {
+    background-color: var.$main-background-color;
 }
 
-@mixin montserrat-font-style($weight,$style) {
-    @include montserrat-font($weight);
-    font-style: $style;
-}
-
-html,body{
-    background-color: var.$primary-color;
+html {
+    font-size: var.$main-font-size;
 }
 body {
-   @include montserrat-font-style(400,normal);
+   @include mix.montserrat-font-style(400,normal);
 }
 .vertical {
     &-red {

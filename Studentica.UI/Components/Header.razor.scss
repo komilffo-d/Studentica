@@ -1,0 +1,50 @@
+@use 'variables' as var;
+@use 'mixins' as mix;
+
+.header {
+    &__inner {
+        display: flex;
+        gap: 30px;
+        background: var.$primary-color;
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    &-search {
+        display: flex;
+        position: relative;
+        align-items: center;
+        flex: 1;
+
+        &__field {
+            height: 99px;
+            width: 100%;
+            padding: 0px 92px;
+            font-size: 1.3rem;
+            @include mix.montserrat-font(600);
+        }
+
+        &__icon {
+            position: absolute;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 0;
+        }
+    }
+
+    &-utility {
+        display: flex;
+
+        &__reader {
+            display: flex;
+            gap: 10px;
+
+            & > img {
+                cursor: pointer;
+            }
+        }
+
+        &__writer {
+        }
+    }
+}

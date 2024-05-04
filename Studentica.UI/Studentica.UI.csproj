@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\scss\_mixins.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.75.0" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
   </ItemGroup>
@@ -15,10 +19,19 @@
     <Folder Include="wwwroot\icons\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\css\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="wwwroot\scss\_fonts.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\scss\_mixins.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="wwwroot\scss\_mixins.scss" />
   </ItemGroup>
 
 </Project>

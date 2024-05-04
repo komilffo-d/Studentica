@@ -1,5 +1,5 @@
 using MudBlazor.Services;
-using Studentica.UI.Components;
+using Studentica.UI.Shared.Core;
 
 namespace Studentica.UI
 {
