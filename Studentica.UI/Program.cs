@@ -14,7 +14,9 @@ namespace Studentica.UI
 
             builder.Services.AddMudServices();
 
+#if DEBUG
             builder.Services.AddSassCompiler();
+#endif
 
             var app = builder.Build();
 
