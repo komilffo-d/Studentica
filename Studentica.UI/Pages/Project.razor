@@ -1,5 +1,25 @@
 ﻿@page "/project"
 
+<PageTitle>Проекты</PageTitle>
+<SectionContent SectionName="SupstringSection">
+    Страница проектов
+</SectionContent>
+
+
 @code {
+
+    [CascadingParameter]
+    public LayoutBase Layout { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Layout.Links = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
+            new BreadcrumbItem("Проекты", href: "/project", disabled: true),
+        };
+
+    }
+
 
 }

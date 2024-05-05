@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+﻿@inherits LayoutBase
 
 <HeadContent>
     <_Favicons></_Favicons>
@@ -15,18 +15,43 @@
                 <SectionOutlet SectionName="SupstringSection" />
             </div>
 
-            @Body
+            <div class="main-content__breadcrumbs mb-5">
+                <Breadcrumbs Items="Links"/>
+            </div>
+
+            <CascadingValue Value="this">
+                @Body
+            </CascadingValue>
+
+            
+
+
+
         </div>
         
     </main>
 </div>
 
 
+<article id="mud-providers">
+    <MudThemeProvider />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+</article>
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
 
-@code{
+@code
+{
+    internal override List<BreadcrumbItem> Links { 
+        get => _links; 
+        set
+        {
+            if (_links != value)
+            {
 
+                _links = value;
+                InvokeAsync(() => StateHasChanged());
+            }
+        }
+    }
 }

@@ -1,4 +1,6 @@
 ﻿@page "/"
+
+
 <PageTitle>Домашняя страница</PageTitle>
 
 <SectionContent SectionName="SupstringSection">
@@ -6,4 +8,18 @@
 </SectionContent>
 
 
+@code{
 
+    [CascadingParameter]
+    public LayoutBase Layout { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Layout.Links = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem("Домашняя страница", href: "/", disabled: true),
+        };
+
+    }
+
+}
