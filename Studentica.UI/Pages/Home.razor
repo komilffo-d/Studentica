@@ -11,14 +11,15 @@
 @code{
 
     [CascadingParameter]
-    public LayoutBase Layout { get; set; }
+    public LayoutBase? Layout { get; set; }
 
     protected override void OnInitialized()
     {
-        Layout.Links = new List<BreadcrumbItem>
-        {
-            new BreadcrumbItem("Домашняя страница", href: "/", disabled: true),
-        };
+        if(Layout is not null)
+            Layout.Links = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem("Домашняя страница", href: "/", disabled: true),
+            };
 
     }
 

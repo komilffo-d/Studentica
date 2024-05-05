@@ -35,4 +35,4 @@ jobs:
         local-dir: ./Release/
         server-dir: /http/
         dangerous-clean-slate: true
-        state-name: .ftp-deploy-sync-state.json
+        dry-run: false
