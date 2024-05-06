@@ -1,0 +1,31 @@
+::deep .navbar {
+    &__item {
+        color: #FFFFFF;
+        & > a {
+            color: inherit !important;
+            background-color: inherit !important;
+        }
+    }
+}
+.navbar {
+
+    &-header {
+        height: 99px;
+        background-color: #D60A0B;
+
+        &__inner {
+            height: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px 0 24px;
+        }
+
+        &__logo {
+        }
+
+        &__toggle {
+            cursor: pointer;
+        }
+    }
+}
