@@ -1,11 +1,12 @@
-﻿<div class="navbar">
-    <MudPaper Width="256px" Elevation="0" Height="100%" Style="background-color: #131F73">
+﻿
+<div class="navbar" @attributes="AttributesNavBar">
+    <MudPaper Elevation="0" Height="100%" Style="background-color: #131F73">
         <div class="navbar-header">
             <div class="navbar-header__inner">
                 <div class="navbar-header__logo">
                     <img src="/images/logo.png" />
                 </div>
-                <div class="navbar-header__toggle">
+                <div class="navbar-header__toggle" @onclick="ToggleNavbarAsync">
                     <img src="/icons/menu-burger.svg" />
                 </div>
             </div>
@@ -14,11 +15,31 @@
             @foreach (NavBarItem item in _navBarItems)
                 @GetNavItemFragment(item);
         </MudNavMenu>;
+        <div class="navbar-open" @onclick="ToggleNavbarAsync">
+            <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Size="Size.Large"></MudIcon>
+        </div>
     </MudPaper>
 </div>
 
 
 @code {
+
+    [Parameter]
+    public EventCallback<bool> OnToggleNavbar { get; set; }
+
+    private bool OpenedNavBar { get; set; } = true;
+
+
+
+    private async void ToggleNavbarAsync(MouseEventArgs e)
+    {
+        OpenedNavBar = !OpenedNavBar;
+        await OnToggleNavbar.InvokeAsync(OpenedNavBar);
+    }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object?> AttributesNavBar { get; set; } = new();
+
     private static readonly List<NavBarItem> _navBarItems = new()
     {
 

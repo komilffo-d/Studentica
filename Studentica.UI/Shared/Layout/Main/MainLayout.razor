@@ -5,8 +5,8 @@
 </HeadContent>
 
 <div class="main">
-    <NavBar></NavBar>
-    <main class="main-content">
+    <NavBar OnToggleNavbar="ToggleNavbar" AttributesNavBar="@_attributeNavBar"></NavBar>
+    <main class="@_classMainContent">
         <div class="mb-12">
             <Header></Header>
         </div>
@@ -22,13 +22,7 @@
             <CascadingValue Value="this">
                 @Body
             </CascadingValue>
-
-            
-
-
-
         </div>
-        
     </main>
 </div>
 
@@ -42,6 +36,26 @@
 
 @code
 {
+    private string _classMainContent = "main-content main-content--shift";
+    private Dictionary<string,object> _attributeNavBar = new() { {"class", "navbar navbar--opened"} };
+
+    private void ToggleNavbar(bool isOpen)
+    {
+        if (isOpen)
+        {
+            _classMainContent = "main-content main-content--shift";
+            _attributeNavBar["class"] = "navbar navbar--opened";
+        }
+        else
+        {
+            _classMainContent = "main-content";
+            _attributeNavBar["class"] = "navbar navbar--closed";
+        }
+        
+        
+    }
+
+
     internal override List<BreadcrumbItem> Links { 
         get => _links; 
         set

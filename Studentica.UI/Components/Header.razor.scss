@@ -6,7 +6,7 @@
     padding-right: var.$main-content-padding-horizontal-right;
     background: var.$primary-color;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
-
+    border-radius:10px;
     &__inner {
         display: flex;
     }

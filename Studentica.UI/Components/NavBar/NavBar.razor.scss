@@ -1,13 +1,47 @@
-::deep .navbar {
-    &__item {
+@use 'variables' as var;
+@use 'mixins' as mix;
+
+.navbar {
+    ::deep &__item {
         color: #FFFFFF;
+
         & > a {
             color: inherit !important;
             background-color: inherit !important;
         }
     }
+
+    & ::deep .mud-nav-link-text {
+        white-space: nowrap;
+    }
 }
 .navbar {
+    transition: 0.5s;
+    position: fixed;
+    height: inherit;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: var.$navbar-size;
+
+    &--closed {
+        transform: translateX(- var.$navbar-size);
+
+        .navbar-open {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    &--opened {
+        transform: translateY(0);
+
+        .navbar-open {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+
 
     &-header {
         height: 99px;
@@ -27,5 +61,21 @@
         &__toggle {
             cursor: pointer;
         }
+    }
+
+    &-open {
+        position: absolute;
+        width: 4rem;
+        cursor: pointer;
+        height: 8rem;
+        background-color: var.$primary-color;
+        left: 100%;
+        @include mix.half-circle(right);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: .5s;
     }
 }

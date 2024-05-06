@@ -24,12 +24,18 @@ input {
     align-items: stretch;
     height: inherit;
 
+
     &-content {
         padding-left: var.$main-content-padding-horizontal-left;
         padding-right: var.$main-content-padding-horizontal-right;
         padding-top: var.$main-content-padding-vertical-top;
         padding-bottom: var.$main-content-padding-vertical-bottom;
         flex: 1;
+        transition: margin-left .5s;
+
+        &--shift {
+            margin-left: var.$navbar-size;
+        }
 
         &__inner {
         }
