@@ -14,7 +14,7 @@
           <MudNavMenu >
             @foreach (NavBarItem item in _navBarItems)
                 @GetNavItemFragment(item);
-        </MudNavMenu>;
+        </MudNavMenu>
         <div class="navbar-open" @onclick="ToggleNavbarAsync">
             <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Size="Size.Large"></MudIcon>
         </div>

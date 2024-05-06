@@ -70,6 +70,8 @@
         height: 8rem;
         background-color: var.$primary-color;
         left: 100%;
+        top: 50%;
+        transform:translateY(-50%);
         @include mix.half-circle(right);
         display: flex;
         align-items: center;
