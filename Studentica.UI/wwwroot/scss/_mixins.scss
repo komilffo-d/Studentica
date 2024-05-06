@@ -12,13 +12,13 @@
     @if $direction == right {
         border-radius: 0 100% 100% 0 / 0 50% 50% 0;
     }
-    @elseif $direction == left {
+    @else if $direction == left {
         border-radius: 100% 0 0 100% / 50% 0 0 50%;
     }
-    @elseif $direction == top {
+    @else if $direction == top {
         border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     }
-    @elseif $direction == bottom {
+    @else if $direction == bottom {
         border-radius: 0 0 50% 50% / 0 0 100% 100%;
     }
     @else {

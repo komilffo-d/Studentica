@@ -14,6 +14,7 @@
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.75.0" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="Syncfusion.Blazor.Schedule" Version="25.1.42" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="25.1.42" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,24 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="wwwroot\scss\_mixins.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\SfResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SfResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\SfResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SfResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SfResources.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -12,6 +12,9 @@ html {
 }
 body {
    @include mix.montserrat-font-style(400,normal);
+    > div:not([class]){
+        display:none;
+    }
 }
 input {
     &[type="text"], &[type="text"]:hover, &[type="text"] :focus{
