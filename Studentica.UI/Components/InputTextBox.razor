@@ -1,0 +1,39 @@
+﻿<div class="input-text">
+@*     <InputText form="Super" @bind-Value="Value" class="input-text__control" placeholder="@Placeholder" @bind:event="oninput" /> *@
+    <input type="text" @bind-value="Value" class="input-text__control" placeholder="@Placeholder" @bind-value:event="oninput" />
+</div>
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = "Введите текст";
+
+    private string _value=string.Empty;
+
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set {
+            if (_value != value)
+            {
+                _value = value;
+                if (ValueChanged.HasDelegate)
+                {
+                    Task.Run(async () =>
+                    {
+                        await ValueChanged.InvokeAsync(Value);
+                    });
+                }
+                
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        Value = e?.Value?.ToString() ?? string.Empty;
+        await ValueChanged.InvokeAsync(Value);
+    }
+}
