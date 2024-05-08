@@ -1,0 +1,19 @@
+.auth {
+    ::deep &-form {
+        display: flex;
+        gap: 30px;
+        flex-direction: column;
+
+        &__owner {
+        }
+
+        &__submit {
+            background: #D60A0B;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            font-size: 1.7rem;
+            padding: 15px 0;
+            border-radius: 5px;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+﻿@page "/login"
+@attribute [AllowAnonymous]
+<div class="auth-form__owner">
+    <EditForm class="auth-form" Model="@loginModel" OnSubmit="Submit">
+        <DataAnnotationsValidator />
+
+        <div class="auth-form-group">
+            <InputTextBox @bind-Value="loginModel.Username"></InputTextBox>
+            <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+        </div>
+        <div class="auth-form-group">
+
+            <InputTextBox @bind-Value="loginModel.Password"></InputTextBox>
+            <ValidationMessage For="@(() => loginModel.Password)"></ValidationMessage>
+        </div>
+
+
+        <button class="auth-form__submit" type="submit">Войти</button>
+    </EditForm>
+</div>
+
+
+@code {
+    LoginModel loginModel = new LoginModel();
+    void Submit(EditContext context)
+    {
+        Console.WriteLine(loginModel.Username + " " + loginModel.Password);
+    }
+
+    public class LoginModel
+    {
+        [Required(ErrorMessage = "Имя пользователя обязательно!")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Длина имени должна быть от {2} до {1} символов")]
+        public string? Username { get; set; }
+
+        [Required(ErrorMessage = "Пароль обязателен!")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Длина имени должна быть от {2} до {1} символов")]
+        public string? Password { get; set; }
+    }
+}
