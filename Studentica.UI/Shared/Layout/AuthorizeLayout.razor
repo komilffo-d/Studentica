@@ -1,0 +1,53 @@
+﻿@inherits LayoutBase;
+
+<HeadContent>
+    <_Favicons></_Favicons>
+</HeadContent>
+
+
+<article id="mud-providers">
+    <MudThemeProvider />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+</article>
+
+
+<div class="authorize">
+    <div class="authorize__inner">
+        <div class="authorize-welcome">
+            <img src="/images/logo.svg" alt="Логотип информационной системы" width="100"/>
+            <div class="authorize-welcome__text">
+                Добро<br /> пожаловать!
+            </div>
+        </div>
+        <div class="authorize-action">
+            <div class="authorize-action__inner">
+                <div class="authorize-action-form">
+                    <div class="authorize-action-form__inner">
+                        @Body
+                    </div>
+                </div>
+                <div class="authorize-action__copyright">©2024 Информационная система управления проектной деятельностью студентов Korepanov D.</div>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+
+@code {
+    internal override List<BreadcrumbItem> Links
+    {
+        get => _links;
+        set
+        {
+            if (_links != value)
+            {
+
+                _links = value;
+                InvokeAsync(() => StateHasChanged());
+            }
+        }
+    }
+}

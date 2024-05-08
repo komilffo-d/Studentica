@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.UI", "Studentica.UI\Studentica.UI.csproj", "{172FAD0E-33D5-49B1-9E83-C403E352019F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Identity", "Studentica.Identity\Studentica.Identity.csproj", "{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Identity", "Studentica.Identity\Studentica.Identity.csproj", "{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Gateway", "Studentica.Gateway\Studentica.Gateway.csproj", "{EABB63B7-6105-4D66-8221-E45105F1E295}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EABB63B7-6105-4D66-8221-E45105F1E295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABB63B7-6105-4D66-8221-E45105F1E295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABB63B7-6105-4D66-8221-E45105F1E295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABB63B7-6105-4D66-8221-E45105F1E295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

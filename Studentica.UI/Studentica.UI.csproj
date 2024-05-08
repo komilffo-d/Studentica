@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\scss\_functions.scss" />
     <Content Remove="wwwroot\scss\_mixins.scss" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.75.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="Syncfusion.Blazor.Schedule" Version="25.1.42" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="25.1.42" />
@@ -30,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\scss\_functions.scss" />
     <None Include="wwwroot\scss\_mixins.scss" />
   </ItemGroup>
 
@@ -53,6 +56,22 @@
     <EmbeddedResource Update="Resources\SfResources.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="components\InputText.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="shared\layout\AuthorizeLayout.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="pages\authorize\Start.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="wwwroot\scss\_functions.scss" />
   </ItemGroup>
 
 </Project>
