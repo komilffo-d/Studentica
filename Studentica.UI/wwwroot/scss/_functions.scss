@@ -1,0 +1,8 @@
+@use 'variables' as var;
+
+@function getPreviousSize($currentSize) {
+    $keys: map-keys(var.$media-sizes);
+    $index: index($keys, $currentSize)-1;
+    $value: map-values(var.$media-sizes);
+    @return nth($value, $index);
+}

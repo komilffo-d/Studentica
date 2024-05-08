@@ -1,3 +1,6 @@
+@use 'variables' as var;
+@use 'functions' as func;
+
 @mixin montserrat-font($weight) {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -23,5 +26,28 @@
     }
     @else {
         @error 'Please set correct $direction value.'
+    }
+}
+@mixin media($minmax, $media) {
+    @each $size, $resolution in var.$media-sizes {
+        @if $media == $size {
+            @if ($minmax != "within") {
+                @media only screen and (#{$minmax}-width: $resolution) {
+                    @content;
+                }
+            }
+            @else {
+                @if (index(map-keys(var.$media-sizes), $media) > 1) {
+                    @media only screen and (min-width: func.getPreviousSize($media)+1) and (max-width: $resolution) {
+                        @content;
+                    }
+                }
+                @else {
+                    @media only screen and (max-width: $resolution) {
+                        @content;
+                    }
+                }
+            }
+        }
     }
 }
