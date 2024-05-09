@@ -1,39 +1,22 @@
-﻿<div class="input-text">
-@*     <InputText form="Super" @bind-Value="Value" class="input-text__control" placeholder="@Placeholder" @bind:event="oninput" /> *@
-    <input type="text" @bind-value="Value" class="input-text__control" placeholder="@Placeholder" @bind-value:event="oninput" />
+﻿@inherits InputBase<string>
+
+<div class="input-text">
+    <input type="text"
+           class="input-text__control @CssClass"
+            @attributes="AdditionalAttributes"  
+            placeholder="@Placeholder" 
+            value="@CurrentValueAsString" 
+            @oninput="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
 </div>
 @code {
     [Parameter]
     public string Placeholder { get; set; } = "Введите текст";
 
-    private string _value=string.Empty;
-
-    [Parameter]
-    public string Value
+    protected override bool TryParseValueFromString(string? value, out string result, out string? validationErrorMessage)
     {
-        get => _value;
-        set {
-            if (_value != value)
-            {
-                _value = value;
-                if (ValueChanged.HasDelegate)
-                {
-                    Task.Run(async () =>
-                    {
-                        await ValueChanged.InvokeAsync(Value);
-                    });
-                }
-                
-            }
-        }
-    }
-
-    [Parameter]
-    public EventCallback<string> ValueChanged { get; set; }
-
-    private async Task OnValueChanged(ChangeEventArgs e)
-    {
-        Value = e?.Value?.ToString() ?? string.Empty;
-        await ValueChanged.InvokeAsync(Value);
+           
+        result = value ?? string.Empty;
+        validationErrorMessage = "null";
+        return true;
     }
 }

@@ -1,10 +1,10 @@
 ﻿@page "/authorize/login"
 @attribute [AllowAnonymous]
-
+@inject NavigationManager Navigation
 <PageTitle>Страница авторизации</PageTitle>
 <div class="auth-form__owner">
-    <EditForm class="auth-form" Model="@loginModel" OnSubmit="Submit">
-        <DataAnnotationsValidator />
+    <EditForm class="auth-form" Model="@loginModel" OnValidSubmit="ValidSubmit">
+        <DataAnnotationsValidator  />
 
         <div class="auth-form-group">
             <InputTextBox @bind-Value="loginModel.Username" Placeholder="Введите логин"></InputTextBox>
@@ -25,26 +25,28 @@
 
             </div>    
         </NavLink>
-        <button class="custom-button custom-button-red" type="submit">Войти</button>
+
+        <button class="custom-button custom-button-red"  type="submit">Войти</button>
     </EditForm>
 </div>
 
 
 @code {
-    LoginModel loginModel = new LoginModel();
-    void Submit(EditContext context)
-    {
+    private LoginModel loginModel = new LoginModel();
 
+    void ValidSubmit(EditContext context)
+    {
+        Navigation.NavigateTo("/authorize/admin-info");
     }
 
     public class LoginModel
     {
         [Required(ErrorMessage = "Имя пользователя обязательно!")]
-        [StringLength(20, MinimumLength = 2, ErrorMessage = "Длина имени должна быть от {2} до {1} символов")]
+        [MinLength(8, ErrorMessage = "Длина имени должна быть от {1} символов")]
         public string? Username { get; set; }
 
         [Required(ErrorMessage = "Пароль обязателен!")]
-        [StringLength(20, MinimumLength = 2, ErrorMessage = "Длина имени должна быть от {2} до {1} символов")]
+        [MinLength(10, ErrorMessage = "Длина пароля должна быть от {1} символов")]
         public string? Password { get; set; }
     }
 }

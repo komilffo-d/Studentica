@@ -92,3 +92,11 @@ a {
         text-decoration:underline;
     }
 }
+.validation {
+    &-message {
+        font-size: 1rem;
+        margin: 5px 0;
+        @include mix.montserrat-font(600);
+        color: #d60a0b;
+    }
+}
