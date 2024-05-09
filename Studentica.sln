@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.UI", "Studentica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Identity", "Studentica.Identity\Studentica.Identity.csproj", "{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Gateway", "Studentica.Gateway\Studentica.Gateway.csproj", "{72DBABA6-CA78-44FD-802F-03B867719792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Gateway", "Studentica.Gateway\Studentica.Gateway.csproj", "{72DBABA6-CA78-44FD-802F-03B867719792}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -58,20 +58,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="components\InputText.razor.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="shared\layout\AuthorizeLayout.razor.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="pages\authorize\Start.razor.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="wwwroot\scss\_functions.scss" />
-  </ItemGroup>
-
 </Project>
