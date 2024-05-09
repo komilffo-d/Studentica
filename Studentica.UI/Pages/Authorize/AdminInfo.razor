@@ -1,0 +1,70 @@
+﻿@page "/authorize/admin-info"
+
+@attribute [AllowAnonymous]
+@inject IJSRuntime jsRuntime
+
+<div class="admin-info" @ref="focusItem">
+    <div class="admin-info__inner">
+        <div class="admin-info-text">
+            <div class="admin-info-text-step" >
+                <div class="admin-info-text-step__name" >
+                    Шаг 1: Подача заявления
+                </div>
+
+                <div class="admin-info-text-step__detail">
+                    Если вы заинтересованы в становлении администратором, необходимо подать заявление. Заявление должно содержать ваши мотивы, профессиональный опыт (если есть) и навыки, которые вы считаете важными для этой роли.
+                    Для подачи заявки, пожалуйста, отправьте ваше резюме и мотивационное письмо на электронную почту <a href="mailto:main@studentica.ru">main@studentica.ru</a>. Также вы можете связаться с нами по телефону <a href="tel:+7(495)-000-00-00">+7(495)-000-00-00</a>.
+                </div>
+
+            </div>
+            <div class="admin-info-text-step">
+                <div class="admin-info-text-step__name">
+                    Шаг 2: Прохождение собеседования
+                </div>
+
+                <div class="admin-info-text-step__detail">
+                    После подачи заявления вы будете приглашены на собеседование. На собеседовании вы сможете более подробно обсудить свой опыт и мотивацию, а также ответить на вопросы о вашей подготовке и способностях.
+                </div>
+
+            </div>
+            <div class="admin-info-text-step">
+                <div class="admin-info-text-step__name">
+                    Шаг 3: Обучение и адаптация
+                </div>
+
+                <div class="admin-info-text-step__detail">
+                    После успешного прохождения собеседования вы приступите к обучению. Вам будут предоставлены необходимые материалы и ресурсы для освоения работы администратора системы. Этот этап поможет вам ознакомиться с особенностями системы и своими обязанностями.
+                </div>
+
+            </div>
+            <div class="admin-info-text-step">
+                <div class="admin-info-text-step__name">
+                    Шаг 4: Начало работы
+                </div>
+
+                <div class="admin-info-text-step__detail">
+                    Поздравляем! Теперь, когда вы успешно прошли все этапы отбора и обучения, вы готовы приступить к работе администратора информационной системы управления проектной деятельностью студентов. Ваш вклад будет ключевым для поддержания эффективности и качества образовательного процесса.
+                    Если у вас возникли вопросы или вам требуется дополнительная информация, не стесняйтесь обращаться к администраторам или представителям управления проектами. Мы всегда готовы помочь вам на пути к успеху!
+                </div>
+            </div>
+            <hr />
+            
+        </div>
+        <NavLink class="admin-info__back" href="/authorize/login">
+            <button class="custom-button custom-button-red" type="submit">Назад</button>
+        </NavLink>
+    </div>
+</div>
+
+@code {
+    private ElementReference focusItem;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await jsRuntime.InvokeVoidAsync("SetFocusToElement", focusItem);
+        }
+        
+    }
+}

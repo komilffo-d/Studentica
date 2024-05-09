@@ -1,21 +1,29 @@
-﻿@page "/login"
+﻿@page "/authorize/login"
 @attribute [AllowAnonymous]
 <div class="auth-form__owner">
     <EditForm class="auth-form" Model="@loginModel" OnSubmit="Submit">
         <DataAnnotationsValidator />
 
         <div class="auth-form-group">
-            <InputTextBox @bind-Value="loginModel.Username"></InputTextBox>
+            <InputTextBox @bind-Value="loginModel.Username" Placeholder="Введите логин"></InputTextBox>
             <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
         </div>
         <div class="auth-form-group">
 
-            <InputTextBox @bind-Value="loginModel.Password"></InputTextBox>
+            <InputTextBox @bind-Value="loginModel.Password" Placeholder="Введите пароль"></InputTextBox>
             <ValidationMessage For="@(() => loginModel.Password)"></ValidationMessage>
         </div>
 
+        <NavLink href="/authorize/admin-info">
+            <div class="auth-form-question">
+                <MudIcon Icon="@Icons.Material.Filled.QuestionMark" Class="auth-form-question__icon"></MudIcon>
+                <span class="auth-form-question__text">
+                    Хотите стать администратором?
+                </span>
 
-        <button class="auth-form__submit" type="submit">Войти</button>
+            </div>    
+        </NavLink>
+        <button class="custom-button custom-button-red" type="submit">Войти</button>
     </EditForm>
 </div>
 
@@ -24,7 +32,7 @@
     LoginModel loginModel = new LoginModel();
     void Submit(EditContext context)
     {
-        Console.WriteLine(loginModel.Username + " " + loginModel.Password);
+
     }
 
     public class LoginModel

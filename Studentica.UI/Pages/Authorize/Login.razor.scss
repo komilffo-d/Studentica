@@ -1,19 +1,37 @@
+@use 'mixins' as mix;
 .auth {
     ::deep &-form {
         display: flex;
-        gap: 30px;
         flex-direction: column;
 
         &__owner {
         }
 
-        &__submit {
-            background: #D60A0B;
-            color: #FFFFFF;
-            text-transform: uppercase;
-            font-size: 1.7rem;
-            padding: 15px 0;
-            border-radius: 5px;
+
+        &-group {
+            margin-bottom: 30px;
+        }
+
+        &-question {
+            margin-bottom: 10px;
+            display: flex;
+            gap:8px;
+            align-items: center;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            text-decoration-skip-ink: none;
+            color: #14238A;
+            @include mix.montserrat-font(600);
+            &__icon{
+                border-radius:50%;
+                border: 1px solid #14238A;
+                line-height:0;
+                padding:2px;
+
+            }
+
+            &__text {
+            }
         }
     }
 }

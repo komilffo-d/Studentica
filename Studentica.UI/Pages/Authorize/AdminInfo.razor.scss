@@ -1,0 +1,24 @@
+@use 'mixins' as mix;
+.admin {
+    &-info {
+        &-text {
+
+            &-step {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 20px;
+
+                &__name {
+                    @include mix.montserrat-font(700);
+                    font-size: 1.2rem;
+                }
+
+                &__detail {
+                    font-size: 0.9rem;
+                    @include mix.montserrat-font(500);
+                }
+            }
+        }
+    }
+}
