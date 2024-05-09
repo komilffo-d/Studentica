@@ -1,0 +1,23 @@
+﻿@page "/status-code/404"
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [AllowAnonymous]
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider
+            .GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            Navigation.NavigateTo("/", true, true);
+        }
+        else
+        {
+            Navigation.NavigateTo("/authorize/login", true, true);
+        }
+
+    }
+}

@@ -1,5 +1,7 @@
 ﻿@page "/authorize/login"
 @attribute [AllowAnonymous]
+
+<PageTitle>Страница авторизации</PageTitle>
 <div class="auth-form__owner">
     <EditForm class="auth-form" Model="@loginModel" OnSubmit="Submit">
         <DataAnnotationsValidator />

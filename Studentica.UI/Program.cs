@@ -60,8 +60,12 @@ namespace Studentica.UI
 
             app.UseHttpsRedirection();
 
+
             app.UseAuthentication();
+
+            app.UseStatusCodePagesWithRedirects("/status-code/{0}");
             app.UseAuthorization();
+
             app.UseAntiforgery();
 
             app.UseStaticFiles();
@@ -70,7 +74,10 @@ namespace Studentica.UI
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
+
+
             app.Run();
         }
     }
+
 }
