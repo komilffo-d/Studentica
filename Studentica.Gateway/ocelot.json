@@ -26,6 +26,18 @@
           "Port": 8001
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/authenticate/validate",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/authenticate/validate",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8001
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,6 @@
 
 using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace Studentica.Gateway
 {
@@ -29,6 +30,8 @@ namespace Studentica.Gateway
 
             app.UseAuthorization();
 
+
+            app.UseOcelot().Wait();
 
             app.Run();
         }
