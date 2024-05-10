@@ -1,0 +1,14 @@
+@use 'mixins' as mix;
+
+.dialog {
+    &-content {
+        &__inner {
+            @include mix.montserrat-font(700);
+            padding: 15px;
+        }
+    }
+
+    ::deep &-actions {
+        justify-content: center;
+    }
+}

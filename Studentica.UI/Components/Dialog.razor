@@ -1,0 +1,24 @@
+﻿
+<div class="dialog">
+    <MudDialog ClassActions="dialog-actions">
+        <DialogContent>
+            <div class="dialog-content__inner">
+                @Message
+            </div>
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        </DialogActions>
+    </MudDialog>
+</div>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance? MudDialog { get; set; }
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    void Submit() => MudDialog?.Close(DialogResult.Ok(true));
+}
