@@ -9,5 +9,5 @@ namespace Studentica.Identity.Database.Models
 
         [Required(ErrorMessage = "Пароль обязателен!")]
         public string? Password { get; set; }
-    }
+    } 
 }

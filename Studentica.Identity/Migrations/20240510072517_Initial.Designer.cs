@@ -12,7 +12,7 @@ using Studentica.Identity.Database;
 namespace Studentica.Identity.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20240507190419_Initial")]
+    [Migration("20240510072517_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

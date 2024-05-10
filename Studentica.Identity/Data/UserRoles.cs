@@ -1,9 +1,12 @@
-﻿namespace Studentica.Identity.Data
+﻿using System.Text.Json.Serialization;
+
+namespace Studentica.Identity.Data
 {
-    public static class UserRoles
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum UserRoles : sbyte
     {
-        public const string Admin = "Admin";
-        public const string Student = "Student";
-        public const string Teacher = "Teacher";
+        Student,
+        Teacher,
+        Admin
     }
 }
