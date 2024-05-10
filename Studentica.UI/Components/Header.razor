@@ -1,4 +1,7 @@
-﻿<div class="header">
+﻿@inject JwtAuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+
+<div class="header">
     <div class="header__inner">
         <div class="header-search">
             <input type="text" class="header-search__field" placeholder="Поиск..."/>
@@ -15,7 +18,7 @@
 
             </div>
             <span class="vertical-red-line"></span>
-            <div class="header-utility__writer">
+            <div class="header-utility__writer" @onclick="Logout">
                 <MudTooltip Text="Письма от пользователей">
                     <MudAvatar Color="Color.Info" Variant="Variant.Filled">
                         <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large"  />
@@ -29,4 +32,9 @@
 
 @code {
 
+    private async Task Logout()
+    {
+            await AuthenticationStateProvider.RemoveAuthenticateUserAsync();
+            Navigation.NavigateTo("/authorize/login");
+    }
 }

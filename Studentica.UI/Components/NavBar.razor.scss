@@ -18,7 +18,7 @@
 .navbar {
     transition: 0.5s;
     position: fixed;
-    height: inherit;
+    height: 100%;
     z-index: 1;
     top: 0;
     left: 0;
@@ -56,6 +56,10 @@
         }
 
         &__logo {
+            height:60%;
+            & > img{
+                height:100%;
+            }
         }
 
         &__toggle {
