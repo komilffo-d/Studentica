@@ -1,11 +1,8 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using Studentica.Identity.Database;
-using System.Text;
+using Studentica.Identity.Helpers;
 
 namespace Studentica.Identity
 {
@@ -45,14 +42,7 @@ namespace Studentica.Identity
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = builder.Configuration["JWT:ValidAudience"],
-                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!))
-                };
+                options.TokenValidationParameters = TokenHelper.GetValidationParameters(builder.Configuration);
             });
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
