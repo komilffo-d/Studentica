@@ -119,16 +119,11 @@ namespace Studentica.Identity.Controllers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var validationParameters = TokenHelper.GetValidationParameters(_configuration);
-
-            try
-            {
-                IPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-                return Ok(token);
-            }
-            catch
-            {
+            TokenValidationResult validationResult = await tokenHandler.ValidateTokenAsync(token, validationParameters);
+            if(!validationResult.IsValid)
                 return Forbid();
-            }
+            return Ok(token);
+
 
         }
 
