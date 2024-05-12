@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.75.0" />
+    <PackageReference Include="BitzArt.Blazor.Cookies.Server" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="Syncfusion.Blazor.Schedule" Version="25.1.42" />
@@ -23,7 +24,6 @@
     <Folder Include="wwwroot\icons\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="Extensions\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
@@ -38,6 +38,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="wwwroot\scss\_mixins.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +60,10 @@
     <EmbeddedResource Update="Resources\SfResources.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="components\Dialog.razor.scss" />
   </ItemGroup>
 
 </Project>

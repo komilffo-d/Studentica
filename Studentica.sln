@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Identity", "Stud
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Gateway", "Studentica.Gateway\Studentica.Gateway.csproj", "{72DBABA6-CA78-44FD-802F-03B867719792}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{228E84BB-E6EE-46E3-9E50-EE0D2F37E841}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Identity.Common", "Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj", "{CD36AD74-E53F-44C4-A6EF-104F14CDF44B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,16 @@ Global
 		{72DBABA6-CA78-44FD-802F-03B867719792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72DBABA6-CA78-44FD-802F-03B867719792}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72DBABA6-CA78-44FD-802F-03B867719792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD36AD74-E53F-44C4-A6EF-104F14CDF44B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD36AD74-E53F-44C4-A6EF-104F14CDF44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD36AD74-E53F-44C4-A6EF-104F14CDF44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD36AD74-E53F-44C4-A6EF-104F14CDF44B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD36AD74-E53F-44C4-A6EF-104F14CDF44B} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB9D67EE-821D-4DB2-A734-323193C1CA03}

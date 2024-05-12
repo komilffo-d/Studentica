@@ -1,12 +1,10 @@
-using Microsoft.AspNetCore.Authentication.BearerToken;
+using BitzArt.Blazor.Cookies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using MudBlazor.Services;
+using Studentica.UI.Services;
 using Studentica.UI.Shared.Core;
-using Syncfusion.Blazor;
 using System.Globalization;
-using System.Net;
-using System.Text;
 
 namespace Studentica.UI
 {
@@ -22,32 +20,17 @@ namespace Studentica.UI
 
             builder.Services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                };
-            });
-            builder.Services.AddCascadingAuthenticationState();
-            
+                options.DefaultScheme = "OutsideJwtAuthenticationScheme";
+                
+            }).AddScheme<OutsideJwtAuthenticationSchemeOptions, OutsideJwtAuthenticationHandler>("OutsideJwtAuthenticationScheme", options => { });
+
 
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            builder.Services.AddMudServices();
-            builder.Services.AddSyncfusionBlazor();
-            builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
-#if DEBUG
-            builder.Services.AddSassCompiler();
-#endif
-
+            builder.Services.AddCascadingAuthenticationState();
+            builder.Services.AddCustomServices();
+            builder.AddBlazorCookies();
             var app = builder.Build();
 
             app.UseRequestLocalization("ru-RU");
@@ -59,22 +42,17 @@ namespace Studentica.UI
             }
 
             app.UseHttpsRedirection();
-
-
             app.UseAuthentication();
-
-            app.UseStatusCodePagesWithRedirects("/status-code/{0}");
             app.UseAuthorization();
-
+            app.UseStatusCodePagesWithRedirects("/404");
             app.UseAntiforgery();
+
 
             app.UseStaticFiles();
 
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
-
-
 
             app.Run();
         }
