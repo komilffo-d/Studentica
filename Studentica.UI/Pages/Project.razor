@@ -1,5 +1,5 @@
 ﻿@page "/project"
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Student, Teacher")]
 
 <PageTitle>Проекты</PageTitle>
 <SectionContent SectionName="SupstringSection">
@@ -8,7 +8,6 @@
 
 
 @code {
-
     [CascadingParameter]
     public LayoutBase? Layout { get; set; }
 

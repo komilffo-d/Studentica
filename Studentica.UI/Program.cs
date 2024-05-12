@@ -17,40 +17,43 @@ namespace Studentica.UI
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-RU");
 
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddRazorComponents()
+                .AddInteractiveServerComponents();
 
+            //Собственная система аутентификации и авторизации на основе JWT-токенов
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "OutsideJwtAuthenticationScheme";
                 
             }).AddScheme<OutsideJwtAuthenticationSchemeOptions, OutsideJwtAuthenticationHandler>("OutsideJwtAuthenticationScheme", options => { });
-
-
-            builder.Services.AddRazorComponents()
-                .AddInteractiveServerComponents();
-
             builder.Services.AddCascadingAuthenticationState();
-            builder.Services.AddCustomServices();
+
+            //Управление состоянием приложения
+            builder.Services.AddMemoryCache();
             builder.AddBlazorCookies();
+
+
+            builder.Services.AddCustomServices();
+
+
             var app = builder.Build();
 
-            app.UseRequestLocalization("ru-RU");
 
+            app.UseRequestLocalization("ru-RU");
             if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
                 app.UseHsts();
-            }
+
 
             app.UseHttpsRedirection();
+
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseStatusCodePagesWithRedirects("/404");
             app.UseAntiforgery();
 
 
             app.UseStaticFiles();
-
-
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 

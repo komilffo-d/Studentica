@@ -1,5 +1,4 @@
-﻿
-<div class="navbar" @attributes="AttributesNavBar">
+﻿<div class="navbar" @attributes="AttributesNavBar">
     <MudPaper Elevation="0" Height="100%" Style="background-color: #131F73">
         <div class="navbar-header">
             <div class="navbar-header__inner">
@@ -12,12 +11,37 @@
             </div>
         </div>
           <MudNavMenu >
-            @foreach (NavBarItem item in _navBarItems)
-                @GetNavItemFragment(item);
+            <MudNavLink Href="/" Class="navbar__item">
+                Главная страница
+            </MudNavLink>
+            <MudNavLink Href="/" Class="navbar__item">
+                Доска Dashboard
+            </MudNavLink>
+            <AuthorizeView Roles="@string.Format("{0},{1}",@UserRoles.Student.ToString(),@UserRoles.Teacher.ToString())">
+                <MudNavGroup Title="Проекты" Class="navbar__item">
+                    <MudNavLink Href="/project" Class="navbar__item">
+                        Список
+                    </MudNavLink>
+                </MudNavGroup>
+            </AuthorizeView>
+
+            <AuthorizeView Roles="@UserRoles.Admin.ToString()" >
+                <MudNavLink Href="/" Class="navbar__item">
+                    Настройки
+                </MudNavLink>
+            </AuthorizeView>
+            <MudNavLink Href="/" Class="navbar__item">
+                Аккаунт
+            </MudNavLink>
+
+
         </MudNavMenu>
+
         <div class="navbar-open" @onclick="ToggleNavbarAsync">
             <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Size="Size.Large"></MudIcon>
         </div>
+
+
     </MudPaper>
 </div>
 
@@ -40,66 +64,4 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object?> AttributesNavBar { get; set; } = new();
 
-    private static readonly List<NavBarItem> _navBarItems = new()
-    {
-
-        new NavBarItem("Главная страница",@Icons.Material.Filled.DirectionsSubwayFilled,"/"),
-        new NavBarItem("Доска Dashboard",@Icons.Material.Filled.DirectionsSubwayFilled,"/"),
-        new NavBarItem("Проекты",@Icons.Material.Filled.DirectionsSubwayFilled,"/project"),
-        new NavBarItem("Студенты",@Icons.Material.Filled.DirectionsSubwayFilled,"/student", new()
-        {
-            new NavBarItem("Список",@Icons.Material.Filled.DirectionsSubwayFilled,"/student/list"),
-            new NavBarItem("Настройки",@Icons.Material.Filled.DirectionsSubwayFilled,"/student/settings"),
-
-        }),
-        new NavBarItem("Настройки",@Icons.Material.Filled.DirectionsSubwayFilled,"/"),
-        new NavBarItem("Аккаунт",@Icons.Material.Filled.DirectionsSubwayFilled,"/project"),
-        new NavBarItem("Преподаватели",@Icons.Material.Filled.DirectionsSubwayFilled,"/student", new()
-        {
-            new NavBarItem("Список",@Icons.Material.Filled.DirectionsSubwayFilled,"/student/list"),
-            new NavBarItem("Настройки",@Icons.Material.Filled.DirectionsSubwayFilled,"/student/settings"),
-
-        }),
-    };
-
-
-    private RenderFragment GetNavItemFragment(NavBarItem item)
-    {
-        if(item?.innerNavBarItems?.Count > 0)
-            return builder =>
-            {
-                builder.OpenComponent<MudNavGroup>(0);
-
-                int seq = 1;
-                SetBaseAttributeNavItem(builder, ref seq);
-
-                builder.AddAttribute(seq, "ChildContent", (RenderFragment)(innerBuilder =>
-                {
-                    int inSeq = 0;
-                    foreach (var innerItem in item.innerNavBarItems)
-                        innerBuilder.AddContent(inSeq++, GetNavItemFragment, innerItem);
-                }));
-                builder.CloseComponent();
-            };
-        else
-            return builder =>
-            {
-                builder.OpenComponent<MudNavLink>(0);
-                int seq = 1;
-                SetBaseAttributeNavItem(builder, ref seq);
-                builder.AddAttribute(seq, "ChildContent", (RenderFragment)(innerBuilder => innerBuilder.AddContent(0, item?.Title)));
-                builder.CloseComponent();
-            };
-
-        void SetBaseAttributeNavItem(RenderTreeBuilder builder,ref int seq)
-        {
-            builder.AddAttribute(seq++, "Title", item?.Title);
-            builder.AddAttribute(seq++, "Href", item?.Link);
-            builder.AddAttribute(seq++, "Icon", item?.Icon);
-            builder.AddAttribute(seq++, "IconColor", Color.Inherit);
-            builder.AddAttribute(seq++, "Class", "navbar__item");
-        }
-    }
-
-    private record class NavBarItem(string Title, string Icon, string Link, List<NavBarItem>? innerNavBarItems = null);
 }
