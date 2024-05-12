@@ -11,4 +11,7 @@
 @using Microsoft.JSInterop
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Authorization
-@attribute [Authorize]
+@using Studentica.UI.Services
+@using Studentica.Identity.Common.Models
+@inject NavigationManager Navigation
+@inject IDialogService DialogService

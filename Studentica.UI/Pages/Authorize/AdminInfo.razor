@@ -1,6 +1,6 @@
 ﻿@page "/authorize/admin-info"
-@attribute [AllowAnonymous]
 @inject IJSRuntime jsRuntime
+
 
 <PageTitle>Инструкция к администрированию</PageTitle>
 <div class="admin-info" @ref="focusItem">
@@ -65,6 +65,17 @@
         {
             await jsRuntime.InvokeVoidAsync("SetFocusToElement", focusItem);
         }
-        
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+            var authState = await AuthenticationStateProvider
+        .GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            Navigation.NavigateTo("/",true);
+        }
     }
 }

@@ -1,7 +1,4 @@
-﻿@page "/status-code/404"
-@inject NavigationManager Navigation
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@attribute [AllowAnonymous]
+﻿@page "/404"
 
 @code {
     protected override async Task OnInitializedAsync()
@@ -12,11 +9,11 @@
 
         if (user.Identity is not null && user.Identity.IsAuthenticated)
         {
-            Navigation.NavigateTo("/", true, true);
+            Navigation.NavigateTo("/");
         }
         else
         {
-            Navigation.NavigateTo("/authorize/login", true, true);
+            Navigation.NavigateTo("/authorize/login");
         }
 
     }

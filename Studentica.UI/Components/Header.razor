@@ -1,6 +1,5 @@
-﻿@inject JwtAuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager Navigation
-
+﻿@inject NavigationManager Navigation
+@inject AuthService AuthService
 <div class="header">
     <div class="header__inner">
         <div class="header-search">
@@ -34,7 +33,7 @@
 
     private async Task Logout()
     {
-            await AuthenticationStateProvider.RemoveAuthenticateUserAsync();
-            Navigation.NavigateTo("/authorize/login");
+        await AuthService.RemoveTokenAsync();
+        Navigation.NavigateTo("/authorize/login",true);
     }
 }

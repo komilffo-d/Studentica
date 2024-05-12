@@ -1,9 +1,9 @@
 ﻿@page "/authorize/login"
-@attribute [AllowAnonymous]
-@inject NavigationManager Navigation
+@inject AuthService AuthService
+
 <PageTitle>Страница авторизации</PageTitle>
 <div class="auth-form__owner">
-    <EditForm class="auth-form" Model="@loginModel" OnValidSubmit="ValidSubmit">
+    <EditForm class="auth-form" Model="@loginModel" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator  />
 
         <div class="auth-form-group">
@@ -26,27 +26,64 @@
             </div>    
         </NavLink>
 
-        <button class="custom-button custom-button-red"  type="submit">Войти</button>
+        <button class="custom-button custom-button-red" disabled="@IsLoaded" type="submit">
+            @if (IsLoaded)
+            {
+                <div class="loader"></div>
+            }
+            else
+            {
+                <span>Войти</span>
+            }
+        </button>
     </EditForm>
 </div>
 
-
+    
 @code {
     private LoginModel loginModel = new LoginModel();
 
-    void ValidSubmit(EditContext context)
+    private bool IsLoaded = false;
+
+    private async Task HandleValidSubmit()
     {
-        Navigation.NavigateTo("/authorize/admin-info");
+        IsLoaded = true;
+        var authResponse = await AuthService.LoginAsync(loginModel);
+        if (authResponse != null)
+        {
+            await AuthService.SetTokenAsync(authResponse.Token);
+            Navigation.NavigateTo("/",true);
+        }
+        else
+        {
+            await ShowDialogAsync("Логин или пароль являются неверными!");
+            IsLoaded = false;
+            await InvokeAsync(() => StateHasChanged());
+        }
+        
+        
     }
 
-    public class LoginModel
-    {
-        [Required(ErrorMessage = "Имя пользователя обязательно!")]
-        [MinLength(8, ErrorMessage = "Длина имени должна быть от {1} символов")]
-        public string? Username { get; set; }
 
-        [Required(ErrorMessage = "Пароль обязателен!")]
-        [MinLength(10, ErrorMessage = "Длина пароля должна быть от {1} символов")]
-        public string? Password { get; set; }
+    private async Task ShowDialogAsync(string message)
+    {
+        var options = new DialogOptions { NoHeader=true, CloseOnEscapeKey = true };
+        var parameters = new DialogParameters<Dialog>() { { x=>x.Message,message} };
+
+        IDialogReference dialog=DialogService.Show<Dialog>(string.Empty, parameters, options);
+
+        await dialog.Result;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider
+    .GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            Navigation.NavigateTo("/",true);
+        }
     }
 }
