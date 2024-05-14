@@ -96,6 +96,8 @@
 
             &__inner {
                 padding: 67px 29px 55px;
+                display:flex;
+                flex-direction:column;
             }
         }
     }

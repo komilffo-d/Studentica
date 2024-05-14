@@ -108,13 +108,23 @@ a {
 .loader {
     width: 40px;
     height: 40px;
-    border: 3px dotted #FFFFFF;
+    border: 3px dotted transparent;
     border-style: solid solid dotted dotted;
     border-radius: 50%;
     display: inline-block;
     position: relative;
     box-sizing: border-box;
     animation: rotation 2s linear infinite;
+    align-self: center;
+    margin: auto;
+
+    &.loader--red {
+        border-color: #F00;
+    }
+
+    &.loader--white {
+        border-color: #FFFFFF;
+    }
 }
 
 .loader::after {
