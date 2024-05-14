@@ -1,0 +1,37 @@
+﻿<div id="components-reconnect-modal" class="components-reconnect-modal">
+    <div class="show">
+        <div class="components-reconnect-body">
+                <div class="components-reconnect-top">
+                <MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Warning" Size="Size.Large"></MudIcon>
+                <div class="components-reconnect-top__text">Соединение разорвано. Попытка подключения к серверу</div>
+            </div>
+            <div class="components-reconnect-bottom">
+                <a href="javascript:window.location.reload()" class="p5">Перезагрузите</a> страницу для восстановления функциональности.                        
+            </div>  
+        </div>
+           
+    </div>
+    <div class="failed">    
+        <div class="components-reconnect-body">
+            <div class="components-reconnect-top"> 
+                <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Large"></MudIcon>
+                <div class="components-reconnect-top__text">Ошибка установления соединения</div>
+            </div>    
+            <div class="components-reconnect-bottom">
+                Возможно, отсутствует доступ к сети Интернет.
+                <a href="javascript:window.Blazor.reconnect()" class="p5">Нажмите сюда</a>, чтобы повторить попытку соединения.                      
+            </div>  
+        </div>
+    </div>
+    <div class="rejected">  
+        <div class="components-reconnect-body">
+            <div class="components-reconnect-top">
+                <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Large"></MudIcon>
+                <div class="components-reconnect-top__text">Подключение отклонено</div>
+            </div> 
+            <div class="components-reconnect-bottom">
+                <a href="javascript:window.location.reload()" class="p5">Перезагрузите</a> страницу для восстановления функциональности.
+            </div>   
+        </div>
+    </div>
+</div>

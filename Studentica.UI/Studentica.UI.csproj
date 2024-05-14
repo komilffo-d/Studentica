@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Components\ReconnectDialog.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.75.0" />
     <PackageReference Include="BitzArt.Blazor.Cookies.Server" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
@@ -64,6 +68,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="components\Dialog.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\ReconnectDialog.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Components\ReconnectDialog.razor.scss" />
   </ItemGroup>
 
 </Project>

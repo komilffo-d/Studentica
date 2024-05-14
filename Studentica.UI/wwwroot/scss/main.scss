@@ -13,9 +13,14 @@ html {
     font-size: var.$main-font-size;
 }
 body {
-   @include mix.montserrat-font-style(400,normal);
-    > div:not([class]){
-        display:none;
+    @include mix.montserrat-font-style(400,normal);
+
+    > div:not([class]) {
+        display: none;
+    }
+
+    &:has(.components-reconnect-show), &:has(.components-reconnect-failed), &:has(.components-reconnect-rejected) {
+        overflow: hidden;
     }
 }
 input {

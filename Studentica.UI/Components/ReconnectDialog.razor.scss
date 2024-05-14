@@ -1,0 +1,83 @@
+﻿@use 'mixins' as mix;
+
+.components {
+    &-reconnect {
+
+        &-modal {
+            & > div {
+                display: none;
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                backdrop-filter: blur(2px);
+                z-index: 9999 !important;
+            }
+        }
+
+        &-show {
+            & > .show {
+                display: block;
+            }
+        }
+
+        &-failed {
+            & > .failed {
+                display: block;
+            }
+        }
+
+        &-rejected {
+            & > .rejected {
+                display: block;
+            }
+        }
+
+        &-body {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            background-color: #fefefe;
+            margin: auto;
+            height: min-content;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgb(0 0 0 / 10%), 0 6px 6px rgb(0 0 0 / 16%);
+            @include mix.montserrat-font(600);
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        &-top {
+            background: #14238A;
+            display: flex;
+            transition: height 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+            padding: 20px;
+            color: white;
+            width: 100%;
+            gap: 15px;
+            align-items: center;
+        }
+
+        &-bottom {
+            padding: 20px;
+
+            & > a {
+                color: #14238A;
+                @include mix.montserrat-font(900);
+            }
+        }
+    }
+}
+
+.p {
+
+    &10 {
+        padding-right: 10px;
+    }
+}
+
