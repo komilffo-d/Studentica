@@ -1,4 +1,6 @@
-﻿using MudBlazor.Services;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using MudBlazor;
+using MudBlazor.Services;
 using Syncfusion.Blazor;
 
 namespace Studentica.UI.Services
@@ -7,7 +9,15 @@ namespace Studentica.UI.Services
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services.AddMudServices();
+            services.AddMudServices(config =>
+            {
+                config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomEnd;
+                config.SnackbarConfiguration.PreventDuplicates = false;
+                config.SnackbarConfiguration.NewestOnTop = false;
+                config.SnackbarConfiguration.ShowCloseIcon = true;
+                config.SnackbarConfiguration.VisibleStateDuration = 3000;
+                config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+            });
             services.AddSyncfusionBlazor();
             services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
 #if DEBUG
@@ -15,6 +25,9 @@ namespace Studentica.UI.Services
 #endif
 
             services.AddScoped<AuthService>();
+
+            services.AddScoped<TokenServerAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<TokenServerAuthenticationStateProvider>());
             services.AddHttpClient("Ocelot", options =>
             {
                 options.BaseAddress = new Uri("https://localhost:8000");

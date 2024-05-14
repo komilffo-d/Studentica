@@ -1,5 +1,8 @@
 ﻿@inject NavigationManager Navigation
 @inject AuthService AuthService
+@inject ISnackbar Snackbar
+@inject TokenServerAuthenticationStateProvider AuthenticationStateProvider
+
 <div class="header">
     <div class="header__inner">
         <div class="header-search">
@@ -33,7 +36,10 @@
 
     private async Task Logout()
     {
-        await AuthService.RemoveTokenAsync();
-        Navigation.NavigateTo("/authorize/login",true);
+        await AuthService.LogoutAsync();
+        // await AuthenticationStateProvider.NotifyAuthenticationStateAsync();
+        Snackbar.Add("Выход из системы успешно выполнен!", Severity.Info);
+        Navigation.NavigateTo("/authorize/login");
+
     }
 }

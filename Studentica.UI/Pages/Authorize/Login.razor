@@ -1,5 +1,6 @@
 ﻿@page "/authorize/login"
 @inject AuthService AuthService
+@inject ISnackbar Snackbar
 
 <PageTitle>Страница авторизации</PageTitle>
 <div class="auth-form__owner">
@@ -29,7 +30,7 @@
         <button class="custom-button custom-button-red" disabled="@IsLoaded" type="submit">
             @if (IsLoaded)
             {
-                <div class="loader"></div>
+                <div class="loader loader--white"></div>
             }
             else
             {
@@ -49,10 +50,12 @@
     {
         IsLoaded = true;
         var authResponse = await AuthService.LoginAsync(loginModel);
-        if (authResponse != null)
+        if (authResponse.IsSuccessStatusCode)
         {
-            await AuthService.SetTokenAsync(authResponse.Token);
-            Navigation.NavigateTo("/",true);
+            Snackbar.Add("Вход в систему успешно выполнен!", Severity.Success);
+            await AuthenticationStateProvider.NotifyAuthenticationStateAsync();
+            Navigation.NavigateTo("/");
+
         }
         else
         {
@@ -86,4 +89,5 @@
             Navigation.NavigateTo("/");
         }
     }
+
 }
