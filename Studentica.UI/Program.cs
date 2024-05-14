@@ -1,4 +1,5 @@
 using BitzArt.Blazor.Cookies;
+using Studentica.UI.Handlers;
 using Studentica.UI.Services;
 using Studentica.UI.Shared.Core;
 using System.Globalization;

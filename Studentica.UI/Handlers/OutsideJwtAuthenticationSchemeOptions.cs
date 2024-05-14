@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 
-namespace Studentica.UI.Services
+namespace Studentica.UI.Handlers
 {
     public class OutsideJwtAuthenticationSchemeOptions : AuthenticationSchemeOptions
     { 

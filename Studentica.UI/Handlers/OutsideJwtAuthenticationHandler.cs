@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text.Encodings.Web;
 
-namespace Studentica.UI.Services
+namespace Studentica.UI.Handlers
 {
     public class OutsideJwtAuthenticationHandler : AuthenticationHandler<OutsideJwtAuthenticationSchemeOptions>
     {

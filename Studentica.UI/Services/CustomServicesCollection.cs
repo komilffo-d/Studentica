@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using MudBlazor.Services;
+using Studentica.UI.Handlers;
 using Syncfusion.Blazor;
 
 namespace Studentica.UI.Services

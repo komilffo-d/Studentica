@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.JSInterop;
 using Studentica.Identity.Common.Data;
 using Studentica.Identity.Common.Helpers;
-using Syncfusion.Blazor;
 using System.Security.Claims;
 
-namespace Studentica.UI.Services
+namespace Studentica.UI.Handlers
 {
     public class TokenServerAuthenticationStateProvider : AuthenticationStateProvider
     {
