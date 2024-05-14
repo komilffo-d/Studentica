@@ -9,7 +9,6 @@ namespace Studentica.UI
     {
         public static void Main(string[] args)
         {
-
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-RU");
 
