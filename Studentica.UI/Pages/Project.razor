@@ -1,11 +1,9 @@
 ﻿@page "/project"
 @attribute [Authorize(Roles = "Student, Teacher")]
-
 <PageTitle>Проекты</PageTitle>
 <SectionContent SectionName="SupstringSection">
     Страница проектов
 </SectionContent>
-
 
 @code {
     [CascadingParameter]

@@ -14,10 +14,14 @@
             <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Home" IconColor="Color.Inherit">
                 Главная страница
             </MudNavLink>
-            <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">
+            <MudNavLink Href="/dashboard" Class="navbar__item" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">
                 Доска Dashboard
             </MudNavLink>
+
             <AuthorizeView Roles="@string.Format("{0},{1}",@UserRoles.Student.ToString(),@UserRoles.Teacher.ToString())">
+                <MudNavLink Href="/kanban" Class="navbar__item" Icon="@Icons.Material.Sharp.ViewKanban" IconColor="Color.Inherit">
+                    Kanban Доска
+                </MudNavLink>
                 <MudNavGroup Title="Проекты" Class="navbar__item" Icon="@Icons.Material.Sharp.Cases" IconColor="Color.Inherit">
                     <MudNavLink Href="/project" Class="navbar__item" Icon="@Icons.Material.Filled.ViewList" Color="Color.Inherit" IconColor="Color.Inherit">
                         Список
@@ -26,25 +30,19 @@
             </AuthorizeView>
 
             <AuthorizeView Roles="@UserRoles.Admin.ToString()" >
-                <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Settings" IconColor="Color.Inherit">
+                <MudNavLink Href="/settings" Class="navbar__item" Icon="@Icons.Material.Filled.Settings" IconColor="Color.Inherit">
                     Настройки
                 </MudNavLink>
             </AuthorizeView>
-            <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.AccountBox" IconColor="Color.Inherit">
+            <MudNavLink Href="/account" Class="navbar__item" Icon="@Icons.Material.Filled.AccountBox" IconColor="Color.Inherit">
                 Аккаунт
             </MudNavLink>
-
-
         </MudNavMenu>
-
         <div class="navbar-open" @onclick="ToggleNavbarAsync">
             <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Size="Size.Large"></MudIcon>
         </div>
-
-
     </MudPaper>
 </div>
-
 
 @code {
 
