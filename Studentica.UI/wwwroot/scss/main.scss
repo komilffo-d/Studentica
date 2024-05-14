@@ -48,7 +48,9 @@ input {
         }
 
         &__inner {
-            
+            background-color: var.$primary-color;
+            padding: 20px;
+            border-radius: 10px;
         }
 
         &__supstring {

@@ -1,0 +1,57 @@
+@use 'mixins' as mix;
+
+.account {
+    &__inner {
+        display: flex;
+        gap: 50px;
+        align-items: flex-start;
+    }
+
+    &-avatar {
+    }
+
+    &-info {
+        &-primary {
+            display: flex;
+            flex-direction: column;
+            gap: 19px;
+            margin-bottom: 75px;
+
+            &__name {
+                color: #14238A;
+                @include mix.montserrat-font(600);
+                font-size: 2.5rem;
+            }
+
+            &__description {
+                @include mix.montserrat-font(400);
+                font-size: 1.3rem;
+                color: #000000;
+            }
+        }
+
+        &-secondary {
+            &__table {
+                border: none;
+                outline: none;
+                border-collapse: collapse;
+                @include mix.montserrat-font(500);
+                font-size: 1.2rem;
+                color: #000000;
+
+                &-row {
+
+                    &__cell {
+
+
+                        &:first-child {
+                            @include mix.montserrat-font(700);
+                        }
+
+                        padding: 15px 65px 15px 0;
+                    }
+                }
+            }
+        }
+    }
+}

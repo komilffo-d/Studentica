@@ -20,6 +20,7 @@
     <PackageReference Include="BitzArt.Blazor.Cookies.Server" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
+    <PackageReference Include="Syncfusion.Blazor.Kanban" Version="25.2.4" />
     <PackageReference Include="Syncfusion.Blazor.Schedule" Version="25.1.42" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="25.1.42" />
   </ItemGroup>
@@ -76,6 +77,10 @@
 
   <ItemGroup>
     <Content Include="Components\ReconnectDialog.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Account.razor.scss" />
   </ItemGroup>
 
 </Project>
