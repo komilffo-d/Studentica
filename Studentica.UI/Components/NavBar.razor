@@ -11,26 +11,26 @@
             </div>
         </div>
           <MudNavMenu >
-            <MudNavLink Href="/" Class="navbar__item">
+            <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Home" IconColor="Color.Inherit">
                 Главная страница
             </MudNavLink>
-            <MudNavLink Href="/" Class="navbar__item">
+            <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">
                 Доска Dashboard
             </MudNavLink>
             <AuthorizeView Roles="@string.Format("{0},{1}",@UserRoles.Student.ToString(),@UserRoles.Teacher.ToString())">
-                <MudNavGroup Title="Проекты" Class="navbar__item">
-                    <MudNavLink Href="/project" Class="navbar__item">
+                <MudNavGroup Title="Проекты" Class="navbar__item" Icon="@Icons.Material.Sharp.Cases" IconColor="Color.Inherit">
+                    <MudNavLink Href="/project" Class="navbar__item" Icon="@Icons.Material.Filled.ViewList" Color="Color.Inherit" IconColor="Color.Inherit">
                         Список
                     </MudNavLink>
                 </MudNavGroup>
             </AuthorizeView>
 
             <AuthorizeView Roles="@UserRoles.Admin.ToString()" >
-                <MudNavLink Href="/" Class="navbar__item">
+                <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Settings" IconColor="Color.Inherit">
                     Настройки
                 </MudNavLink>
             </AuthorizeView>
-            <MudNavLink Href="/" Class="navbar__item">
+            <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.AccountBox" IconColor="Color.Inherit">
                 Аккаунт
             </MudNavLink>
 

@@ -12,19 +12,33 @@
         <div class="header-utility">
             <div class="header-utility__reader">
                 <MudTooltip Text="Уведомления" >
-                    <img src="/icons/notification.svg" id="header-utility__reader_notification" alt="Уведомления для вашего аккаунта" />
+                    <MudBadge Color="Color.Info" Content="6" Overlap="true">
+                        <MudIcon Icon="@Icons.Material.Sharp.Notifications" Color="Color.Error" Size="Size.Large"></MudIcon>
+                    </MudBadge>
                 </MudTooltip>
                 <MudTooltip Text="Письма от пользователей">
-                    <img src="/icons/email.svg" id="header-utility__reader_email" alt="Письма для вашего аккаунта" />
+                    <MudBadge Color="Color.Info" Content="42" Overlap="true">
+                        <MudIcon Icon="@Icons.Material.Sharp.Email" Color="Color.Error" Size="Size.Large"></MudIcon>
+                    </MudBadge>
                 </MudTooltip>
 
             </div>
             <span class="vertical-red-line"></span>
-            <div class="header-utility__writer" @onclick="Logout">
-                <MudTooltip Text="Письма от пользователей">
-                    <MudAvatar Color="Color.Info" Variant="Variant.Filled">
-                        <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large"  />
-                    </MudAvatar>
+            <div class="header-utility__writer" >
+                <MudTooltip Text="Действия с аккаунтом">
+                    <MudMenu AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopCenter">
+                        <ActivatorContent>
+                            <MudAvatar Color="Color.Info" Variant="Variant.Filled">
+                                <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                            </MudAvatar>
+                        </ActivatorContent>
+                        <ChildContent>
+                            <MudMenuItem>Профиль</MudMenuItem>
+                            <MudMenuItem>Сменить тему</MudMenuItem>
+                            <MudMenuItem @onclick="Logout">Выйти из аккаунта</MudMenuItem>
+                        </ChildContent>
+                    </MudMenu>
+
                 </MudTooltip>
             </div>
         </div>
@@ -37,7 +51,6 @@
     private async Task Logout()
     {
         await AuthService.LogoutAsync();
-        // await AuthenticationStateProvider.NotifyAuthenticationStateAsync();
         Snackbar.Add("Выход из системы успешно выполнен!", Severity.Info);
         Navigation.NavigateTo("/authorize/login");
 
