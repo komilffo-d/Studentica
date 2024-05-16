@@ -1,0 +1,97 @@
+﻿@page "/authorize/send-request"
+
+<PageTitle>Отправка заявки</PageTitle>
+
+<SectionContent SectionName="BackLink">
+    <MudFab Href="/authorize/login" Size="Size.Small" Color="Color.Error" StartIcon="@Icons.Material.Filled.ArrowBack" />
+</SectionContent>
+<div class="send-request">
+
+
+    <div class="send-request__inner">
+        <EditForm class="auth-form" Model="@sendRequestModel" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="custom-form-group">
+                <InputTextBox @bind-Value="sendRequestModel.LastName" Placeholder="Введите фамилию"></InputTextBox>
+                <ValidationMessage For="@(() => sendRequestModel.LastName)"></ValidationMessage>
+            </div>
+            <div class="custom-form-group">
+
+                <InputTextBox @bind-Value="sendRequestModel.FirstName" Placeholder="Введите имя"></InputTextBox>
+                <ValidationMessage For="@(() => sendRequestModel.FirstName)"></ValidationMessage>
+            </div>
+
+            <div class="custom-form-group">
+
+                <InputTextBox @bind-Value="sendRequestModel.MiddleName" Placeholder="Введите отчество"></InputTextBox>
+                <ValidationMessage For="@(() => sendRequestModel.MiddleName)"></ValidationMessage>
+            </div>
+
+            <div class="custom-form-group">
+
+                <InputTextBox @bind-Value="sendRequestModel.EmailAddress" Placeholder="Введите электронную почту"></InputTextBox>
+                <ValidationMessage For="@(() => sendRequestModel.EmailAddress)"></ValidationMessage>
+            </div>
+
+             <div class="custom-form-group">
+
+                <InputTextBox AdditionalAttributes="InputAttributes" @bind-Value="sendRequestModel.NameUniversity" Placeholder="Введите наименование университета"></InputTextBox>
+                <ValidationMessage For="@(() => sendRequestModel.NameUniversity)"></ValidationMessage>
+            </div>
+
+            <div class="custom-form-group">
+
+                <InputTextBox @bind-Value="sendRequestModel.NumberGroup" Placeholder="Введите группу"></InputTextBox>
+                <ValidationMessage For="@(() => sendRequestModel.NumberGroup)"></ValidationMessage>
+            </div>
+
+            <button class="custom-button custom-button-red" disabled="@IsLoaded" type="submit">
+                @if (IsLoaded)
+                {
+                    <div class="loader loader--white"></div>
+                }
+                else
+                {
+                    <span>Отправить</span>
+                }
+            </button>
+
+        </EditForm>
+    </div>
+</div>
+@code{
+    private SendRequestModel sendRequestModel = new SendRequestModel();
+    private bool IsLoaded = false;
+    private bool PopoverOpen = false;
+    private Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
+        {
+            { "disabled", "true" },
+        };
+
+    private async Task HandleValidSubmit()
+    {
+        IsLoaded = true;
+
+        await Task.Delay(2000);
+
+        Snackbar.Add("Заявка успешно отправлена!", Severity.Success);
+        Snackbar.Add("Результат обработки будет отправлен на электронную почту в течении 1 рабочего дня!", Severity.Info);
+        Navigation.NavigateTo("/authorize/login");
+
+
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider
+    .GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            Navigation.NavigateTo("/");
+        }
+    }
+}

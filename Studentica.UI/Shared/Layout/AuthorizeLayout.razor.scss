@@ -33,7 +33,7 @@
 
         @include mix.media("max","lg") {
             flex-direction: column;
-            gap:30px;
+            gap: 30px;
             padding-left: var.$main-content-padding-horizontal-left/2;
             padding-right: var.$main-content-padding-horizontal-right/2;
             padding-top: var.$main-content-padding-vertical-top/2;
@@ -89,15 +89,20 @@
         }
 
         &-form {
+            position: relative;
             background: #FFFFFF;
             border-radius: 15px;
             max-width: 400px;
             width: 100%;
-
+            &__back{
+                position:absolute;
+                left:10px;
+                top:10px;
+            }
             &__inner {
                 padding: 67px 29px 55px;
-                display:flex;
-                flex-direction:column;
+                display: flex;
+                flex-direction: column;
             }
         }
     }

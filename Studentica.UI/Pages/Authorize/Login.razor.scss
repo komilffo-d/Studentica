@@ -1,36 +1,63 @@
 @use 'mixins' as mix;
 .auth {
     ::deep &-form {
-        display: flex;
-        flex-direction: column;
-
-        &__owner {
-        }
-
-
-        &-group {
-            margin-bottom: 30px;
-        }
-
         &-question {
             margin-bottom: 10px;
             display: flex;
-            gap:8px;
+            gap: 8px;
             align-items: center;
             font-size: 0.9rem;
             text-decoration: underline;
             text-decoration-skip-ink: none;
             color: #14238A;
             @include mix.montserrat-font(600);
-            &__icon{
-                border-radius:50%;
-                border: 1px solid #14238A;
-                line-height:0;
-                padding:2px;
 
+            &__icon {
+                border-radius: 50%;
+                border: 1px solid #14238A;
+                line-height: 0;
+                padding: 2px;
             }
 
             &__text {
+            }
+        }
+
+        & > .custom-button-thin {
+            display: flex;
+            align-items: center;
+        }
+
+        &-kubsau {
+            cursor: pointer;
+
+            &__inner {
+                display: flex;
+                align-items: center;
+                justify-content:center;
+            }
+
+            &__text {
+                @include mix.montserrat-font(600);
+                color: #000000;
+                font-size:1.3rem;
+            }
+
+            &-popover {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                @include mix.montserrat-font(600);
+                font-size:0.9rem;
+                &__info {
+                }
+
+                &__link {
+                    color: rgba(0,200,83,1);
+                    &:hover{
+                        text-decoration:underline;
+                    }
+                }
             }
         }
     }

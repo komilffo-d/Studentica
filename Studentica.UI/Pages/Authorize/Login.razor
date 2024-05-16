@@ -1,17 +1,17 @@
 ﻿@page "/authorize/login"
 @inject AuthService AuthService
-@inject ISnackbar Snackbar
+
 
 <PageTitle>Страница авторизации</PageTitle>
 <div class="auth-form__owner">
-    <EditForm class="auth-form" Model="@loginModel" OnValidSubmit="HandleValidSubmit">
+    <EditForm class="custom-form" Model="@loginModel" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator  />
 
-        <div class="auth-form-group">
+        <div class="custom-form-group">
             <InputTextBox @bind-Value="loginModel.Username" Placeholder="Введите логин"></InputTextBox>
             <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
         </div>
-        <div class="auth-form-group">
+        <div class="custom-form-group">
 
             <InputTextBox @bind-Value="loginModel.Password" Placeholder="Введите пароль"></InputTextBox>
             <ValidationMessage For="@(() => loginModel.Password)"></ValidationMessage>
@@ -37,14 +37,44 @@
                 <span>Войти</span>
             }
         </button>
+        <div class="line-separate">
+            или
+        </div>
+        <div class="auth-form-kubsau" @onclick="() => PopoverOpen=!PopoverOpen">
+            <div class="custom-button custom-button-thin custom-button-thin--green auth-form-kubsau__inner">
+                <MudImage Src="/images/kubsau-logo.png" Width="45"></MudImage>
+                <span class="auth-form-kubsau__text">
+                    Студентам КубГАУ
+                </span>
+            </div>
+
+            <MudPopover Style="border-radius:10px;" Open="@PopoverOpen" Class="px-4 pt-4" TransformOrigin="Origin.TopCenter" AnchorOrigin="Origin.BottomCenter" RelativeWidth="true" >
+                <div>
+                    <div class="auth-form-kubsau-popover">
+                        <div class="auth-form-kubsau-popover__info">
+                            Отправьте
+                            <NavLink href="/authorize/send-request" class="auth-form-kubsau-popover__link">
+                                заявку
+                            </NavLink>
+                            администраторам<br /> для регистрации на платформе
+                        </div>
+
+                        <MudButton OnClick="() => PopoverOpen = false" Class="ml-auto mr-n3 mb-1" Color="Color.Success">Закрыть</MudButton>
+                    </div>
+                </div>
+
+            </MudPopover>
+
+        </div>
     </EditForm>
+
 </div>
 
     
 @code {
     private LoginModel loginModel = new LoginModel();
-
     private bool IsLoaded = false;
+    private bool PopoverOpen = false;
 
     private async Task HandleValidSubmit()
     {
@@ -66,7 +96,6 @@
         
         
     }
-
 
     private async Task ShowDialogAsync(string message)
     {

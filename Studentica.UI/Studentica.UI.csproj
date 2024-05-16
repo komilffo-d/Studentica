@@ -97,4 +97,12 @@
     <UpToDateCheckInput Remove="components\project\ProjectStatus.razor.scss" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="pages\project\ProjectCreate.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="pages\authorize\SendRequest.razor.scss" />
+  </ItemGroup>
+
 </Project>
