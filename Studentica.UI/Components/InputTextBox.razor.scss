@@ -15,5 +15,8 @@
             background: rgba(221, 222, 238, 0.5);
             border:1px solid transparent;
         }
+        &:disabled{
+            opacity:0.4;
+        }
     }
 }
