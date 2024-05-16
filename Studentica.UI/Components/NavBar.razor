@@ -14,9 +14,12 @@
             <MudNavLink Href="/" Class="navbar__item" Icon="@Icons.Material.Filled.Home" IconColor="Color.Inherit">
                 Главная страница
             </MudNavLink>
-            <MudNavLink Href="/dashboard" Class="navbar__item" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">
-                Доска Dashboard
-            </MudNavLink>
+            <AuthorizeView Roles="@UserRoles.Admin.ToString()">
+                <MudNavLink Href="/dashboard" Class="navbar__item" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">
+                    Доска Dashboard
+                </MudNavLink>
+            </AuthorizeView>
+
 
             <AuthorizeView Roles="@string.Format("{0},{1}",@UserRoles.Student.ToString(),@UserRoles.Teacher.ToString())">
                 <MudNavLink Href="/kanban" Class="navbar__item" Icon="@Icons.Material.Sharp.ViewKanban" IconColor="Color.Inherit">

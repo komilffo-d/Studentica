@@ -46,7 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Libraries\Studentica.Common\Studentica.Common.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
+    <ProjectReference Include="..\Libraries\Studentica.UI.Common\Studentica.UI.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +83,18 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Account.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="components\project\ProjectView.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="pages\Project.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="components\project\ProjectStatus.razor.scss" />
   </ItemGroup>
 
 </Project>

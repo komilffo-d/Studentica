@@ -1,0 +1,14 @@
+@use 'mixins' as mix;
+
+.project-status {
+    border-radius: 4px;
+    background: rgb(43, 172, 33, 0.20);
+
+    &__inner {
+        padding: 10px 19px;
+        font-size: 12px;
+        @include mix.montserrat-font(500);
+        color: #FFFFFF;
+        width:fit-content;
+    }
+}

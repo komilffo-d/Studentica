@@ -1,0 +1,14 @@
+﻿<div class="project-status">
+    <div class="project-status__inner">
+        @Status.GetStringValue()
+    </div>
+</div>
+
+
+@code{
+
+    [Parameter]
+    public StatusProject Status { get; set; }
+
+
+}

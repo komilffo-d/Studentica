@@ -1,0 +1,38 @@
+﻿@page "/project"
+@attribute [Authorize(Roles = "Student, Teacher")]
+<PageTitle>Проекты</PageTitle>
+<SectionContent SectionName="SupstringSection">
+    Страница проектов
+</SectionContent>
+
+<div class="project">
+    <div class="project__inner">
+        <ProjectView Id="646425" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+        <ProjectView Id="947423" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+        <ProjectView Id="135534" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+        <ProjectView Id="245352" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+        <ProjectView Id="132452" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+        <ProjectView Id="753563" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+    </div>
+</div>
+@code {
+    [CascadingParameter]
+    public LayoutBase? Layout { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Layout is not null)
+            Layout.Links = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
+                new BreadcrumbItem("Проекты", href: "/project", disabled: true),
+            };
+
+    }
+
+    public void OnNavigateToDetailPage(int id)
+    {
+        Navigation.NavigateTo($"/project/detail/{id}");
+    }
+
+}

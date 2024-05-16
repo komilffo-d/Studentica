@@ -1,0 +1,84 @@
+﻿<div class="project-view">
+    <div class="project-view__inner" @onclick="async() => await OnToDetailPage.InvokeAsync(Id)">
+        <div class="project-view-header">
+            <div class="project-view-header__inner">
+                <div class="project-view-header__info">
+                    <div class="project-view-header__info__title">Studentica</div>
+                    <div class="project-view-header__info__edit">
+                        <MudIcon Icon="@Icons.Material.Outlined.Edit" Size="Size.Large" Color="Color.Default"></MudIcon>
+                    </div>
+                </div>
+                <div class="project-view-header__state">
+                    <ProjectStatus Status="StatusProject.OPEN"></ProjectStatus>
+                </div>
+            </div>
+        </div>
+        <div class="project-view-body">
+            <div class="project-view-body__inner">
+                Мы вынуждены отталкиваться от того, что глубокий уровень погружения предопределяет высокую востребованность переосмысления внешнеэкономических политик. Господа, синтетическое тестирование однозначно определяет каждого участника как способного принимать собственные решения касаемо первоочередных требований. Господа, новая модель организационной деятельности требует от нас анализа соответствующих условий активизации.
+                Мы вынуждены отталкиваться от того, что глубокий уровень погружения предопределяет высокую востребованность переосмысления внешнеэкономических политик. Господа, синтетическое тестирование однозначно определяет каждого участника как способного принимать собственные решения касаемо первоочередных требований. Господа, новая модель организационной деятельности требует от нас анализа соответствующих условий активизации.
+            </div>
+        </div>
+        <div class="project-view-footer">
+            <div class="project-view-footer__info">
+                <div class="project-view-footer__info-time">
+                    <div class="project-view-footer__info-time__icon">
+                        <MudIcon Icon="@Icons.Material.Rounded.HourglassBottom" Color="Color.Error"></MudIcon>
+                    </div>
+                    <div class="project-view-footer__info-time__value">
+                        05 Апреля 2025
+                    </div>
+                </div>
+                <div class="project-view-footer__info-avatars">
+                    <MudAvatarGroup Max="4" Spacing="3" MaxColor="Color.Error">
+                        <MudAvatar Color="Color.Info" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Error" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Surface" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Dark" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Success" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Tertiary" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                        <MudAvatar Color="Color.Default" Variant="Variant.Filled">
+                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+                        </MudAvatar>
+                    </MudAvatarGroup>
+                </div>
+            </div>
+            <div class="project-view-footer__issue">
+                <div class="project-view-footer__issue__icon">
+                    <MudIcon Icon="@Icons.Material.Rounded.FolderOpen"></MudIcon>
+                </div>
+                <div class="project-view-footer__issue__count">14 issues</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code{
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnToDetailPage {get;set;}
+
+    [Parameter]
+    public EventCallback<int> OnEdit { get; set; }
+
+
+}

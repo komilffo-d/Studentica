@@ -1,11 +1,16 @@
-﻿@page "/project"
+﻿@page "/project/detail/{id:int}"
 @attribute [Authorize(Roles = "Student, Teacher")]
-<PageTitle>Проекты</PageTitle>
+<PageTitle>Страница проекта</PageTitle>
 <SectionContent SectionName="SupstringSection">
-    Страница проектов
+    Детальная страница проектов
 </SectionContent>
 
 @code {
+    
+    [Parameter]
+    public int Id { get; set; }
+
+
     [CascadingParameter]
     public LayoutBase? Layout { get; set; }
 
@@ -15,7 +20,8 @@
             Layout.Links = new List<BreadcrumbItem>
             {
                 new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
-                new BreadcrumbItem("Проекты", href: "/project", disabled: true),
+                new BreadcrumbItem("Проекты", href: "/project", disabled: false),
+                new BreadcrumbItem($"Проект №{Id}", href: $"project/detail/{Id}", disabled: true),
             };
 
     }
