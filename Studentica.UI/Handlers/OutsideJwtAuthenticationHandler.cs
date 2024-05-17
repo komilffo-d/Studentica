@@ -24,5 +24,11 @@ namespace Studentica.UI.Handlers
 
         }
 
+        protected override Task HandleForbiddenAsync(AuthenticationProperties properties)
+        {
+            Response.StatusCode = 302;
+            Response.Redirect("/");
+            return Task.CompletedTask;
+        }
     }
 }
