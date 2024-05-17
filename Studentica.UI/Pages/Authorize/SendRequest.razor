@@ -35,8 +35,7 @@
             </div>
 
              <div class="custom-form-group">
-
-                <InputTextBox AdditionalAttributes="InputAttributes" @bind-Value="sendRequestModel.NameUniversity" Placeholder="Введите наименование университета"></InputTextBox>
+                <TextareaBox Rows="3" AdditionalAttributes="InputAttributes" @bind-Value="sendRequestModel.NameUniversity" Placeholder="Введите наименование университета"></TextareaBox>
                 <ValidationMessage For="@(() => sendRequestModel.NameUniversity)"></ValidationMessage>
             </div>
 

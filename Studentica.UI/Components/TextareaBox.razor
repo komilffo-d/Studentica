@@ -1,0 +1,25 @@
+﻿@inherits InputBase<string>
+
+<div class="textarea">
+    <textarea type="text" rows="@Rows"
+            class="textarea__control @CssClass"
+            @attributes="AdditionalAttributes"  
+            placeholder="@Placeholder" 
+            value="@CurrentValueAsString" 
+            @oninput="EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+</div>
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = "Введите текст";
+
+    [Parameter]
+    public int Rows { get; set; } = 1;
+
+    protected override bool TryParseValueFromString(string? value, out string result, out string? validationErrorMessage)
+    {
+           
+        result = value ?? string.Empty;
+        validationErrorMessage = "null";
+        return true;
+    }
+}

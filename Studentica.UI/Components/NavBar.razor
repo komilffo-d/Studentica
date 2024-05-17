@@ -18,6 +18,9 @@
                 <MudNavLink Href="/dashboard" Class="navbar__item" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">
                     Доска Dashboard
                 </MudNavLink>
+                <MudNavLink Href="/admin/requests" Class="navbar__item" Icon="@Icons.Material.Filled.FaceRetouchingNatural" IconColor="Color.Inherit">
+                    Заявки от студентов
+                </MudNavLink>
             </AuthorizeView>
 
 
@@ -29,17 +32,19 @@
                     <MudNavLink Href="/project" Class="navbar__item" Icon="@Icons.Material.Filled.ViewList" Color="Color.Inherit" IconColor="Color.Inherit">
                         Список
                     </MudNavLink>
+                    <MudNavLink Href="/project/create" Class="navbar__item" Icon="@Icons.Material.Filled.AddBox" Color="Color.Inherit" IconColor="Color.Inherit">
+                        Создать проект
+                    </MudNavLink>
                 </MudNavGroup>
-            </AuthorizeView>
-
-            <AuthorizeView Roles="@UserRoles.Admin.ToString()" >
-                <MudNavLink Href="/settings" Class="navbar__item" Icon="@Icons.Material.Filled.Settings" IconColor="Color.Inherit">
-                    Настройки
+                <MudNavLink Href="/friends" Class="navbar__item" Icon="@Icons.Material.Filled.EmojiPeople" IconColor="Color.Inherit">
+                    Друзья
                 </MudNavLink>
             </AuthorizeView>
+
             <MudNavLink Href="/account" Class="navbar__item" Icon="@Icons.Material.Filled.AccountBox" IconColor="Color.Inherit">
                 Аккаунт
             </MudNavLink>
+
         </MudNavMenu>
         <div class="navbar-open" @onclick="ToggleNavbarAsync">
             <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Size="Size.Large"></MudIcon>

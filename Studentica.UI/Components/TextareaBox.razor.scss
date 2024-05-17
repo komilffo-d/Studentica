@@ -1,6 +1,6 @@
 @use 'mixins' as mix;
 
-.input-text {
+.textarea {
     &__control, &__control:focus, &__control:hover {
         @include mix.montserrat-font(400);
         font-size: 1.2rem;
@@ -9,6 +9,7 @@
         border-radius: 5px;
         padding: 19px 21px;
         width: 100%;
+        resize: none;
 
 
         &:placeholder-shown {

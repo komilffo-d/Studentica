@@ -98,6 +98,11 @@ input {
             color: #FFFFFF;
         }
 
+        .custom-button-white {
+            background: #FFFFFF;
+            color: #D60A0B;
+        }
+
         &.custom-button-thin {
             color: #FFF;
             transition: all 0.5s;
@@ -168,6 +173,24 @@ input {
                 }
             }
         }
+    }
+
+    &-background {
+        &-color {
+            &-pink {
+                background-color: pink;
+            }
+
+            &-yellow {
+                background-color: yellow;
+            }
+        }
+    }
+
+    &-label.mud-input-label {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 10px 0;
     }
 
     &-form {

@@ -6,7 +6,6 @@
 <div class="auth-form__owner">
     <EditForm class="custom-form" Model="@loginModel" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator  />
-
         <div class="custom-form-group">
             <InputTextBox @bind-Value="loginModel.Username" Placeholder="Введите логин"></InputTextBox>
             <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
@@ -44,7 +43,7 @@
             <div class="custom-button custom-button-thin custom-button-thin--green auth-form-kubsau__inner">
                 <MudImage Src="/images/kubsau-logo.png" Width="45"></MudImage>
                 <span class="auth-form-kubsau__text">
-                    Студентам КубГАУ
+                    Зарегестрироваться
                 </span>
             </div>
 
