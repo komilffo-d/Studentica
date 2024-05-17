@@ -1,0 +1,20 @@
+@use 'mixins' as mix;
+
+::deep .data-range-picker {
+    &.mud-picker-inline.mud-picker-input-button {
+        border-radius: 6px;
+        padding: 8px 21px;
+
+        &:has(.mud-input-slot:placeholder-shown) {
+            color: #b2b2b7;
+            background: rgba(221, 222, 238, .5);
+            border: 1px solid rgba(0, 0, 0, 0);
+        }
+    }
+
+
+    &.mud-input-slot {
+        @include mix.montserrat-font(500);
+        font-size: 1.2rem;
+    }
+}

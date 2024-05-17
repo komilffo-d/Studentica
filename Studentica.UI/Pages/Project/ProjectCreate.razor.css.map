@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"ProjectCreate.razor.css"}
+{"version":3,"sourceRoot":"","sources":["ProjectCreate.razor.scss","../../wwwroot/scss/_mixins.scss"],"names":[],"mappings":"AAGI,oEACI,kBACA,iBAEA,2GACI,cACA,gCACA,+BAKR,yCCXA,oCACA,yBACA,YDUiC,IAC7B","file":"ProjectCreate.razor.css"}

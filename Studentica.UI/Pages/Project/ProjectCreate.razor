@@ -1,5 +1,142 @@
-﻿<h3>ProjectCreate</h3>
+﻿@page "/project/create"
+@attribute [Authorize(Roles = "Student, Teacher")]
+<PageTitle>Создание проекта</PageTitle>
+<SectionContent SectionName="SupstringSection">
+    Страница создания проекта
+</SectionContent>
 
-@code {
+<div class="project-create">
+    <div class="project-create__inner">
+        <EditForm class="custom-form" Model="@loginModel">
+            <DataAnnotationsValidator />
+            <MudGrid>
+               
+                <MudItem xs="12" sm="6" md="6">
+                    <div class="custom-form-group">
+                        <MudInputLabel Class="custom-label">Имя проекта</MudInputLabel>
+                        <InputTextBox @bind-Value="loginModel.Username" Placeholder="Введите наименование проекта"></InputTextBox>
+                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                    </div>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <div class="custom-form-group">
+                        <MudInputLabel Class="custom-label">Тип проекта</MudInputLabel>
+                        <InputTextBox @bind-Value="loginModel.Username" Placeholder="Выберите тип проекта"></InputTextBox>
+                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                    </div>
+                </MudItem>
+                <MudItem xs="12" sm="8">
+                    <div class="custom-form-group">
+                        <MudInputLabel Class="custom-label">Период выполнения проекта</MudInputLabel>
+                        <MudDateRangePicker Color="Color.Error" PickerVariant="PickerVariant.Dialog" DateFormat="dd MMMM, yyyy" TitleDateFormat="dd MMMM, yyyy" Margin="Margin.Dense" Editable="false" Clearable="false"
+                                            PlaceholderStart="Дата начала проекта" PlaceholderEnd="Дата окончания проекта" Class="data-range-picker"/>
+                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                    </div>
+                </MudItem>
+                <MudItem xs="12">
+                    <div class="custom-form-group">
+                        <MudInputLabel Class="custom-label">Описание проекта</MudInputLabel>
+                        <TextareaBox Rows="5" @bind-Value="loginModel.Username" Placeholder="Введите описание проекта"></TextareaBox>
+                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                    </div>
+                </MudItem>
+                <MudItem xs="12" lg="6">
+                    <div class="custom-form-group">
+                        <MudInputLabel Class="custom-label">Участники проекта</MudInputLabel>
+                        <MudExpansionPanels>
+                            <MudExpansionPanel>
+                                <TitleContent>
+                                    Участники проекта
+                                </TitleContent>
+                                <ChildContent>
+                                    <MudList DisableGutters="true">
+                                        <MudListItem Avatar="@Icons.Material.Filled.People" AvatarClass="custom-background-color-yellow" IconColor="Color.Success">
+                                            <div Class="d-flex justify-space-between align-center">
+                                                Чайников Вадим
+                                                <MudCheckBox T="bool" Color="Color.Success"></MudCheckBox>
+                                            </div>
 
+                                        </MudListItem>
+                                        <MudDivider DividerType="DividerType.Inset" Style="border-color:rgb(0,200,83)" />
+                                        <MudListItem Avatar="@Icons.Material.Filled.People" AvatarClass="custom-background-color-pink" IconColor="Color.Info">
+                                            <div Class="d-flex justify-space-between align-center">
+                                                Преподаватель
+                                                <MudCheckBox T="bool" Color="Color.Primary"></MudCheckBox>
+                                            </div>
+
+                                        </MudListItem>
+                                        <MudDivider DividerType="DividerType.Inset" Style="border-color:#131F73" />
+                                        <MudListItem Avatar="@Icons.Material.Filled.People" AvatarClass="custom-background-color-yellow" IconColor="Color.Success">
+                                            <div Class="d-flex justify-space-between align-center">
+                                                Воеводин Максим
+                                                <MudCheckBox T="bool" Color="Color.Success"></MudCheckBox>
+                                            </div>
+
+                                        </MudListItem>
+                                        <MudDivider DividerType="DividerType.Inset" Style="border-color:rgb(0,200,83)" />
+                                        <MudListItem Avatar="@Icons.Material.Filled.People" AvatarClass="custom-background-color-yellow" IconColor="Color.Success">
+                                            <div Class="d-flex justify-space-between align-center">
+                                                Попков Иван
+                                                <MudCheckBox T="bool" Color="Color.Success"></MudCheckBox>
+                                            </div>
+
+                                        </MudListItem>
+                                        <MudDivider DividerType="DividerType.Inset" Style="border-color:rgb(0,200,83)" />
+                                        <MudListItem Avatar="@Icons.Material.Filled.People" AvatarClass="custom-background-color-yellow" IconColor="Color.Success">
+                                            <div Class="d-flex justify-space-between align-center">
+                                                Гаричев Даниил
+                                                <MudCheckBox T="bool" Color="Color.Success"></MudCheckBox>
+                                            </div>
+
+                                        </MudListItem>
+                                        <MudDivider DividerType="DividerType.Inset" Style="border-color:rgb(0,200,83)" />
+                                    </MudList>
+                                </ChildContent>
+                            </MudExpansionPanel>
+                        </MudExpansionPanels>
+
+                    </div>
+                </MudItem>
+                <MudItem xs="12" Class="d-flex justify-end gap-x-4">
+                    <MudPaper Width="20%">
+                        <NavLink href="/project">
+                            <button class="custom-button custom-button-white" type="button">
+                                <span>Отмена</span>
+                            </button>
+                        </NavLink>
+                    </MudPaper>
+                    <MudPaper Width="20%">
+                        <button class="custom-button custom-button-red" disabled="@IsLoaded" type="submit">
+                            @if (IsLoaded)
+                            {
+                                <div class="loader loader--white"></div>
+                            }
+                            else
+                            {
+                                <span>Создать</span>
+                            }
+                        </button>
+                    </MudPaper>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </div>
+</div>
+@code{
+    [CascadingParameter]
+    public LayoutBase? Layout { get; set; }
+    private bool IsLoaded = false;
+    private LoginModel loginModel = new LoginModel();
+
+    protected override void OnInitialized()
+    {
+        if (Layout is not null)
+            Layout.Links = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
+                new BreadcrumbItem("Проекты", href: "/project", disabled: false),
+                new BreadcrumbItem("Создание проекта", href: "/project/create", disabled: true),
+            };
+
+    }
 }
