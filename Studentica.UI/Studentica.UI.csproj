@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="Syncfusion.Blazor.Kanban" Version="25.2.4" />
+    <PackageReference Include="Syncfusion.Blazor.Layouts" Version="25.2.4" />
     <PackageReference Include="Syncfusion.Blazor.Schedule" Version="25.1.42" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="25.1.42" />
   </ItemGroup>
@@ -103,6 +104,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="pages\authorize\SendRequest.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="pages\Dashboard.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Requests.razor.scss" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,120 @@
+﻿@page "/admin/requests"
+@attribute [Authorize]
+
+<PageTitle>Заявки от студентов</PageTitle>
+<SectionContent SectionName="SupstringSection">
+    Заявки от студентов КубГАУ
+</SectionContent>
+<div class="request d-flex flex-column gap-y-4">
+    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
+        <div class="d-flex align-center gap-x-2">
+            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
+            <div class="d-flex flex-column gap-y-4">
+                <div class="request__title">
+                    Воеводин Максим Юрьевич
+                </div>
+                <div class="request__data d-flex gap-x-2">
+                    <span>#544563</span>
+                    <span>Подана 10 дней назад</span>
+                </div>
+            </div>
+        </div>
+        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
+            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
+            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+
+        </MudChipSet>
+    </MudPaper>
+    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
+        <div class="d-flex align-center gap-x-2">
+            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
+            <div class="d-flex flex-column gap-y-4">
+                <div class="request__title">
+                    Чайников Вадим Андреевич
+                </div>
+                <div class="request__data d-flex gap-x-2">
+                    <span>#946935</span>
+                    <span>Подана 5 дней назад</span>
+                </div>
+            </div>
+        </div>
+        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
+            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
+            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+
+        </MudChipSet>
+    </MudPaper>
+    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
+        <div class="d-flex align-center gap-x-2">
+            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
+            <div class="d-flex flex-column gap-y-4">
+                <div class="request__title">
+                    Попков Иван Андреевич
+                </div>
+                <div class="request__data d-flex gap-x-2">
+                    <span>#147642</span>
+                    <span>Подана 2 дня назад</span>
+                </div>
+            </div>
+        </div>
+        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
+            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
+            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+
+        </MudChipSet>
+    </MudPaper>
+    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
+        <div class="d-flex align-center gap-x-2">
+            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
+            <div class="d-flex flex-column gap-y-4">
+                <div class="request__title">
+                    Башаров Иван Артёмьевич
+                </div>
+                <div class="request__data d-flex gap-x-2">
+                    <span>#673654</span>
+                    <span>Подана 7 дней назад</span>
+                </div>
+            </div>
+        </div>
+        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
+            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
+            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+
+        </MudChipSet>
+    </MudPaper>
+    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
+        <div class="d-flex align-center gap-x-2">
+            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
+            <div class="d-flex flex-column gap-y-4">
+                <div class="request__title">
+                    Корепанов Юрий Сергеевич
+                </div>
+                <div class="request__data d-flex gap-x-2">
+                    <span>#254764</span>
+                    <span>Подана 1 день назад</span>
+                </div>
+            </div>
+        </div>
+        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
+            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
+            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+
+        </MudChipSet>
+    </MudPaper>
+</div>
+
+@code {
+    [CascadingParameter]
+    public LayoutBase? Layout { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Layout is not null)
+            Layout.Links = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
+                new BreadcrumbItem("Заявки от студентов", href: "/admin/request", disabled: true),
+            };
+
+    }
+}

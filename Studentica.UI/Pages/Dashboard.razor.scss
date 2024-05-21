@@ -1,0 +1,27 @@
+@use 'mixins' as mix;
+
+.dashboard {
+    height: 100%;
+
+    &-small {
+
+        &__inner {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            height: inherit;
+        }
+
+        &-info {
+            &__title {
+                font-size: 1.2rem;
+                color: #A3A3A3;
+            }
+
+            &__data {
+                @include mix.montserrat-font(600);
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

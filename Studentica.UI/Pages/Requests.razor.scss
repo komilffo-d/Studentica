@@ -1,0 +1,13 @@
+@use 'mixins' as mix;
+
+.request {
+    &__title {
+        @include mix.montserrat-font(700);
+        font-size: 1.6rem;
+    }
+
+    &__data {
+        @include mix.montserrat-font(500);
+        font-size: 1.2rem;
+    }
+}

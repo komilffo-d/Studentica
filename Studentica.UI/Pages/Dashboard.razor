@@ -1,0 +1,158 @@
+﻿@page "/dashboard"
+@attribute [Authorize]
+
+<PageTitle>Доска</PageTitle>
+<SectionContent SectionName="SupstringSection">
+    Персональная доска
+</SectionContent>
+
+<SfDashboardLayout CellSpacing="@(new double[]{10 ,10 })"  CellAspectRatio="2" AllowResizing="true" AllowDragging="true" Columns="4">
+    <DashboardLayoutPanels>
+        <DashboardLayoutPanel SizeX=2 Row=0>
+            <HeaderTemplate>Панель количества студентов</HeaderTemplate>
+            <ContentTemplate>
+               <div class="dashboard dashboard-small">
+                   <div class="dashboard-small__inner">
+                        <MudImage Src="/images/students-dashboard.svg"></MudImage>
+                        <MudDivider FlexItem="true" DividerType="DividerType.Inset" Vertical="true" Style="border-color:#d60a0b;margin:10px 15px;border-width:2px;"></MudDivider>
+                        <div class="dashboard-small-info">
+                            <div class="dashboard-small-info__title">Студенты</div>
+                            <div class="dashboard-small-info__data">5317</div>
+                        </div>
+                   </div>
+               </div>
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+        <DashboardLayoutPanel SizeX=2 Row=0>
+            <HeaderTemplate>Панель количества преподавателей</HeaderTemplate>
+            <ContentTemplate>
+                <div class="dashboard dashboard-small">
+                    <div class="dashboard-small__inner">
+                        <MudImage Src="/images/teachers-dashboard.svg"></MudImage>
+                        <MudDivider FlexItem="true" DividerType="DividerType.Inset" Vertical="true" Style="border-color:#d60a0b;margin:10px 15px;border-width:2px;"></MudDivider>
+                        <div class="dashboard-small-info">
+                            <div class="dashboard-small-info__title">Преподаватели</div>
+                            <div class="dashboard-small-info__data">842</div>
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+        <DashboardLayoutPanel SizeX=2 Column=0 Row=1>
+            <HeaderTemplate>Панель количества заявок на регистрацию</HeaderTemplate>
+            <ContentTemplate>
+                <div class="dashboard dashboard-small">
+                    <div class="dashboard-small__inner">
+                        <MudImage Src="/images/request-dashboard.svg"></MudImage>
+                        <MudDivider FlexItem="true" DividerType="DividerType.Inset" Vertical="true" Style="border-color:#d60a0b;margin:10px 15px;border-width:2px;"></MudDivider>
+                        <div class="dashboard-small-info">
+                            <div class="dashboard-small-info__title">Заявки</div>
+                            <div class="dashboard-small-info__data">58</div>
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+        <DashboardLayoutPanel SizeX=1 SizeY=2 Column=2 Row=1>
+            <HeaderTemplate>Панель соотношения студентов по полу</HeaderTemplate>
+            <ContentTemplate>
+                <MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@_dataChartDonutSex" InputLabels="@_labelsChartDonutSex">
+                    <CustomGraphics>
+                        <text class="donut-inner-text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">5317</text>
+                    </CustomGraphics>
+                </MudChart>
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+        <DashboardLayoutPanel SizeX=1 SizeY=2 Column=3 Row=1>
+            <HeaderTemplate>Панель статусов проект</HeaderTemplate>
+            <ContentTemplate>
+                <MudChart ChartType="ChartType.Pie" InputData="@_dataChartPieStatusProject" InputLabels="@_labelsChartPieStatusProject" Width="300px" Height="300px" />
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+        <DashboardLayoutPanel SizeY=2 SizeX=2 Column=0 Row=2>
+            <HeaderTemplate>Панель соотношения студентов по курсам</HeaderTemplate>
+            <ContentTemplate>
+                <MudChart ChartOptions="@(new ChartOptions(){YAxisTicks=600})" ChartType="ChartType.StackedBar" ChartSeries="@_seriesChartStackedBarNumberCourse" XAxisLabels="@_labelsChartStackedBarNumberCourse" Width="100%" Height="300px"></MudChart>
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+        <DashboardLayoutPanel SizeX=4 SizeY=2 Column=0 Row=4>
+            <HeaderTemplate>Панель мониторинга состояния системы</HeaderTemplate>
+            <ContentTemplate>
+                <MudChart ChartOptions="@(new ChartOptions(){YAxisTicks=10})" ChartType="ChartType.Line"  ChartSeries="@_dataChartLinePerfomanceSystem" XAxisLabels="@_labelChartLinePerfomanceSystem" Width="100%" Height="300px" CanHideSeries />
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+
+    </DashboardLayoutPanels>
+</SfDashboardLayout>
+@code {
+    [CascadingParameter]
+    public LayoutBase? Layout { get; set; }
+
+    private double[] _dataChartDonutSex = { 59,41 };
+    private string[] _labelsChartDonutSex = { "Мужчины", "Женщины" };
+
+    private List<ChartSeries> _seriesChartStackedBarNumberCourse = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "1 курс", Data = GenerateDouble(4) },
+        new ChartSeries() { Name = "2 курс", Data = GenerateDouble(4)},
+        new ChartSeries() { Name = "3 курс", Data = GenerateDouble(4) },
+        new ChartSeries() { Name = "4 курс", Data = GenerateDouble(4) },
+    };
+    private string[] _labelsChartStackedBarNumberCourse = { "1 квартал", "2 квартал", "3 квартал", "4 квартал" };
+
+
+    private double[] _dataChartPieStatusProject = GenerateDouble(8,0,100);
+    private string[] _labelsChartPieStatusProject = { "Новый","Открытый", "Анализ", "Разработка", "Тест", "Развёртывание", "Выполнен", "Отложен" };
+
+    private List<ChartSeries> _dataChartLinePerfomanceSystem = new List<ChartSeries>() { 
+        new ChartSeries() { Name="CPU",Data=GenerateDouble(8,20,100) },
+        new ChartSeries() { Name="GPU",Data=GenerateDouble(8,0,70) },
+    };
+
+    private string[] _labelChartLinePerfomanceSystem = { "40 сек. назад", "35 сек. назад", "30 сек. назад", "25 сек.назад", "20 сек. назад", "15 сек. назад", "10 сек. назад", "5 сек.назад", };
+
+    protected override void OnInitialized()
+    {
+        if (Layout is not null)
+            Layout.Links = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
+                new BreadcrumbItem("Персональная доска", href: "/dashboard", disabled: true),
+            };
+
+    }
+
+    System.Threading.Timer? timer;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        timer = new System.Threading.Timer(SetNewData, new System.Threading.AutoResetEvent(false), 1000, 1000);
+    }
+
+    private async void SetNewData(object? stateInfo)
+    {
+        var listTemp = _dataChartLinePerfomanceSystem[0].Data.ToList();
+        listTemp.RemoveAt(0);
+        listTemp.Add(GenerateDouble(1, 20, 100).First());
+        _dataChartLinePerfomanceSystem[0].Data = listTemp.ToArray();
+
+         listTemp = _dataChartLinePerfomanceSystem[1].Data.ToList();
+        listTemp.RemoveAt(0);
+        listTemp.Add(GenerateDouble(1, 0, 70).First());
+        _dataChartLinePerfomanceSystem[1].Data = listTemp.ToArray();
+        await InvokeAsync(StateHasChanged);
+    }
+    private static double[] GenerateDouble(int count,int min=1000,int max=1500)
+    {
+        var random=new Random();
+        List<double> list=new List<double>();
+
+        for (int i = 0; i < count; i++)
+        {
+            list.Add(random.Next(min, max));
+        }
+        return list.ToArray<double>();
+    }
+
+
+}

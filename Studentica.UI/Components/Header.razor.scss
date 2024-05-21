@@ -39,15 +39,6 @@
         gap: 17px;
         align-items: center;
 
-        &__reader {
-            display: flex;
-            gap: 14px;
-
-            & > img {
-                cursor: pointer;
-            }
-        }
-
         &__writer {
             cursor: pointer;
             display: flex;
