@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Libraries\Studentica.Common\Studentica.Common.csproj" />
+    <ProjectReference Include="..\Studentica.Common\Studentica.Common.csproj" />
   </ItemGroup>
 
 </Project>
