@@ -17,6 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.UI.Common", "Lib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Common", "Libraries\Studentica.Common\Studentica.Common.csproj", "{F204DCBA-14ED-4613-9906-FE0407F8C2F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Project", "Studentica.Project\Studentica.Project.csproj", "{3F9952DF-8E7C-437A-A973-7FE707B78F63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Database.Common", "Studentica.Database.Common\Studentica.Database.Common.csproj", "{D5016ABA-9970-4E01-9478-AA6E8776AA5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Services.Common", "Studentica.Services.Common\Studentica.Services.Common.csproj", "{C8A18696-F13A-4570-BDFA-4B4B323881D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Database.MongoDb", "Studentica.Database.MongoDb\Studentica.Database.MongoDb.csproj", "{926B7F57-828E-4C62-A210-6408BDDE7F47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +55,22 @@ Global
 		{F204DCBA-14ED-4613-9906-FE0407F8C2F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F204DCBA-14ED-4613-9906-FE0407F8C2F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F204DCBA-14ED-4613-9906-FE0407F8C2F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9952DF-8E7C-437A-A973-7FE707B78F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9952DF-8E7C-437A-A973-7FE707B78F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9952DF-8E7C-437A-A973-7FE707B78F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9952DF-8E7C-437A-A973-7FE707B78F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5016ABA-9970-4E01-9478-AA6E8776AA5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5016ABA-9970-4E01-9478-AA6E8776AA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5016ABA-9970-4E01-9478-AA6E8776AA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5016ABA-9970-4E01-9478-AA6E8776AA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A18696-F13A-4570-BDFA-4B4B323881D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A18696-F13A-4570-BDFA-4B4B323881D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8A18696-F13A-4570-BDFA-4B4B323881D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8A18696-F13A-4570-BDFA-4B4B323881D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{926B7F57-828E-4C62-A210-6408BDDE7F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{926B7F57-828E-4C62-A210-6408BDDE7F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{926B7F57-828E-4C62-A210-6408BDDE7F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{926B7F57-828E-4C62-A210-6408BDDE7F47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +79,9 @@ Global
 		{CD36AD74-E53F-44C4-A6EF-104F14CDF44B} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{30B507B2-A21C-40B1-BB12-76BF8C2D4A52} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{F204DCBA-14ED-4613-9906-FE0407F8C2F5} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{D5016ABA-9970-4E01-9478-AA6E8776AA5E} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{C8A18696-F13A-4570-BDFA-4B4B323881D3} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{926B7F57-828E-4C62-A210-6408BDDE7F47} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB9D67EE-821D-4DB2-A734-323193C1CA03}
