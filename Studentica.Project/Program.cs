@@ -19,7 +19,7 @@ namespace Studentica.Project
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            List
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

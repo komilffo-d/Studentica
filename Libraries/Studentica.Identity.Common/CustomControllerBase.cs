@@ -3,11 +3,11 @@ using System.Data;
 
 namespace Studentica.Identity.Common
 {
-    public abstract class CustomControllerBase<T> : ControllerBase
+    public abstract class CustomControllerBase<T> : ControllerBase where T : struct, IParsable<T>
     {
-        protected Guid GetUserId()
+        protected T GetUserId()
         {
-            return Guid.Parse(User.Claims.First(i => i.Type == "UserId").Value);
+            return T.Parse(User.Claims.First(i => i.Type == "UserId").Value, null);
         }
 
         protected IReadOnlyCollection<UserRoles> GetRoles()

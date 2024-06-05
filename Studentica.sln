@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Database.MongoDb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Services.Common", "Libraries\Studentica.Services.Common\Studentica.Services.Common.csproj", "{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Services.Models", "Libraries\Studentica.Services.Models\Studentica.Services.Models.csproj", "{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Common.DTOs", "Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj", "{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,14 @@ Global
 		{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +94,8 @@ Global
 		{B7EC1A2E-218A-4F50-831B-6762BBC95527} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{E76641A4-64BC-4D7A-8BF8-785B4D74D294} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{1C20E95F-DD1A-4073-B74D-8A00A2247FFD} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB9D67EE-821D-4DB2-A734-323193C1CA03}

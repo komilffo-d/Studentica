@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj" />
+    <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
   </ItemGroup>
 
 </Project>
