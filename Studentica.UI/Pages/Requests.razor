@@ -1,5 +1,5 @@
 ﻿@page "/admin/requests"
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Заявки от студентов</PageTitle>
 <SectionContent SectionName="SupstringSection">
