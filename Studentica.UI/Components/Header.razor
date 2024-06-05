@@ -3,10 +3,10 @@
 @inject ISnackbar Snackbar
 @inject TokenServerAuthenticationStateProvider AuthenticationStateProvider
 
-<div class="header">
+<div class="header @(_isOpenList ? "header--open" : null)">
     <div class="header__inner">
         <div class="header-search">
-            <input type="text" class="header-search__field" placeholder="Поиск участников системы..."/>
+            <input type="text" class="header-search__field" placeholder="Поиск участников системы..." @onblur="_ => _isOpenList=false" @onfocus="_ => _isOpenList=true" />
             <img src="/icons/search.svg" alt="Поиск" class="header-search__icon" />
         </div>
         <div class="header-utility">
@@ -28,10 +28,28 @@
                 </MudTooltip>
             </div>
         </div>
+        @if (_isOpenList)
+        {
+            <div class="header-list">
+                <MudPaper>
+                    <MudList Clickable="true" Color="Color.Success">
+                        <MudListItem AdornmentColor="Color.Success">Чадим Вайников</MudListItem>
+                        <MudDivider />
+                        <MudListItem>Даниил Васильев</MudListItem>
+                        <MudDivider />
+                        <MudListItem>Виктория Владимировна</MudListItem>
+                        <MudDivider />
+                        <MudListItem>Босс</MudListItem>
+                    </MudList>
+                </MudPaper>
+            </div>
+        }
+
     </div>
 </div>
 
 @code {
+    private bool _isOpenList = false;
 
     private async Task Logout()
     {
