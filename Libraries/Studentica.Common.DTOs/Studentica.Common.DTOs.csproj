@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Studentica.Common\Studentica.Common.csproj" />
+    <ProjectReference Include="..\Studentica.Services.Models\Studentica.Services.Models.csproj" />
     <ProjectReference Include="..\Studentica.UI.Common\Studentica.UI.Common.csproj" />
   </ItemGroup>
 

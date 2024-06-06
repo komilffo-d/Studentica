@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Libraries\Studentica.Common.DTOs.Requests\Studentica.Common.DTOs.Requests.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj" />
+    <ProjectReference Include="..\Libraries\Studentica.Database.MongoDb\Studentica.Database.MongoDb.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
   </ItemGroup>
 

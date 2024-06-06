@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Database.MongoDb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Services.Common", "Libraries\Studentica.Services.Common\Studentica.Services.Common.csproj", "{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Services.Models", "Libraries\Studentica.Services.Models\Studentica.Services.Models.csproj", "{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Services.Models", "Libraries\Studentica.Services.Models\Studentica.Services.Models.csproj", "{1C20E95F-DD1A-4073-B74D-8A00A2247FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Common.DTOs", "Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj", "{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Common.DTOs", "Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj", "{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Common.DTOs.Requests", "Libraries\Studentica.Common.DTOs.Requests\Studentica.Common.DTOs.Requests.csproj", "{6370BE0E-15CA-446B-8683-5CB856F65348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6370BE0E-15CA-446B-8683-5CB856F65348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6370BE0E-15CA-446B-8683-5CB856F65348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6370BE0E-15CA-446B-8683-5CB856F65348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6370BE0E-15CA-446B-8683-5CB856F65348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
