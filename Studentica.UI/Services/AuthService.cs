@@ -1,5 +1,7 @@
 ﻿using BitzArt.Blazor.Cookies;
 using Microsoft.AspNetCore.Identity.Data;
+using Studentica.Api.Client;
+using Studentica.Api.Client.Models.Tokens;
 using Studentica.Identity.Common.Models;
 using Studentica.UI.Services;
 using System.Net;
@@ -9,14 +11,16 @@ using Cookie = BitzArt.Blazor.Cookies.Cookie;
 public class AuthService
 {
     private readonly HttpClient _httpClient;
+    private readonly IApiClient<Guid> _apiClient;
     private readonly ICookieService _cookieService;
     private const string COOKIE_TOKEN_NAME = "token";
 
 
 
-    public AuthService(IHttpClientFactory httpFactory, ICookieService cookieService)
+    public AuthService(IHttpClientFactory httpFactory, ICookieService cookieService, [FromKeyedServices("ApiClientGuid")] IApiClient<Guid> apiClient)
     {
         _httpClient = httpFactory.CreateClient("Ocelot");
+        _apiClient = apiClient;
         _cookieService = cookieService;
     }
     public async Task<HttpResponseMessage> LoginAsync(LoginModel request)
@@ -55,6 +59,7 @@ public class AuthService
         try
         {
             Cookie? cookie = await _cookieService.GetAsync(COOKIE_TOKEN_NAME);
+            ChangeTokenApi(cookie?.Value);
             return cookie?.Value;
         }
         catch (InvalidOperationException)
@@ -68,6 +73,7 @@ public class AuthService
         try
         {
             await _cookieService.SetAsync(new Cookie(COOKIE_TOKEN_NAME, token));
+            ChangeTokenApi(token);
             return true;
         }
         catch (InvalidOperationException)
@@ -82,6 +88,7 @@ public class AuthService
         try
         {
             await _cookieService.RemoveAsync(COOKIE_TOKEN_NAME);
+            ChangeTokenApi();
             return true;
         }
         catch (InvalidOperationException)
@@ -90,4 +97,10 @@ public class AuthService
         }
 
     }
+
+    private void ChangeTokenApi(string? accessToken = null)
+    {
+        _apiClient.Token.ChangeToken(accessToken ?? "");
+    }
+
 }

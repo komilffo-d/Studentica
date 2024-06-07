@@ -1,8 +1,9 @@
-using Studentica.Common.Interfaces;
 using Studentica.Database.MongoDb.Helpers;
 using Studentica.Database.MongoDb.Models;
 using Studentica.Project.Services;
-using Studentica.Services.Models;
+using Studentica.Identity.Common.Helpers;
+using Studentica.Services.Common;
+using Studentica.Identity.Common;
 
 namespace Studentica.Project
 {
@@ -16,6 +17,11 @@ namespace Studentica.Project
                 .AddMongoRepository<ProjectMongoBase<Guid>, Guid>("Project");
 
             builder.Services.AddScoped<IProjectService<Guid>, ProjectService<Guid>>();
+
+            IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
+
+
+            builder.Services.AddJwtAuthentication();
 
             builder.Services.AddControllers(options => { options.SuppressAsyncSuffixInActionNames = false; })
             .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);

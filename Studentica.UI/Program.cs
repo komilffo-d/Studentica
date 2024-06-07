@@ -30,8 +30,8 @@ namespace Studentica.UI
             }).AddScheme<OutsideJwtAuthenticationSchemeOptions, OutsideJwtAuthenticationHandler>("OutsideJwtAuthenticationScheme", options => { });
 
 
-            builder.Services.AddKeyedSingleton<IApiClient<Guid>, ApiClient<Guid>>("ApiClientGuid",(provider,serviceKey) =>
-                new ApiClient<Guid>(builder.Configuration.GetSettings<ServiceSettings>().GatewayPath));
+            builder.Services.AddKeyedSingleton<IApiClient<Guid>, ApiClient<Guid>>("ApiClientGuid", (provider, serviceKey) =>
+                new ApiClient<Guid>(builder.Configuration.GetSettings<ServiceSettings>().GatewayPath, string.Empty));
 
 
 
