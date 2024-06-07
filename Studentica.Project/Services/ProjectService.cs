@@ -12,7 +12,7 @@ namespace Studentica.Project.Services
 {
     public interface IProjectService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        Task<ProjectDto<T>> Get(T albumId);
+        Task<ProjectDto<T>> Get(T projectId);
         Task<ProjectDto<T>> Create(ProjectCreateRequest request, HttpContext context);
     }
     public class ProjectService<T> : IProjectService<T> where T : struct, IEquatable<T>, IComparable<T>
@@ -23,9 +23,9 @@ namespace Studentica.Project.Services
             _projectRepository = projectRepository;
         }
 
-        public async Task<ProjectDto<T>> Get(T albumId)
+        public async Task<ProjectDto<T>> Get(T projectId)
         {
-            var project=await _projectRepository.GetAsync(albumId) ?? throw new NotFoundException(ExceptionMessages.ProjectNotFound);
+            var project=await _projectRepository.GetAsync(projectId) ?? throw new NotFoundException(ExceptionMessages.ProjectNotFound);
 
             return project.AsDto();
         }
