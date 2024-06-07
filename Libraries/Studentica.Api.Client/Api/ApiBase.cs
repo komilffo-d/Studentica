@@ -12,6 +12,12 @@ namespace Studentica.Api
         {
             request.AddHeader("Authorization", $"Bearer {jwtToken}");
         }
+
+        internal static void ChangeAuthorization(this RestRequest request, string jwtAccessToken)
+        {
+            request.Parameters.RemoveParameter("Authorization");
+            request.AddAuthorization(jwtAccessToken);
+        }
     }
     public abstract class ApiBase<T> where T : struct, IEquatable<T>, IComparable<T>
     {
@@ -68,58 +74,29 @@ namespace Studentica.Api
 
             if (!isUseAuthorization) return request;
 
-            /*            if (Client.Token == null || Client.Token.RefreshToken == "")
-                            throw new NullTokenException();*/
+            if (Client.Token == null)
+                throw new NullTokenException();
 
-            /*            request.AddAuthorization(Client.Token.AccessToken);*/
+            request.AddAuthorization(Client.Token.AccessToken);
 
             return request;
         }
-
-        /*        private static Task<LoginDto>? RefreshTokenTask { get; set; }
-                private static DateTime RefreshingDate { get; set; }
-                private async Task ProcessUnauthorized()
-                {
-                    if (RefreshingDate.AddSeconds(15) > DateTime.Now)
-                    {
-                        return;
-                    }
-
-                    if (RefreshTokenTask != null)
-                    {
-                        RefreshTokenTask?.GetAwaiter().OnCompleted(() =>
-                        {
-                        });
-                        return;
-                    }
-
-                    RefreshTokenTask = Client.RefreshToken();
-                    var token = await RefreshTokenTask;
-                    RefreshingDate = DateTime.Now;
-                    RefreshTokenTask = null;
-                    Client.Token.ChangeToken(token.JwtAccessToken, token.JwtRefreshToken);
-                }*/
 
         protected async Task<RestResponse> ExecuteRequest(RestRequest request, bool isAuthenticationRequest = false)
         {
             var response = await Client.RestClient.ExecuteAsync(request);
             var ex = ProcessResponseStatusCode(response);
-            /*            try
-                        {
-                            if (ex != null)
-                            {
-                                throw ex;
-                            }
-                        }
-                        catch (Status401Exception)
-                        {
-                            if (isAuthenticationRequest)
-                                throw new InvalidAuthorizationDataException();
-
-                            await ProcessUnauthorized();
-                            request.ChangeAuthorization(Client.Token.AccessToken);
-                            response = await Client.RestClient.ExecuteAsync(request);
-                        }*/
+            try
+            {
+                if (ex != null)
+                {
+                    throw ex;
+                }
+            }
+            catch (Exception _)
+            {
+                throw new NotImplementedException();
+            }
             return response;
         }
     }
