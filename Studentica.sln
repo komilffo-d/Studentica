@@ -29,7 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Services.Models"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Common.DTOs", "Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj", "{62EDC466-3958-46B0-AC46-0DFAB3C1DB71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Common.DTOs.Requests", "Libraries\Studentica.Common.DTOs.Requests\Studentica.Common.DTOs.Requests.csproj", "{6370BE0E-15CA-446B-8683-5CB856F65348}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Common.DTOs.Requests", "Libraries\Studentica.Common.DTOs.Requests\Studentica.Common.DTOs.Requests.csproj", "{6370BE0E-15CA-446B-8683-5CB856F65348}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Api.Client", "Libraries\Studentica.Api.Client\Studentica.Api.Client.csproj", "{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Users", "Studentica.Users\Studentica.Users.csproj", "{ACDAF9BA-12F2-49BE-AB02-ADBCFE6DE552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +93,14 @@ Global
 		{6370BE0E-15CA-446B-8683-5CB856F65348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6370BE0E-15CA-446B-8683-5CB856F65348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6370BE0E-15CA-446B-8683-5CB856F65348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACDAF9BA-12F2-49BE-AB02-ADBCFE6DE552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACDAF9BA-12F2-49BE-AB02-ADBCFE6DE552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACDAF9BA-12F2-49BE-AB02-ADBCFE6DE552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACDAF9BA-12F2-49BE-AB02-ADBCFE6DE552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +114,8 @@ Global
 		{827E8B9C-923F-4AE6-BD78-DB4C8AF1472D} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{1C20E95F-DD1A-4073-B74D-8A00A2247FFD} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{62EDC466-3958-46B0-AC46-0DFAB3C1DB71} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{6370BE0E-15CA-446B-8683-5CB856F65348} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
+		{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB9D67EE-821D-4DB2-A734-323193C1CA03}
