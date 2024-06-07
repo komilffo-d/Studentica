@@ -8,7 +8,7 @@ namespace Studentica.Services.Common
         {
             var type = typeof(TSettings).Name;
             return configuration.GetSection(type).Get<TSettings>()
-                   ?? throw new Exception($"'{type}' are not found in 'appSettings.json'!");
+                   ?? throw new Exception($"'{type}' не найден в файле 'appsettings.json'!");
         }
     }
 }
