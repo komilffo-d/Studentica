@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Studentica.Identity.Common;
+using Studentica.Identity.Common.Helpers;
 using Studentica.Identity.Database;
-using Studentica.Identity.Helpers;
+using Studentica.Services.Common;
 
 namespace Studentica.Identity
 {
@@ -30,20 +32,10 @@ namespace Studentica.Identity
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 0;
             })
-            .AddEntityFrameworkStores<AuthContext>()
-            .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<AuthContext>();
 
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = TokenHelper.GetValidationParameters(builder.Configuration);
-            });
+            IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 

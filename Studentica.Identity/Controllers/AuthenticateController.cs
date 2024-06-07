@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Studentica.Identity.Common;
+using Studentica.Identity.Common.Helpers;
 using Studentica.Identity.Common.Models;
-using Studentica.Identity.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 
 namespace Studentica.Identity.Controllers
@@ -15,6 +14,7 @@ namespace Studentica.Identity.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
+
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
@@ -54,12 +54,12 @@ namespace Studentica.Identity.Controllers
 
                 var tokenJWT = new JwtSecurityTokenHandler().WriteToken(token);
 
-                await _userManager.SetAuthenticationTokenAsync(user,"Login","LoginToken", tokenJWT);
+                await _userManager.SetAuthenticationTokenAsync(user, "Login", "LoginToken", tokenJWT);
 
                 return Ok(new ResponseModel
                 {
                     Status = "Успешно",
-                    Message="Предоставлен новый авторизационный токен",
+                    Message = "Предоставлен новый авторизационный токен",
                     Token = tokenJWT,
                     Expiration = token.ValidTo
                 });
@@ -119,9 +119,9 @@ namespace Studentica.Identity.Controllers
         public async Task<IActionResult> Validate([FromQuery] string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = TokenHelper.GetValidationParameters(_configuration);
+            var validationParameters = IdentityHelper.GetValidationParameters();
             TokenValidationResult validationResult = await tokenHandler.ValidateTokenAsync(token, validationParameters);
-            if(!validationResult.IsValid)
+            if (!validationResult.IsValid)
                 return Forbid();
             return Ok(token);
 
@@ -130,7 +130,7 @@ namespace Studentica.Identity.Controllers
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = IdentityHelper.SecurityKey;
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
