@@ -47,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Libraries\Studentica.Api.Client\Studentica.Api.Client.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Common\Studentica.Common.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.UI.Common\Studentica.UI.Common.csproj" />

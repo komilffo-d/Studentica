@@ -1,4 +1,6 @@
 using BitzArt.Blazor.Cookies;
+using Studentica.Api.Client;
+using Studentica.Services.Common;
 using Studentica.UI.Handlers;
 using Studentica.UI.Services;
 using Studentica.UI.Shared.Core;
@@ -28,6 +30,8 @@ namespace Studentica.UI
             }).AddScheme<OutsideJwtAuthenticationSchemeOptions, OutsideJwtAuthenticationHandler>("OutsideJwtAuthenticationScheme", options => { });
 
 
+            builder.Services.AddKeyedSingleton<IApiClient<Guid>, ApiClient<Guid>>("ApiClientGuid",(provider,serviceKey) =>
+                new ApiClient<Guid>(builder.Configuration.GetSettings<ServiceSettings>().GatewayPath));
 
 
 
