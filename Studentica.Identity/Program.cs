@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Studentica.Database.Postgre.Helpers;
 using Studentica.Identity.Common;
 using Studentica.Identity.Common.Helpers;
-using Studentica.Identity.Database;
 using Studentica.Services.Common;
-
+using Studentica.Infrastructure.Database;
+ 
 namespace Studentica.Identity
 {
     public class Program
@@ -14,14 +13,7 @@ namespace Studentica.Identity
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
-            var connectionString = string.Format(builder.Configuration.GetConnectionString("Database")!,
-                builder.Configuration["Database:Name"],
-                builder.Configuration["Database:Login"],
-                builder.Configuration["Database:Password"])
-            ;
-            builder.Services.AddDbContext<AuthContext>(options => options.UseNpgsql(connectionString));
-
+            builder.Services.AddPostgre<AuthContext>();
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = false;
@@ -33,8 +25,8 @@ namespace Studentica.Identity
                 options.Password.RequiredUniqueChars = 0;
             })
             .AddEntityFrameworkStores<AuthContext>();
-
             IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
+
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -59,6 +51,8 @@ namespace Studentica.Identity
 
 
             app.MapControllers();
+
+            app.MigrateDatabase<AuthContext>();
 
             app.Run();
         }

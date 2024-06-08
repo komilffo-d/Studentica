@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Studentica.Identity.Database
+namespace Studentica.Infrastructure.Database
 {
-    public class AuthContext:IdentityDbContext<IdentityUser>
+    public class AuthContext : IdentityDbContext<IdentityUser>
     {
 
         public AuthContext(DbContextOptions<AuthContext> options) : base(options)

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Studentica.Identity.Database;
+using Studentica.Infrastructure.Database;
 
 #nullable disable
 
-namespace Studentica.Identity.Migrations
+namespace Studentica.Infrastructure.Migrations.IdentityMigrations
 {
     [DbContext(typeof(AuthContext))]
     partial class AuthContextModelSnapshot : ModelSnapshot
@@ -17,7 +17,7 @@ namespace Studentica.Identity.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

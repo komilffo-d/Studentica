@@ -5,22 +5,22 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Studentica.Identity.Database;
+using Studentica.Infrastructure.Database;
 
 #nullable disable
 
-namespace Studentica.Identity.Migrations
+namespace Studentica.Infrastructure.Migrations.IdentityMigrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20240510072517_Initial")]
-    partial class Initial
+    [Migration("20240608114159_InitialDatabase")]
+    partial class InitialDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
