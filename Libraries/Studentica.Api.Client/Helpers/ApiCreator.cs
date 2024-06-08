@@ -1,10 +1,6 @@
 ﻿using Studentica.Api.Client;
 using Studentica.Api.Project;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Studentica.Api.Request;
 
 namespace Studentica.Api.Helpers
 {
@@ -12,5 +8,7 @@ namespace Studentica.Api.Helpers
     {
         public static IProjectApi<T> GetDefaultProjectApi<T>(this IApiClient<T> client) where T : struct, IEquatable<T>, IComparable<T> =>
             new ProjectApi<T>(client);
+        public static IRequestApi<T> GetDefaultRequestApi<T>(this IApiClient<T> client) where T : struct, IEquatable<T>, IComparable<T> =>
+            new RequestApi<T>(client);
     }
 }

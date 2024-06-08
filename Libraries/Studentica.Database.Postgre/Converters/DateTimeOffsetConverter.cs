@@ -7,7 +7,7 @@ namespace Studentica.Database.Postgre.Converters
         public DateTimeOffsetConverter()
             : base(
                 d => d.ToUniversalTime(),
-                d => d.ToUniversalTime())
+                d => d.ToLocalTime())
         {
         }
     }

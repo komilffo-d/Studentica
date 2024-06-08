@@ -1,0 +1,121 @@
+﻿<div class="dialog">
+    <MudDialog ClassActions="dialog-actions">
+        <DialogContent>
+            <div class="dialog-content__inner">
+@*                 <EditForm class="auth-form" Model="@sendRequestModel" OnValidSubmit="CreateRequestAsync">
+                    <DataAnnotationsValidator />
+
+                    <div class="custom-form-group">
+                        <InputTextBox @bind-Value="sendRequestModel.LastName" Placeholder="Введите фамилию"></InputTextBox>
+                        <ValidationMessage For="@(() => sendRequestModel.LastName)"></ValidationMessage>
+                    </div>
+                    <div class="custom-form-group">
+
+                        <InputTextBox @bind-Value="sendRequestModel.FirstName" Placeholder="Введите имя"></InputTextBox>
+                        <ValidationMessage For="@(() => sendRequestModel.FirstName)"></ValidationMessage>
+                    </div>
+
+                    <div class="custom-form-group">
+
+                        <InputTextBox @bind-Value="sendRequestModel.MiddleName" Placeholder="Введите отчество"></InputTextBox>
+                        <ValidationMessage For="@(() => sendRequestModel.MiddleName)"></ValidationMessage>
+                    </div>
+
+                    <div class="custom-form-group">
+
+                        <InputTextBox @bind-Value="sendRequestModel.EmailAddress" Placeholder="Введите электронную почту"></InputTextBox>
+                        <ValidationMessage For="@(() => sendRequestModel.EmailAddress)"></ValidationMessage>
+                    </div>
+
+                    <div class="custom-form-group">
+                        <TextareaBox Rows="3" AdditionalAttributes="InputAttributes" @bind-Value="sendRequestModel.NameUniversity" Placeholder="Введите наименование университета"></TextareaBox>
+                        <ValidationMessage For="@(() => sendRequestModel.NameUniversity)"></ValidationMessage>
+                    </div>
+
+                    <div class="custom-form-group">
+
+                        <InputTextBox @bind-Value="sendRequestModel.NumberGroup" Placeholder="Введите группу"></InputTextBox>
+                        <ValidationMessage For="@(() => sendRequestModel.NumberGroup)"></ValidationMessage>
+                    </div>
+
+                    <button class="custom-button custom-button-red" disabled="@IsLoaded" type="submit">
+                        @if (IsLoaded)
+                        {
+                            <div class="loader loader--white"></div>
+                        }
+                        else
+                        {
+                            <span>Отправить</span>
+                        }
+                    </button>
+
+                </EditForm> *@
+            </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color="Color.Default" Variant="Variant.Filled" Disabled="IsLoadedCancel || IsLoadedCreate" OnClick="Close"> Отмена</MudButton>
+            <MudButton Color="Color.Error" Variant="Variant.Filled" OnClick="CancelRequestAsync" Disabled="IsLoadedCancel || IsLoadedCreate">
+                @if (IsLoadedCancel)
+                {
+                    <div class="loader loader--red"></div>
+                }
+                else
+                {
+                    <span>Отклонить заявку</span>
+                }
+                </MudButton>
+            <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="CreateUserASync" Disabled="IsLoadedCreate || IsLoadedCancel">
+                @if (IsLoadedCreate)
+                {
+                    <div class="loader loader--red"></div>
+                }
+                else
+                {
+                    <span>Создать пользователя</span>
+                }
+            </MudButton>
+        </DialogActions>
+    </MudDialog>
+</div>
+
+@code {
+    [CascadingParameter] 
+    MudDialogInstance? MudDialog { get; set; }
+
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
+    [Parameter]
+    public RequestDto<Guid> Instance { get; set; }
+
+
+
+    // private RequestCreateModel sendRequestModel = new RequestCreateModel();
+
+    private bool IsLoadedCancel = false;
+    private bool IsLoadedCreate = false;
+
+    void Close() => MudDialog?.Close(DialogResult.Cancel());
+
+    void OkClose() => MudDialog?.Close(DialogResult.Ok(true));
+
+    public async Task CreateUserASync()
+    {
+        IsLoadedCreate = true;
+
+        OkClose();
+    }
+
+    public async Task CancelRequestAsync()
+    {
+        IsLoadedCancel = true;
+
+        var requestUpdateStatus = new RequestUpdateStatusRequest<Guid>(Instance.Id, StatusRequest.CANCEL);
+
+        await _apiCleint.RequestApi.UpdateStatus(requestUpdateStatus);
+
+        Snackbar.Add("Заявка от потенциального пользователя была отменена!", Severity.Info);
+
+        OkClose();
+    }
+}

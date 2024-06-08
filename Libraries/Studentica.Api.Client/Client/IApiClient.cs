@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using Studentica.Api.Client.Models.Tokens;
 using Studentica.Api.Project;
+using Studentica.Api.Request;
 
 namespace Studentica.Api.Client
 {
@@ -11,8 +12,10 @@ namespace Studentica.Api.Client
 
         IRestClient RestClient { get; }
         IProjectApi<T> ProjectApi { get; }
+        IRequestApi<T> RequestApi { get; }
 
         void SetProjectApi(IProjectApi<T> identityApi);
+        void SetRequestApi(IRequestApi<T> requestApi);
 
     }
 }

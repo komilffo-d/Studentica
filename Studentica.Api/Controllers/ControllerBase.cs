@@ -1,6 +1,6 @@
 ﻿using Studentica.Identity.Common;
 
-namespace Studentica.Project.Controllers
+namespace Studentica.Api.Controllers
 {
     public abstract class ControllerBase : CustomControllerBase<Guid>
     {

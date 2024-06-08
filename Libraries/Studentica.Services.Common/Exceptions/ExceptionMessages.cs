@@ -10,5 +10,7 @@ namespace Studentica.Services.Common.Exceptions
     {
         // NOT FOUND
         public const string ProjectNotFound = "Проект не найден.";
+
+        public const string RequestNotFound = "Запрос от пользователя не найден.";
     }
 }

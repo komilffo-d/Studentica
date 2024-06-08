@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Studentica.Common\Studentica.Common.csproj" />
+  </ItemGroup>
+
 </Project>

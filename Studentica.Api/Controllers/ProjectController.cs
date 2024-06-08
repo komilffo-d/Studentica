@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Studentica.Api.Services;
 using Studentica.Common.DTOs.Project;
 using Studentica.Common.DTOs.Requests.Project;
-using Studentica.Identity.Common;
-using Studentica.Project.Services;
-using System.ComponentModel.DataAnnotations;
 
-namespace Studentica.Project.Controllers
+namespace Studentica.Api.Controllers
 {
     [ApiController]
     [Authorize(Roles = "Student, Teacher")]
@@ -26,7 +24,7 @@ namespace Studentica.Project.Controllers
         }
 
         [HttpGet]
-        public async Task<IReadOnlyCollection<ProjectDto<Guid>>> GetAllAsync([FromQuery]int count = int.MaxValue)
+        public async Task<IReadOnlyCollection<ProjectDto<Guid>>> GetAllAsync([FromQuery] int count = int.MaxValue)
         {
             return await _projectService.GetAllAsync(GetUserId(), count);
         }
@@ -34,7 +32,7 @@ namespace Studentica.Project.Controllers
         [HttpPost]
         public async Task<ActionResult<ProjectDto<Guid>>> PostAsync(ProjectCreateRequest request)
         {
-            var project = await _projectService.Create(GetUserId(),request, HttpContext);
+            var project = await _projectService.Create(GetUserId(), request, HttpContext);
 
             var actionName = nameof(GetByIdAsync);
 

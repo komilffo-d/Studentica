@@ -65,7 +65,54 @@ namespace Studentica.Infrastructure.Migrations.ApiMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Studentica.Database.Postgre.Models.RequestPostgreBase<System.Guid>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameUniversity")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NumberGroup")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("NumberRequest")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NumberRequest"));
+
+                    b.Property<int>("StatusRequest")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Studentica.Database.Postgre.Models.UserPostgreBase<System.Guid>", b =>
@@ -91,7 +138,7 @@ namespace Studentica.Infrastructure.Migrations.ApiMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ProjectPostgreBase<Guid>UserPostgreBase<Guid>", b =>

@@ -1,6 +1,11 @@
 @use 'mixins' as mix;
 
-.request {
+::deep .request {
+    cursor:pointer;
+    transition:background-color 0.2s linear;
+    &:hover{
+        background-color:#EFEFEF;
+    }
     &__title {
         @include mix.montserrat-font(700);
         font-size: 1.6rem;

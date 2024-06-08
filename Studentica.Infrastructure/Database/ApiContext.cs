@@ -11,6 +11,8 @@ namespace Studentica.Infrastructure.Database
 
         public DbSet<UserPostgreBase<Guid>> Users { get; set; }
 
+        public DbSet<RequestPostgreBase<Guid>> Requests { get; set; }
+
         public ApiContext(DbContextOptions options) : base(options)
         {
 

@@ -7,9 +7,8 @@
 </SectionContent>
 <div class="send-request">
 
-
     <div class="send-request__inner">
-        <EditForm class="auth-form" Model="@sendRequestModel" OnValidSubmit="HandleValidSubmit">
+        <EditForm class="auth-form" Model="@sendRequestModel" OnValidSubmit="CreateRequestAsync">
             <DataAnnotationsValidator />
 
             <div class="custom-form-group">
@@ -60,25 +59,34 @@
     </div>
 </div>
 @code{
-    private SendRequestModel sendRequestModel = new SendRequestModel();
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
+    private RequestCreateModel sendRequestModel = new RequestCreateModel();
+
     private bool IsLoaded = false;
-    private bool PopoverOpen = false;
+
     private Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
         {
             { "disabled", "true" },
         };
 
-    private async Task HandleValidSubmit()
+    private async Task CreateRequestAsync(EditContext context)
     {
         IsLoaded = true;
 
-        await Task.Delay(2000);
+        var request = context.Model as RequestCreateModel;
+        if (request is null)
+            return;
+
+        var requestRequest = new RequestCreateRequest(request.LastName,request.FirstName,request.MiddleName,request.EmailAddress,request.NumberGroup,request.NameUniversity);
+
+        await _apiCleint.RequestApi.Create(requestRequest);
 
         Snackbar.Add("Заявка успешно отправлена!", Severity.Success);
         Snackbar.Add("Результат обработки будет отправлен на электронную почту в течении 1 рабочего дня!", Severity.Info);
+
         Navigation.NavigateTo("/authorize/login");
-
-
 
     }
 
@@ -92,5 +100,27 @@
         {
             Navigation.NavigateTo("/");
         }
+    }
+
+    private class RequestCreateModel
+    {
+        [Required(ErrorMessage = "Требуется указать имя!")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать фамилию!")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать отчество!")]
+        public string MiddleName { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать электронную почту!")]
+        [EmailAddress(ErrorMessage = "Электронная почта имеет неверный формат!")]
+        public string EmailAddress { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать номер группы!")]
+        public string NumberGroup { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать наименование университета!")]
+        public string NameUniversity { get; set; } = "Кубанский государственный аграрный университет имени И.Т. Трубилина";
     }
 }

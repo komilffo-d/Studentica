@@ -1,9 +1,10 @@
+using Studentica.Api.Services;
 using Studentica.Database.Postgre.Helpers;
 using Studentica.Identity.Common;
 using Studentica.Identity.Common.Helpers;
 using Studentica.Infrastructure.Database;
 using Studentica.Infrastructure.Database.Repository.Project;
-using Studentica.Project.Services;
+using Studentica.Infrastructure.Database.Repository.Request;
 using Studentica.Services.Common;
 namespace Studentica.Api
 {
@@ -15,7 +16,9 @@ namespace Studentica.Api
 
             builder.Services.AddPostgre<ApiContext>()
                 .AddScoped<IProjectRepository<Guid>, ProjectRepository<Guid>>()
-                .AddScoped<IProjectService<Guid>, ProjectService<Guid>>();
+                .AddScoped<IRequestRepository<Guid>, RequestRepository<Guid>>()
+                .AddScoped<IProjectService<Guid>, ProjectService<Guid>>()
+                .AddScoped<IRequestService<Guid>, RequestService<Guid>>();
 
             IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
 

@@ -6,106 +6,75 @@
     Заявки от студентов КубГАУ
 </SectionContent>
 <div class="request d-flex flex-column gap-y-4">
-    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
-        <div class="d-flex align-center gap-x-2">
-            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
-            <div class="d-flex flex-column gap-y-4">
-                <div class="request__title">
-                    Воеводин Максим Юрьевич
-                </div>
-                <div class="request__data d-flex gap-x-2">
-                    <span>#544563</span>
-                    <span>Подана 10 дней назад</span>
-                </div>
-            </div>
-        </div>
-        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
-            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
-            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+    @if(_requests is null){
+        for(int i=0;i< 10; i++)
+        {
+            <MudPaper Class="d-flex justify-space-between gap-x-2">
+                <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="50px" />
+                <MudSkeleton Width="42px" Height="42px;" SkeletonType="SkeletonType.Circle"/>
+                <MudSkeleton Width="80%" />
+                <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
+            </MudPaper>
+        }
+    }
+    else
+    {
+        foreach(var request in _requests)
+        {
+            <MudPaper Class="d-flex justify-space-between pa-5 request" Width="100%" @onclick="@(earg => ShowDialogAsync(request))">
+                <div class="d-flex align-center gap-x-2">
+                    <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
+                    <div class="d-flex flex-column gap-y-4">
+                        <div class="request__title">
+                            @request.LastName @request.FirstName @request.MiddleName
+                        </div>
+                        <div class="request__data d-flex gap-x-2">
+                            <span class="request__data__number">#@request.NumberRequest.ToString("000000")</span>
+                            <span class="request__data-days">
+                                Подана
 
-        </MudChipSet>
-    </MudPaper>
-    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
-        <div class="d-flex align-center gap-x-2">
-            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
-            <div class="d-flex flex-column gap-y-4">
-                <div class="request__title">
-                    Чайников Вадим Андреевич
-                </div>
-                <div class="request__data d-flex gap-x-2">
-                    <span>#946935</span>
-                    <span>Подана 5 дней назад</span>
-                </div>
-            </div>
-        </div>
-        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
-            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
-            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
 
-        </MudChipSet>
-    </MudPaper>
-    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
-        <div class="d-flex align-center gap-x-2">
-            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
-            <div class="d-flex flex-column gap-y-4">
-                <div class="request__title">
-                    Попков Иван Андреевич
-                </div>
-                <div class="request__data d-flex gap-x-2">
-                    <span>#147642</span>
-                    <span>Подана 2 дня назад</span>
-                </div>
-            </div>
-        </div>
-        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
-            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
-            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+                                @{
+                                    var daysAgo = DateTimeOffset.Now.Subtract(request.CreatedDate).Days;
 
-        </MudChipSet>
-    </MudPaper>
-    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
-        <div class="d-flex align-center gap-x-2">
-            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
-            <div class="d-flex flex-column gap-y-4">
-                <div class="request__title">
-                    Башаров Иван Артёмьевич
-                </div>
-                <div class="request__data d-flex gap-x-2">
-                    <span>#673654</span>
-                    <span>Подана 7 дней назад</span>
-                </div>
-            </div>
-        </div>
-        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
-            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
-            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+                                    string daySubtitle = string.Empty;
+                                    switch(daysAgo % 10)
+                                    {
+                                        case 1:
+                                            daySubtitle="день";
+                                            break;
+                                        case 2:
+                                        case 3:
+                                        case 4:
+                                            daySubtitle = "дня";
+                                            break;
+                                        default:
+                                            daySubtitle = "дней";
+                                            break;
 
-        </MudChipSet>
-    </MudPaper>
-    <MudPaper Class="d-flex justify-space-between pa-5" Width="100%">
-        <div class="d-flex align-center gap-x-2">
-            <MudIcon Size="Size.Large" Icon="@Icons.Material.Outlined.Lightbulb"></MudIcon>
-            <div class="d-flex flex-column gap-y-4">
-                <div class="request__title">
-                    Корепанов Юрий Сергеевич
+                                    }
+                                    <span class="request__data-days__declension">@daysAgo @daySubtitle</span>
+                                    } назад</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="request__data d-flex gap-x-2">
-                    <span>#254764</span>
-                    <span>Подана 1 день назад</span>
-                </div>
-            </div>
-        </div>
-        <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
-            <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
-            <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
-
-        </MudChipSet>
-    </MudPaper>
+                <MudChipSet Class="d-flex flex-column" Filter="true" Mandatory="false">
+                    <MudChip Text="Принять" Color="Color.Success">Принять</MudChip>
+                    <MudChip Text="Отклонить" Color="Color.Error">Отклонить</MudChip>
+                </MudChipSet>
+            </MudPaper>
+        }
+    }
 </div>
 
 @code {
     [CascadingParameter]
     public LayoutBase? Layout { get; set; }
+
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
+    private IReadOnlyCollection<RequestDto<Guid>>? _requests = null;
 
     protected override void OnInitialized()
     {
@@ -116,5 +85,30 @@
                 new BreadcrumbItem("Заявки от студентов", href: "/admin/request", disabled: true),
             };
 
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateRequests();
+    }
+
+    private async Task UpdateRequests()
+    {
+        _requests = await _apiCleint.RequestApi.GetAll();
+    }
+    private async Task ShowDialogAsync(RequestDto<Guid> request)
+    {
+        var options = new DialogOptions { NoHeader = true, CloseOnEscapeKey = false, DisableBackdropClick=true,MaxWidth=MaxWidth.Large,FullWidth=true };
+        var parameters = new DialogParameters<DialogRequest>() { { x => x.Instance, request } };
+
+        IDialogReference dialog = DialogService.Show<DialogRequest>(string.Empty, parameters, options);
+
+        var result=await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await UpdateRequests();
+        }
     }
 }

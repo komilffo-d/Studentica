@@ -1,5 +1,5 @@
-﻿using Studentica.Common.Interfaces;
-using Studentica.UI.Common.Enums;
+﻿using Studentica.Common.Enums;
+using Studentica.Common.Interfaces;
 
 namespace Studentica.Common.DTOs.Project
 {

@@ -12,6 +12,7 @@
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Studentica.Common\Studentica.Common.csproj" />
 	  <ProjectReference Include="..\Studentica.Services.Common\Studentica.Services.Common.csproj" />
 	</ItemGroup>
 </Project>

@@ -50,7 +50,6 @@
     <ProjectReference Include="..\Libraries\Studentica.Api.Client\Studentica.Api.Client.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Common\Studentica.Common.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
-    <ProjectReference Include="..\Libraries\Studentica.UI.Common\Studentica.UI.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -113,6 +112,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Requests.razor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="components\dialogs\DialogRequest.razor.scss" />
   </ItemGroup>
 
 </Project>

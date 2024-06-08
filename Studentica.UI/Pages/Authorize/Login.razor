@@ -1,7 +1,6 @@
 ﻿@page "/authorize/login"
 @inject AuthService AuthService
 
-
 <PageTitle>Страница авторизации</PageTitle>
 <div class="auth-form__owner">
     <EditForm class="custom-form" Model="@loginModel" OnValidSubmit="HandleValidSubmit">
@@ -99,9 +98,9 @@
     private async Task ShowDialogAsync(string message)
     {
         var options = new DialogOptions { NoHeader=true, CloseOnEscapeKey = true };
-        var parameters = new DialogParameters<Dialog>() { { x=>x.Message,message} };
+        var parameters = new DialogParameters<DialogInfo>() { { x=>x.Message,message} };
 
-        IDialogReference dialog=DialogService.Show<Dialog>(string.Empty, parameters, options);
+        IDialogReference dialog = DialogService.Show<DialogInfo>(string.Empty, parameters, options);
 
         await dialog.Result;
     }

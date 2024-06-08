@@ -157,9 +157,7 @@
 
         await _apiCleint.ProjectApi.Create(projectRequest);
 
-        Snackbar.Add("Проект умпешно создан!", Severity.Success);
-
-        IsLoaded = false;
+        Snackbar.Add("Проект уcпешно создан!", Severity.Success);
 
         Navigation.NavigateTo("/project");
     }
