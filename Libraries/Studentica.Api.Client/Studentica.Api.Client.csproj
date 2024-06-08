@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Studentica.Common.DTOs.Requests\Studentica.Common.DTOs.Requests.csproj" />
     <ProjectReference Include="..\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj" />
     <ProjectReference Include="..\Studentica.Services.Common\Studentica.Services.Common.csproj" />
   </ItemGroup>

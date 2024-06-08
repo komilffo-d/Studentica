@@ -1,9 +1,9 @@
 ﻿<div class="project-view">
-    <div class="project-view__inner" @onclick="async() => await OnToDetailPage.InvokeAsync(Id)">
+    <div class="project-view__inner" @onclick="async() => await OnToDetailPage.InvokeAsync(Instance.Id)">
         <div class="project-view-header">
             <div class="project-view-header__inner">
                 <div class="project-view-header__info">
-                    <div class="project-view-header__info__title">Studentica</div>
+                    <div class="project-view-header__info__title">@Instance.Name</div>
                     <div class="project-view-header__info__edit">
                         <MudIcon Icon="@Icons.Material.Outlined.Edit" Size="Size.Large" Color="Color.Default"></MudIcon>
                     </div>
@@ -72,13 +72,13 @@
 @code{
 
     [Parameter]
-    public int Id { get; set; }
+    public ProjectDto<Guid> Instance { get; set; }
 
     [Parameter]
-    public EventCallback<int> OnToDetailPage {get;set;}
+    public EventCallback<Guid> OnToDetailPage {get;set;}
 
     [Parameter]
-    public EventCallback<int> OnEdit { get; set; }
+    public EventCallback<Guid> OnEdit { get; set; }
 
 
 }

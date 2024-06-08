@@ -13,7 +13,7 @@ namespace Studentica.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddPostgre<ApiDbContext>()
+            builder.Services.AddPostgre<ApiContext>()
                 .AddScoped<IProjectRepository<Guid>, ProjectRepository<Guid>>()
                 .AddScoped<IProjectService<Guid>, ProjectService<Guid>>();
 
@@ -44,6 +44,8 @@ namespace Studentica.Api
 
 
             app.MapControllers();
+
+            app.MigrateDatabase<ApiContext>();
 
             app.Run();
         }

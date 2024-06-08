@@ -1,4 +1,5 @@
-﻿using Studentica.Common.DTOs.Converters;
+﻿using Microsoft.EntityFrameworkCore;
+using Studentica.Common.DTOs.Converters;
 using Studentica.Common.DTOs.Project;
 using Studentica.Common.DTOs.Requests.Project;
 using Studentica.Database.Postgre.Models;
@@ -11,7 +12,8 @@ namespace Studentica.Project.Services
     public interface IProjectService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
         Task<ProjectDto<T>> Get(T projectId);
-        Task<ProjectDto<T>> Create(ProjectCreateRequest request, HttpContext context);
+        Task<IReadOnlyCollection<ProjectDto<T>>> GetAllAsync(T userId, int count = int.MaxValue);
+        Task<ProjectDto<T>> Create(T userId, ProjectCreateRequest request, HttpContext context);
     }
     public class ProjectService<T> : IProjectService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
@@ -27,8 +29,16 @@ namespace Studentica.Project.Services
 
             return project.AsDto();
         }
+        public async Task<IReadOnlyCollection<ProjectDto<T>>> GetAllAsync(T userId, int count = int.MaxValue)
+        {
+            var projectsQuery =  _projectRepository
+                .GetAll(p => p.OwnerId.Equals(userId) || p.Members.Any(m => m.Id.Equals(userId)), p => p.Id, 0, count)
+                .Select(p => p.AsDto());
 
-        public async Task<ProjectDto<T>> Create(ProjectCreateRequest request, HttpContext context)
+            return await projectsQuery.ToListAsync();
+        }
+
+        public async Task<ProjectDto<T>> Create(T userId,ProjectCreateRequest request, HttpContext context)
         {
             var project = new ProjectPostgreBase<T>()
             {
@@ -36,6 +46,7 @@ namespace Studentica.Project.Services
                 EndDate = request.EndDate,
                 Name = request.Name,
                 Description = request.Description,
+                OwnerId= userId,
                 Status = StatusProject.NEW,
             };
             await _projectRepository.CreateAsync(project);

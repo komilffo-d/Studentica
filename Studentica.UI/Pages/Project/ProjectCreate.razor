@@ -1,5 +1,6 @@
 ﻿@page "/project/create"
 @attribute [Authorize(Roles = "Student, Teacher")]
+
 <PageTitle>Создание проекта</PageTitle>
 <SectionContent SectionName="SupstringSection">
     Страница создания проекта
@@ -7,40 +8,39 @@
 
 <div class="project-create">
     <div class="project-create__inner">
-        <EditForm class="custom-form" Model="@loginModel">
+        <EditForm class="custom-form" Model="@projectCreateModel" OnValidSubmit="CreateProjectAsync">
             <DataAnnotationsValidator />
             <MudGrid>
-               
                 <MudItem xs="12" sm="6" md="6">
                     <div class="custom-form-group">
                         <MudInputLabel Class="custom-label">Имя проекта</MudInputLabel>
-                        <InputTextBox @bind-Value="loginModel.Username" Placeholder="Введите наименование проекта"></InputTextBox>
-                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                        <InputTextBox @bind-Value="projectCreateModel.Name" Placeholder="Введите наименование проекта"></InputTextBox>
+                        <ValidationMessage For="@(() => projectCreateModel.Name)"></ValidationMessage>
                     </div>
                 </MudItem>
-                <MudItem xs="12" sm="6" md="6">
+@*                 <MudItem xs="12" sm="6" md="6">
                     <div class="custom-form-group">
                         <MudInputLabel Class="custom-label">Тип проекта</MudInputLabel>
                         <InputTextBox @bind-Value="loginModel.Username" Placeholder="Выберите тип проекта"></InputTextBox>
                         <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
                     </div>
-                </MudItem>
+                </MudItem> *@
                 <MudItem xs="12" sm="8">
                     <div class="custom-form-group">
                         <MudInputLabel Class="custom-label">Период выполнения проекта</MudInputLabel>
-                        <MudDateRangePicker Color="Color.Error" PickerVariant="PickerVariant.Dialog" DateFormat="dd MMMM, yyyy" TitleDateFormat="dd MMMM, yyyy" Margin="Margin.Dense" Editable="false" Clearable="false"
+                        <MudDateRangePicker @bind-DateRange="projectCreateModel.DateRange" Color="Color.Error" PickerVariant="PickerVariant.Dialog" DateFormat="dd MMMM, yyyy" TitleDateFormat="dd MMMM, yyyy" Margin="Margin.Dense" Editable="false" Clearable="false"
                                             PlaceholderStart="Дата начала проекта" PlaceholderEnd="Дата окончания проекта" Class="data-range-picker"/>
-                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                        <ValidationMessage For="@(() => projectCreateModel.DateRange)"></ValidationMessage>
                     </div>
                 </MudItem>
                 <MudItem xs="12">
                     <div class="custom-form-group">
                         <MudInputLabel Class="custom-label">Описание проекта</MudInputLabel>
-                        <TextareaBox Rows="5" @bind-Value="loginModel.Username" Placeholder="Введите описание проекта"></TextareaBox>
-                        <ValidationMessage For="@(() => loginModel.Username)"></ValidationMessage>
+                        <TextareaBox Rows="5" @bind-Value="projectCreateModel.Description" Placeholder="Введите описание проекта"></TextareaBox>
+                        <ValidationMessage For="@(() => projectCreateModel.Description)"></ValidationMessage>
                     </div>
                 </MudItem>
-                <MudItem xs="12" lg="6">
+@*                 <MudItem xs="12" lg="6">
                     <div class="custom-form-group">
                         <MudInputLabel Class="custom-label">Участники проекта</MudInputLabel>
                         <MudExpansionPanels>
@@ -96,7 +96,7 @@
                         </MudExpansionPanels>
 
                     </div>
-                </MudItem>
+                </MudItem> *@
                 <MudItem xs="12" Class="d-flex justify-end gap-x-4">
                     <MudPaper Width="20%">
                         <NavLink href="/project">
@@ -125,8 +125,13 @@
 @code{
     [CascadingParameter]
     public LayoutBase? Layout { get; set; }
+
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
     private bool IsLoaded = false;
-    private LoginModel loginModel = new LoginModel();
+
+    private ProjectCreateModel projectCreateModel = new ProjectCreateModel();
 
     protected override void OnInitialized()
     {
@@ -138,5 +143,36 @@
                 new BreadcrumbItem("Создание проекта", href: "/project/create", disabled: true),
             };
 
+    }
+
+    private async Task CreateProjectAsync(EditContext context)
+    {
+        IsLoaded = true;
+
+        var project = context.Model as ProjectCreateModel;
+        if (project is null)
+            return;
+
+        var projectRequest = new ProjectCreateRequest(project.Name, project.DateRange.Start!.Value, project.DateRange.End!.Value, project.Description);
+
+        await _apiCleint.ProjectApi.Create(projectRequest);
+
+        Snackbar.Add("Проект умпешно создан!", Severity.Success);
+
+        IsLoaded = false;
+
+        Navigation.NavigateTo("/project");
+    }
+    
+    public class ProjectCreateModel{
+
+        [Required(ErrorMessage ="Требуется указать наименование проекта")]
+        public string Name { get; set; }
+        
+        [Required(ErrorMessage ="Требуется указать время начала и окончания проекта")]
+        public DateRange DateRange { get; set; } = new DateRange();
+
+        [Required(ErrorMessage = "Требуется указать описание проекта")]
+        public string Description { get; set; }
     }
 }

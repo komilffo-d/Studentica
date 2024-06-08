@@ -131,10 +131,7 @@ namespace Studentica.Identity.Controllers
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = IdentityHelper.SecurityKey;
-
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
                 expires: DateTime.Now.AddDays(7),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

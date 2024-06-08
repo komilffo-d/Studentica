@@ -35,6 +35,7 @@ namespace Studentica.Identity.Common.Helpers
             {
 
                 ValidateIssuerSigningKey = true,
+                ValidateLifetime=true,
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 IssuerSigningKey = SecurityKey

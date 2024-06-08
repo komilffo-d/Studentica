@@ -1,5 +1,7 @@
 ﻿@page "/project"
 @attribute [Authorize(Roles = "Student, Teacher")]
+@attribute [StreamRendering(true)]
+
 <PageTitle>Проекты</PageTitle>
 <SectionContent SectionName="SupstringSection">
     Страница проектов
@@ -7,39 +9,42 @@
 
 <div class="project">
     <div class="project__inner">
-        <ProjectView Id="646425" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
-        <MudCard>
-            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" />
-            <MudCardContent>
-                <MudSkeleton Width="30%" Height="42px;" />
-                <MudSkeleton Width="80%" />
-                <MudSkeleton Width="100%" />
-            </MudCardContent>
-            <MudCardActions Class="d-flex justify-space-between">
-                <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
-                <MudSkeleton Width="105px" Height="40px" Class="ml-3" />
-            </MudCardActions>
-        </MudCard>
-        <ProjectView Id="947423" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
-        <ProjectView Id="245352" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
-        <ProjectView Id="132452" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
-        <MudCard>
-            <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" />
-            <MudCardContent>
-                <MudSkeleton Width="30%" Height="42px;" />
-                <MudSkeleton Width="80%" />
-                <MudSkeleton Width="100%" />
-            </MudCardContent>
-            <MudCardActions Class="d-flex justify-space-between">
-                <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
-                <MudSkeleton Width="105px" Height="40px" Class="ml-3" />
-            </MudCardActions>
-        </MudCard>
+        @if(_projects is null){
+            for(int i = 0; i < 6; i++)
+            {
+                <MudCard>
+                    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" />
+                    <MudCardContent>
+                        <MudSkeleton Width="30%" Height="42px;" />
+                        <MudSkeleton Width="80%" />
+                        <MudSkeleton Width="100%" />
+                    </MudCardContent>
+                    <MudCardActions Class="d-flex justify-space-between">
+                        <MudSkeleton Width="64px" Height="40px" Class="ml-2" />
+                        <MudSkeleton Width="105px" Height="40px" Class="ml-3" />
+                    </MudCardActions>
+                </MudCard>
+            }
+        }
+        else
+        {
+            foreach(var project in _projects)
+            {
+                <ProjectView Instance="project" OnToDetailPage="OnNavigateToDetailPage"></ProjectView>
+            }
+            
+        }
+
     </div>
 </div>
 @code {
     [CascadingParameter]
     public LayoutBase? Layout { get; set; }
+
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
+    private IReadOnlyCollection<ProjectDto<Guid>>? _projects = null;
 
     protected override void OnInitialized()
     {
@@ -52,7 +57,12 @@
 
     }
 
-    public void OnNavigateToDetailPage(int id)
+    protected override async Task OnInitializedAsync()
+    {
+        _projects = await _apiCleint.ProjectApi.GetAll();
+    }
+
+    public void OnNavigateToDetailPage(Guid id)
     {
         Navigation.NavigateTo($"/project/detail/{id}");
     }

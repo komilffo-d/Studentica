@@ -3,11 +3,6 @@ using Studentica.Api.Client.Models.Tokens;
 using Studentica.Api.Exceptions;
 using Studentica.Api.Helpers;
 using Studentica.Api.Project;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Studentica.Api.Client
 {
@@ -30,7 +25,7 @@ namespace Studentica.Api.Client
             Token = new DefaultJwtTokenModel("");
         }
 
-        protected ApiClientBase(string gatewayPath, string accessToken): this(gatewayPath)
+        protected ApiClientBase(string gatewayPath, string accessToken) : this(gatewayPath)
         {
             Token.ChangeToken(accessToken);
         }

@@ -2,13 +2,13 @@
 
 namespace Studentica.Database.Postgre.Models
 {
-    public interface IProjectPostgre<T> : IProjectBase<T> where T : struct, IEquatable<T>, IComparable<T>
+    public interface IProjectPostgreBase<T> : IProjectBase<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        ICollection<T> Members { get; set; }
+        List<UserPostgreBase<T>> Members { get; set; }
     }
 
-    public class ProjectPostgreBase<T> : ProjectBase<T>, IProjectPostgre<T> where T : struct, IEquatable<T>, IComparable<T>
+    public class ProjectPostgreBase<T> : ProjectBase<T>, IProjectPostgreBase<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        public ICollection<T> Members { get; set; } = new List<T>();
+        public List<UserPostgreBase<T>> Members { get; set; } = new();
     }
 }

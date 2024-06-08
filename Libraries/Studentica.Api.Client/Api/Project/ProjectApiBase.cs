@@ -1,6 +1,8 @@
-﻿using Studentica.Api.Client;
+﻿using RestSharp;
+using Studentica.Api.Client;
 using Studentica.Api.Helpers;
 using Studentica.Common.DTOs.Project;
+using Studentica.Common.DTOs.Requests.Project;
 using Studentica.Services.Common;
 
 namespace Studentica.Api.Project
@@ -18,6 +20,21 @@ namespace Studentica.Api.Project
 
             var response = await ExecuteRequest(request);
 
+            return response.Deserialize<ProjectDto<T>>();
+        }
+
+        public async Task<IReadOnlyCollection<ProjectDto<T>>> GetAll(int count = int.MaxValue)
+        {
+            var request = CreateRequest(additional: $"?{nameof(count)}={count}");
+            var response = await ExecuteRequest(request);
+            return response.Deserialize<IReadOnlyCollection<ProjectDto<T>>>();
+
+        }
+        public virtual async Task<ProjectDto<T>> Create(ProjectCreateRequest projectCreateRequest)
+        {
+            var request = CreateRequest(Method.Post);
+            request.AddJsonBody(projectCreateRequest);
+            var response = await ExecuteRequest(request);
             return response.Deserialize<ProjectDto<T>>();
         }
     }

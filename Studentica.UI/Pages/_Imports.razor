@@ -11,6 +11,9 @@
 @using Syncfusion.Blazor.Kanban
 @using Syncfusion.Blazor.Layouts
 @using MudBlazor
+@using Studentica.Api.Client
+@using Studentica.Common.DTOs.Requests.Project
+@using Studentica.Common.DTOs.Project
 @using Studentica.UI.Common.Model
 @using Studentica.UI.Components
 @using Studentica.UI.Components.Project
@@ -20,5 +23,6 @@
 @using Studentica.Identity.Common
 @using Studentica.UI.Shared.Layout
 @inject NavigationManager Navigation
+@inject ISnackbar Snackbar
 @inject IDialogService DialogService
 @layout MainLayout

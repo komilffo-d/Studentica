@@ -9,6 +9,7 @@ namespace Studentica.Services.Models
         StatusProject Status { get; set; }
         DateTime BeginDate { get; set; }
         DateTime EndDate { get; set; }
+        T OwnerId { get; set; }
         string Description { get; set; }
     }
 
@@ -18,6 +19,7 @@ namespace Studentica.Services.Models
         public StatusProject Status { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
+        public T OwnerId { get; set; }
         public string Description { get; set; } = null!;
     }
 }

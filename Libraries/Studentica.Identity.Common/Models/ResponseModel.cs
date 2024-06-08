@@ -7,7 +7,7 @@ namespace Studentica.Identity.Common.Models
         
         public string Token { get; set; }
 
-        public DateTime Expiration { get; set; }
+        public DateTime? Expiration { get; set; }
 
         [Required]
         public string? Status { get; set; }
