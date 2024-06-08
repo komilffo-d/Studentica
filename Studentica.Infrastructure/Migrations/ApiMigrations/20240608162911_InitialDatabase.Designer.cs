@@ -12,7 +12,7 @@ using Studentica.Infrastructure.Database;
 namespace Studentica.Infrastructure.Migrations.ApiMigrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20240608142701_InitialDatabase")]
+    [Migration("20240608162911_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />
@@ -46,14 +46,14 @@ namespace Studentica.Infrastructure.Migrations.ApiMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("BeginDate")
+                    b.Property<DateTimeOffset>("BeginDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTimeOffset>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")

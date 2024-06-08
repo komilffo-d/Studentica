@@ -43,14 +43,14 @@ namespace Studentica.Infrastructure.Migrations.ApiMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("BeginDate")
+                    b.Property<DateTimeOffset>("BeginDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTimeOffset>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -65,7 +65,7 @@ namespace Studentica.Infrastructure.Migrations.ApiMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("Studentica.Database.Postgre.Models.UserPostgreBase<System.Guid>", b =>
@@ -91,7 +91,7 @@ namespace Studentica.Infrastructure.Migrations.ApiMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ProjectPostgreBase<Guid>UserPostgreBase<Guid>", b =>

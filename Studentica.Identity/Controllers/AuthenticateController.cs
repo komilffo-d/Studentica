@@ -132,7 +132,7 @@ namespace Studentica.Identity.Controllers
         {
             var authSigningKey = IdentityHelper.SecurityKey;
             var token = new JwtSecurityToken(
-                expires: DateTime.Now.AddDays(7),
+                expires: DateTimeOffset.Now.AddDays(7).ToLocalTime().DateTime,
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );

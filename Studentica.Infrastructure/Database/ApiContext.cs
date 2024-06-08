@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Studentica.Database.Postgre.Converters;
 using Studentica.Database.Postgre.Models;
 using Studentica.Infrastructure.Database.Configuration;
 
@@ -6,6 +7,10 @@ namespace Studentica.Infrastructure.Database
 {
     public class ApiContext : DbContext
     {
+        public DbSet<ProjectPostgreBase<Guid>> Projects { get; set; }
+
+        public DbSet<UserPostgreBase<Guid>> Users { get; set; }
+
         public ApiContext(DbContextOptions options) : base(options)
         {
 
@@ -18,8 +23,11 @@ namespace Studentica.Infrastructure.Database
             modelBuilder.UseIdentityColumns();
         }
 
-        public DbSet<ProjectPostgreBase<Guid>> Projects { get; set; }
-
-        public DbSet<UserPostgreBase<Guid>> Users { get; set; }
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder
+                .Properties<DateTimeOffset>()
+                .HaveConversion<DateTimeOffsetConverter>();
+        }
     }
 }

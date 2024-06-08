@@ -7,8 +7,8 @@ namespace Studentica.Services.Models
     {
         string Name { get; set; }
         StatusProject Status { get; set; }
-        DateTime BeginDate { get; set; }
-        DateTime EndDate { get; set; }
+        DateTimeOffset BeginDate { get; set; }
+        DateTimeOffset EndDate { get; set; }
         T OwnerId { get; set; }
         string Description { get; set; }
     }
@@ -17,8 +17,8 @@ namespace Studentica.Services.Models
     {
         public string Name { get; set; } = null!;
         public StatusProject Status { get; set; }
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTimeOffset BeginDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
         public T OwnerId { get; set; }
         public string Description { get; set; } = null!;
     }
