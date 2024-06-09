@@ -17,8 +17,8 @@ namespace Studentica.Api.Services
     }
     public class ProjectService<T> : IProjectService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        private readonly IProjectRepository<T> _projectRepository;
-        public ProjectService(IProjectRepository<T> projectRepository)
+        private readonly IidentityRepository<T> _projectRepository;
+        public ProjectService(IidentityRepository<T> projectRepository)
         {
             _projectRepository = projectRepository;
         }

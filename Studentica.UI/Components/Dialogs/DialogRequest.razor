@@ -151,7 +151,8 @@
             MiddleName=Instance.MiddleName,
             Email=Instance.Email,
             Group=Instance.Group,
-            NameUniversity=Instance.NameUniversity
+            NameUniversity=Instance.NameUniversity,
+            RequestId=Instance.Id
         };
         context = new(createUserModel);
 
@@ -159,19 +160,24 @@
 
     public async Task CreateUserAsync()
     {
-        if (context is null)
-            return;
-
-        if (!context.Validate())
-            return;
-
-        var user = context.Model as UserCreateModel;
-        if (user == null)
+        if (context is null || !context.Validate() || context.Model is not UserCreateModel user)
             return;
 
         IsLoadedCreate = true;
 
-        var userRequest = new UserCreateRequest(user.LastName,user.FirstName,user.MiddleName,int.TryParse(user.NumberCourse,out int numberCourse) ? numberCourse : null,user.Group,user.Major,user.NameUniversity, user.Role,user.Email);
+        var userRequest = new UserCreateRequest(
+            user.LastName,
+            user.FirstName,
+            user.MiddleName,
+            int.TryParse(user.NumberCourse,out int numberCourse) ? numberCourse : null,
+            user.Group,
+            user.Major,
+            user.NameUniversity,
+            user.Role,
+            user.Email,
+            user.UserName,
+            user.Password,
+            user.RequestId);
 
         await _apiCleint.UserApi.Create(userRequest);
 
@@ -229,5 +235,8 @@
         [Required(ErrorMessage = "Требуется указать пароль для пользователя")]
         [MinLength(10, ErrorMessage = "Длина пароля должна быть от {1} символов")]
         public string Password { get; set; }
+
+
+        public Guid RequestId { get; init; }
     }
 }

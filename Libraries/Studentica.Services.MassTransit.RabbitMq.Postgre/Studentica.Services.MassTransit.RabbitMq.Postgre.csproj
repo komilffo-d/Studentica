@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Studentica.Infrastructure\Studentica.Infrastructure.csproj" />
+    <ProjectReference Include="..\Studentica.Database.Postgre\Studentica.Database.Postgre.csproj" />
+    <ProjectReference Include="..\Studentica.Services.MassTransit.Contracts\Studentica.Services.MassTransit.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Studentica.Common.DTOs.Converters;
 using Studentica.Common.DTOs.Request;
 using Studentica.Common.DTOs.Requests.Request;
@@ -9,6 +10,7 @@ using Studentica.Database.Postgre.Models;
 using Studentica.Identity.Common;
 using Studentica.Infrastructure.Database.Repository.User;
 using Studentica.Services.Common.Exceptions;
+using Studentica.Services.MassTransit.RabbitMq.Postgre.Publishers;
 using System.Linq.Expressions;
 
 namespace Studentica.Api.Services
@@ -22,9 +24,11 @@ namespace Studentica.Api.Services
     public class UserService<T> : IUserService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
         private readonly IUserRepository<T> _userRepository;
-        public UserService(IUserRepository<T> userRepository)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public UserService(IUserRepository<T> userRepository, IPublishEndpoint publishEndpoint)
         {
             _userRepository = userRepository;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<UserDto<T>> Get(T userId)
@@ -66,6 +70,8 @@ namespace Studentica.Api.Services
                 Email = request.Email,
             };
             await _userRepository.CreateAsync(requestEntity);
+
+            await _publishEndpoint.PublishAlbumCreated(requestEntity, request.UserName, request.Password, request.RequestId);
 
             return requestEntity.AsDto();
         }

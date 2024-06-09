@@ -20,6 +20,8 @@
     <ProjectReference Include="..\Libraries\Studentica.Common.DTOs\Studentica.Common.DTOs.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Database.Common\Studentica.Database.Common.csproj" />
     <ProjectReference Include="..\Libraries\Studentica.Identity.Common\Studentica.Identity.Common.csproj" />
+    <ProjectReference Include="..\Libraries\Studentica.Services.MassTransit.RabbitMq.Postgre\Studentica.Services.MassTransit.RabbitMq.Postgre.csproj" />
+    <ProjectReference Include="..\Libraries\Studentica.Services.MassTransit.RabbitMq\Studentica.Services.MassTransit.RabbitMq.csproj" />
     <ProjectReference Include="..\Studentica.Infrastructure\Studentica.Infrastructure.csproj" />
   </ItemGroup>
 

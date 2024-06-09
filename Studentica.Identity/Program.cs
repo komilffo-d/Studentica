@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Identity;
 using Studentica.Database.Postgre.Helpers;
 using Studentica.Identity.Common;
 using Studentica.Identity.Common.Helpers;
-using Studentica.Services.Common;
 using Studentica.Infrastructure.Database;
- 
+using Studentica.Infrastructure.Database.Repository.Identity;
+using Studentica.Services.Common;
+using Studentica.Services.MassTransit.RabbitMq;
+
 namespace Studentica.Identity
 {
     public class Program
@@ -14,6 +16,8 @@ namespace Studentica.Identity
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddPostgre<AuthContext>();
+
+
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = false;
@@ -25,8 +29,11 @@ namespace Studentica.Identity
                 options.Password.RequiredUniqueChars = 0;
             })
             .AddEntityFrameworkStores<AuthContext>();
+
             IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
 
+            builder.Services.AddScoped<IIdentityRepository, IdentityRepository>()
+                .AddMassTransitWithRabbitMq();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

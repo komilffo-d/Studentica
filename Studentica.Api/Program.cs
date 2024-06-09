@@ -7,6 +7,8 @@ using Studentica.Infrastructure.Database.Repository.Project;
 using Studentica.Infrastructure.Database.Repository.Request;
 using Studentica.Infrastructure.Database.Repository.User;
 using Studentica.Services.Common;
+using Studentica.Services.MassTransit.RabbitMq;
+
 namespace Studentica.Api
 {
     public class Program
@@ -16,12 +18,13 @@ namespace Studentica.Api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddPostgre<ApiContext>()
-                .AddScoped<IProjectRepository<Guid>, ProjectRepository<Guid>>()
+                .AddScoped<IidentityRepository<Guid>, IdentityRepository<Guid>>()
                 .AddScoped<IRequestRepository<Guid>, RequestRepository<Guid>>()
                 .AddScoped<IUserRepository<Guid>, UserRepository<Guid>>()
                 .AddScoped<IProjectService<Guid>, ProjectService<Guid>>()
                 .AddScoped<IRequestService<Guid>, RequestService<Guid>>()
-                .AddScoped<IUserService<Guid>, UserService<Guid>>();
+                .AddScoped<IUserService<Guid>, UserService<Guid>>()
+                .AddMassTransitWithRabbitMq(); 
 
             IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
 

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Studentica.Database.Common.Repository;
 using Studentica.Identity.Common;
 using Studentica.Identity.Common.Helpers;
 using Studentica.Identity.Common.Models;
+using Studentica.Infrastructure.Database.Repository.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -14,118 +16,56 @@ namespace Studentica.Identity.Controllers
     public class AuthenticateController : ControllerBase
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration _configuration;
-
-        public AuthenticateController(
-            UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration)
+        private readonly IIdentityRepository _identityRepository;
+        public AuthenticateController(IIdentityRepository identityRepository)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _configuration = configuration;
+            _identityRepository = identityRepository;
         }
 
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult<ResponseModel>> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username!);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password!))
-            {
-                var userRoles = await _userManager.GetRolesAsync(user);
+            var result=await _identityRepository.Login(model);
 
-                var authClaims = new List<Claim>
+            if(result==null)
+                return Unauthorized(new ResponseModel
                 {
-                    new Claim(ClaimTypes.Name, user.UserName!),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim("UserId", user.Id)
-                };
-
-                foreach (var userRole in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                }
-
-                var token = GetToken(authClaims);
-
-                var tokenJWT = new JwtSecurityTokenHandler().WriteToken(token);
-
-                await _userManager.SetAuthenticationTokenAsync(user, "Login", "LoginToken", tokenJWT);
-
-                return Ok(new ResponseModel
-                {
-                    Status = "Успешно",
-                    Message = "Предоставлен новый авторизационный токен",
-                    Token = tokenJWT,
-                    Expiration = token.ValidTo
+                    Status = "Ошибка",
+                    Message = "Указаны неверные авторизационные данные!",
                 });
-            }
-            return Unauthorized(new ResponseModel
+
+            return Ok(new ResponseModel
             {
-                Status = "Ошибка",
-                Message = "Указаны неверные авторизационные данные!",
+                Status = "Успешно",
+                Message = "Предоставлен новый авторизационный токен",
+                Token = result.Value.Item1,
+                Expiration = result.Value.Item2
             });
+
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<ActionResult<ResponseModel>> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username!);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel { Status = "Ошибка", Message = "Пользователь уже существует!" });
+            var result = await _identityRepository.Register(model);
 
-            IdentityUser user = new()
-            {
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username,
+            if (result.Item1 == false)
+                return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel { Status = "Ошибка", Message = result.Item2 });
 
-            };
-            var result = await _userManager.CreateAsync(user, model.Password!);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel { Status = "Ошибка", Message = "Ошибка создания пользователя! Проверьре данные регистрации!" });
-
-            switch (model.Role)
-            {
-                case UserRoles.Student:
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.Student.ToString()))
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Student.ToString()));
-
-                    if (await _roleManager.RoleExistsAsync(UserRoles.Student.ToString()))
-                        await _userManager.AddToRoleAsync(user, UserRoles.Student.ToString());
-                    break;
-                case UserRoles.Teacher:
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.Teacher.ToString()))
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Teacher.ToString()));
-
-                    if (await _roleManager.RoleExistsAsync(UserRoles.Teacher.ToString()))
-                        await _userManager.AddToRoleAsync(user, UserRoles.Teacher.ToString());
-                    break;
-                case UserRoles.Admin:
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.Admin.ToString()))
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin.ToString()));
-                    if (await _roleManager.RoleExistsAsync(UserRoles.Admin.ToString()))
-                        await _userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
-                    break;
-                default:
-                    break;
-            }
-
-            return StatusCode(StatusCodes.Status200OK, new ResponseModel { Status = "Успешно", Message = "Пользователь успешно зарегестрирован!" });
+            return StatusCode(StatusCodes.Status200OK, new ResponseModel { Status = "Успешно", Message = result.Item2 });
         }
 
         [HttpGet]
         [Route("validate")]
         public async Task<ActionResult<string>> Validate([FromQuery] string token)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var validationParameters = IdentityHelper.GetValidationParameters();
-            TokenValidationResult validationResult = await tokenHandler.ValidateTokenAsync(token, validationParameters);
-            if (!validationResult.IsValid)
+            var result = await _identityRepository.Validate(token);
+
+            if(result == false)
                 return StatusCode(StatusCodes.Status403Forbidden, new ResponseModel { Status = "Ошибка", Message = "Токен не является достоверным!" });
+
             return StatusCode(StatusCodes.Status200OK, new ResponseModel
             {
                 Status = "Успешно",
@@ -135,16 +75,5 @@ namespace Studentica.Identity.Controllers
 
         }
 
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
-        {
-            var authSigningKey = IdentityHelper.SecurityKey;
-            var token = new JwtSecurityToken(
-                expires: DateTimeOffset.Now.AddDays(7).ToLocalTime().DateTime,
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-
-            return token;
-        }
     }
 }
