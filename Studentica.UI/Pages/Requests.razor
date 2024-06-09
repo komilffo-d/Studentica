@@ -97,6 +97,11 @@
     private async Task GetRequestsAsync()
     {
         // Задержка сделана нарочно,чтобы продемонстрировать компонент Skeleton
+        _requests = null;
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
         await Task.Delay(1000);
         _requests = await _apiCleint.RequestApi.GetAll();
     }

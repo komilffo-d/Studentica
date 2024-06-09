@@ -2,11 +2,10 @@
 
 namespace Studentica.Services.MassTransit.Contracts.User
 {
-    public record UserCreated<T>(
-        T Id,
+    public record UserCreated(
         string UserName,
         string Password,
         UserRoles Role,
-        Guid RequestId
-    ) where T : struct, IEquatable<T>, IComparable<T>;
+        Guid RequestId);
 }
+    

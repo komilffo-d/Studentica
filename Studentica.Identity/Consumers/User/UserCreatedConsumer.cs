@@ -8,17 +8,15 @@ using Studentica.Services.MassTransit.RabbitMq.Postgre.Consumers.User;
 
 namespace Studentica.Identity.Consumers.User
 {
-    public class UserCreatedConsumer<TEntity,TType> : UserCreatedConsumerBase<TEntity,TType>
-        where TEntity : IUserPostgreBase<Guid>, new()
-        where TType : struct, IEquatable<TType>, IComparable<TType>
+    public class UserCreatedConsumer : UserCreatedConsumerBase
     {
         private readonly IIdentityRepository _identityRepository;
-        public UserCreatedConsumer(IUserRepository<Guid> userRepository, IIdentityRepository identityRepository) : base(userRepository)
+        public UserCreatedConsumer(IIdentityRepository identityRepository, IUserRepository<Guid>? userRepository = null) : base(userRepository)
         {
             _identityRepository = identityRepository;
         }
 
-        public override async Task Consume(ConsumeContext<UserCreated<TType>> context)
+        public override async Task Consume(ConsumeContext<UserCreated> context)
         {
             await base.Consume(context);
 

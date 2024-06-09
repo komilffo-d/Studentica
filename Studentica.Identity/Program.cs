@@ -4,6 +4,7 @@ using Studentica.Identity.Common;
 using Studentica.Identity.Common.Helpers;
 using Studentica.Infrastructure.Database;
 using Studentica.Infrastructure.Database.Repository.Identity;
+using Studentica.Infrastructure.Database.Repository.User;
 using Studentica.Services.Common;
 using Studentica.Services.MassTransit.RabbitMq;
 
@@ -32,7 +33,8 @@ namespace Studentica.Identity
 
             IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
 
-            builder.Services.AddScoped<IIdentityRepository, IdentityRepository>()
+            builder.Services
+                .AddScoped<IIdentityRepository, IdentityRepository>()
                 .AddMassTransitWithRabbitMq();
 
             builder.Services.AddControllers();

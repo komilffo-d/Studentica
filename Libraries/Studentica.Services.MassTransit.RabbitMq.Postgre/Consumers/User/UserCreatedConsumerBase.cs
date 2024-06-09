@@ -11,18 +11,16 @@ using System.Threading.Tasks;
 
 namespace Studentica.Services.MassTransit.RabbitMq.Postgre.Consumers.User
 {
-    public abstract class UserCreatedConsumerBase<TEntity, TType> : IConsumer<UserCreated<TType>>
-        where TEntity : IUserPostgreBase<Guid>, new()
-        where TType : struct, IEquatable<TType>, IComparable<TType>
+    public abstract class UserCreatedConsumerBase : IConsumer<UserCreated>
     {
-        private readonly IUserRepository<Guid> _repository;
+        private readonly IUserRepository<Guid> _userRepository;
 
-        protected UserCreatedConsumerBase(IUserRepository<Guid> repository)
+        protected UserCreatedConsumerBase(IUserRepository<Guid> userRepository)
         {
-            _repository = repository;
+            _userRepository = userRepository;
         }
 
-        public virtual async Task Consume(ConsumeContext<UserCreated<TType>> context)
+        public virtual async Task Consume(ConsumeContext<UserCreated> context)
         {
             
         }
