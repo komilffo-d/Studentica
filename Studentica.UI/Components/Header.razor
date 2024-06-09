@@ -9,6 +9,22 @@
             <input type="text" class="header-search__field" placeholder="Поиск участников системы..." @onblur="_ => _isOpenList=false" @onfocus="_ => _isOpenList=true" />
             <img src="/icons/search.svg" alt="Поиск" class="header-search__icon" />
         </div>
+        @if (_isOpenList)
+        {
+            <div class="header-list">
+                <MudPaper>
+                    <MudList Clickable="true" Color="Color.Success">
+                        <MudListItem AdornmentColor="Color.Success">Чадим Вайников</MudListItem>
+                        <MudDivider />
+                        <MudListItem>Даниил Васильев</MudListItem>
+                        <MudDivider />
+                        <MudListItem>Виктория Владимировна</MudListItem>
+                        <MudDivider />
+                        <MudListItem>Босс</MudListItem>
+                    </MudList>
+                </MudPaper>
+            </div>
+        }
         <div class="header-utility">
             <span class="vertical-red-line"></span>
             <div class="header-utility__writer" >
@@ -28,23 +44,6 @@
                 </MudTooltip>
             </div>
         </div>
-        @if (_isOpenList)
-        {
-            <div class="header-list">
-                <MudPaper>
-                    <MudList Clickable="true" Color="Color.Success">
-                        <MudListItem AdornmentColor="Color.Success">Чадим Вайников</MudListItem>
-                        <MudDivider />
-                        <MudListItem>Даниил Васильев</MudListItem>
-                        <MudDivider />
-                        <MudListItem>Виктория Владимировна</MudListItem>
-                        <MudDivider />
-                        <MudListItem>Босс</MudListItem>
-                    </MudList>
-                </MudPaper>
-            </div>
-        }
-
     </div>
 </div>
 

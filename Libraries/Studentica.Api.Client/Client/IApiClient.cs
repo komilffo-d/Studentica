@@ -2,6 +2,7 @@
 using Studentica.Api.Client.Models.Tokens;
 using Studentica.Api.Project;
 using Studentica.Api.Request;
+using Studentica.Api.User;
 
 namespace Studentica.Api.Client
 {
@@ -13,9 +14,10 @@ namespace Studentica.Api.Client
         IRestClient RestClient { get; }
         IProjectApi<T> ProjectApi { get; }
         IRequestApi<T> RequestApi { get; }
+        IUserApi<T> UserApi { get; }
 
         void SetProjectApi(IProjectApi<T> identityApi);
         void SetRequestApi(IRequestApi<T> requestApi);
-
+        void SetUserApi(IUserApi<T> userApi);
     }
 }

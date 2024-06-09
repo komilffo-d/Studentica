@@ -1,59 +1,101 @@
 ﻿<div class="dialog">
-    <MudDialog ClassActions="dialog-actions">
+    <MudDialog TitleClass="dialog-title" ClassActions="dialog-actions">
+
         <DialogContent>
             <div class="dialog-content__inner">
-@*                 <EditForm class="auth-form" Model="@sendRequestModel" OnValidSubmit="CreateRequestAsync">
+                <EditForm EditContext="context" class="custom-form">
                     <DataAnnotationsValidator />
-
-                    <div class="custom-form-group">
-                        <InputTextBox @bind-Value="sendRequestModel.LastName" Placeholder="Введите фамилию"></InputTextBox>
-                        <ValidationMessage For="@(() => sendRequestModel.LastName)"></ValidationMessage>
-                    </div>
-                    <div class="custom-form-group">
-
-                        <InputTextBox @bind-Value="sendRequestModel.FirstName" Placeholder="Введите имя"></InputTextBox>
-                        <ValidationMessage For="@(() => sendRequestModel.FirstName)"></ValidationMessage>
-                    </div>
-
-                    <div class="custom-form-group">
-
-                        <InputTextBox @bind-Value="sendRequestModel.MiddleName" Placeholder="Введите отчество"></InputTextBox>
-                        <ValidationMessage For="@(() => sendRequestModel.MiddleName)"></ValidationMessage>
-                    </div>
-
-                    <div class="custom-form-group">
-
-                        <InputTextBox @bind-Value="sendRequestModel.EmailAddress" Placeholder="Введите электронную почту"></InputTextBox>
-                        <ValidationMessage For="@(() => sendRequestModel.EmailAddress)"></ValidationMessage>
-                    </div>
-
-                    <div class="custom-form-group">
-                        <TextareaBox Rows="3" AdditionalAttributes="InputAttributes" @bind-Value="sendRequestModel.NameUniversity" Placeholder="Введите наименование университета"></TextareaBox>
-                        <ValidationMessage For="@(() => sendRequestModel.NameUniversity)"></ValidationMessage>
-                    </div>
-
-                    <div class="custom-form-group">
-
-                        <InputTextBox @bind-Value="sendRequestModel.NumberGroup" Placeholder="Введите группу"></InputTextBox>
-                        <ValidationMessage For="@(() => sendRequestModel.NumberGroup)"></ValidationMessage>
-                    </div>
-
-                    <button class="custom-button custom-button-red" disabled="@IsLoaded" type="submit">
-                        @if (IsLoaded)
-                        {
-                            <div class="loader loader--white"></div>
-                        }
-                        else
-                        {
-                            <span>Отправить</span>
-                        }
-                    </button>
-
-                </EditForm> *@
+                    <MudGrid>
+                        <MudItem xs="12" sm="6" md="4">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Фамилия</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.LastName" Placeholder="Введите фамилию"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.LastName)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="4">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Имя</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.FirstName" Placeholder="Введите имя"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.FirstName)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="4">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Отчество</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.MiddleName" Placeholder="Введите отчество"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.MiddleName)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="4">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Номер курса</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.NumberCourse" Placeholder="Введите номер курса(Необязательно)"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.NumberCourse)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="8">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Группа</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.Group" Placeholder="Введите номер группы(Необязательно)"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.Group)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Университет</MudInputLabel>
+                                <InputTextBox AdditionalAttributes="@(new Dictionary<string, object>(){{ "disabled", "true" }})" @bind-Value="createUserModel.NameUniversity" Placeholder="Введите университет"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.NameUniversity)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Специальность</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.Major" Placeholder="Введите специальность"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.Major)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="4">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Принадлежности по роли</MudInputLabel>
+                                <MudSelect Class="custom-select" @bind-Value="createUserModel.Role" T="UserRoles"  Placeholder="Выберите роль">
+                                    <MudSelectItem Value="UserRoles.Student">Студент</MudSelectItem>
+                                    <MudSelectItem Value="UserRoles.Teacher">Преподаватель</MudSelectItem>
+                                    <MudSelectItem Value="UserRoles.Admin">Администратор</MudSelectItem>
+                                </MudSelect>
+                                <ValidationMessage For="@(() => createUserModel.Role)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="4">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Электронная почта</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.Email" Placeholder="Введите электронную почту"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.Email)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudDivider DividerType="DividerType.FullWidth"></MudDivider>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Логин</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.UserName" Placeholder="Введите логин"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.UserName)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <div class="custom-form-group">
+                                <MudInputLabel Class="custom-label">Пароль</MudInputLabel>
+                                <InputTextBox @bind-Value="createUserModel.Password" Placeholder="Введите пароль"></InputTextBox>
+                                <ValidationMessage For="@(() => createUserModel.Password)"></ValidationMessage>
+                            </div>
+                        </MudItem>
+                    </MudGrid>
+                </EditForm>
             </div>
         </DialogContent>
         <DialogActions>
-            <MudButton Color="Color.Default" Variant="Variant.Filled" Disabled="IsLoadedCancel || IsLoadedCreate" OnClick="Close"> Отмена</MudButton>
+            <MudButton Color="Color.Default" Variant="Variant.Filled"  Disabled="IsLoadedCancel || IsLoadedCreate" OnClick="Close"> Отмена</MudButton>
             <MudButton Color="Color.Error" Variant="Variant.Filled" OnClick="CancelRequestAsync" Disabled="IsLoadedCancel || IsLoadedCreate">
                 @if (IsLoadedCancel)
                 {
@@ -64,7 +106,7 @@
                     <span>Отклонить заявку</span>
                 }
                 </MudButton>
-            <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="CreateUserASync" Disabled="IsLoadedCreate || IsLoadedCancel">
+            <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="CreateUserAsync" Disabled="IsLoadedCreate || IsLoadedCancel">
                 @if (IsLoadedCreate)
                 {
                     <div class="loader loader--red"></div>
@@ -88,9 +130,8 @@
     [Parameter]
     public RequestDto<Guid> Instance { get; set; }
 
-
-
-    // private RequestCreateModel sendRequestModel = new RequestCreateModel();
+    private EditContext? context;
+    private UserCreateModel createUserModel = new();
 
     private bool IsLoadedCancel = false;
     private bool IsLoadedCreate = false;
@@ -99,9 +140,40 @@
 
     void OkClose() => MudDialog?.Close(DialogResult.Ok(true));
 
-    public async Task CreateUserASync()
+    protected override void OnInitialized()
     {
+        createUserModel = new UserCreateModel()
+        {
+            LastName=Instance.LastName,
+            FirstName=Instance.FirstName,
+            MiddleName=Instance.MiddleName,
+            Email=Instance.Email,
+            Group=Instance.Group,
+            NameUniversity=Instance.NameUniversity
+        };
+        context = new(createUserModel);
+
+    }
+
+    public async Task CreateUserAsync()
+    {
+        if (context is null)
+            return;
+
+        if (!context.Validate())
+            return;
+
+        var user = context.Model as UserCreateModel;
+        if (user == null)
+            return;
+
         IsLoadedCreate = true;
+
+        var userRequest = new UserCreateRequest(user.LastName,user.FirstName,user.MiddleName,int.TryParse(user.NumberCourse,out int numberCourse) ? numberCourse : null,user.Group,user.Major,user.NameUniversity, user.Role,user.Email);
+
+        await _apiCleint.UserApi.Create(userRequest);
+
+        Snackbar.Add("Заявка от потенциального пользователя успешно принята!", Severity.Success);
 
         OkClose();
     }
@@ -117,5 +189,44 @@
         Snackbar.Add("Заявка от потенциального пользователя была отменена!", Severity.Info);
 
         OkClose();
+    }
+
+    private class UserCreateModel
+    {
+        [Required(ErrorMessage ="Требуется указать фамилию пользователя")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать имя пользователя")]
+        public string FirstName { get; set; } = null!;
+
+        [Required(ErrorMessage = "Требуется указать отчество пользователя")]
+        public string MiddleName { get; set; } = null!;
+
+        [RegularExpression(@"^\d+$", ErrorMessage ="Номер курса должен состоять только из цифр")]
+        [Range(1, 10,ErrorMessage ="Курс может иметь значение только от 1 до 10")]
+        public string? NumberCourse { get; set; }
+
+        public string? Group { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать специальность пользователя")]
+        public string Major { get; set; } = null!;
+
+        [Required(ErrorMessage = "Требуется указать университет")]
+        public string NameUniversity { get; set; } = null!;
+
+        [Required(ErrorMessage = "Требуется указать электронную почту пользователя")]
+        [EmailAddress(ErrorMessage ="Почта должна иметь правильный формат")]
+        public string Email { get; set; } = null!;
+
+        [Required(ErrorMessage = "Требуется выбрать роль пользователя")]
+        public UserRoles Role { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать логин для пользователя")]
+        [MinLength(8, ErrorMessage = "Длина логина должна быть от {1} символов")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Требуется указать пароль для пользователя")]
+        [MinLength(10, ErrorMessage = "Длина пароля должна быть от {1} символов")]
+        public string Password { get; set; }
     }
 }
