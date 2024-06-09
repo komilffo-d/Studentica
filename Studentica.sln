@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.UI", "Studentica.UI\Studentica.UI.csproj", "{172FAD0E-33D5-49B1-9E83-C403E352019F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Identity", "Studentica.Identity\Studentica.Identity.csproj", "{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Gateway", "Studentica.Gateway\Studentica.Gateway.csproj", "{72DBABA6-CA78-44FD-802F-03B867719792}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{228E84BB-E6EE-46E3-9E50-EE0D2F37E841}"
@@ -33,12 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Api", "Studentic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studentica.Database.Postgre", "Libraries\Studentica.Database.Postgre\Studentica.Database.Postgre.csproj", "{6BBE1EE5-E056-415F-8693-4E02205D2205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Services.MassTransit.RabbitMq", "Libraries\Studentica.Services.MassTransit.RabbitMq\Studentica.Services.MassTransit.RabbitMq.csproj", "{7CC7437B-A063-4E45-9858-FD3EA60CE30F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Services.MassTransit.Contracts", "Libraries\Studentica.Services.MassTransit.Contracts\Studentica.Services.MassTransit.Contracts.csproj", "{91CA955F-DAEE-40B3-8362-864623D8946A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studentica.Services.MassTransit.RabbitMq.Postgre", "Libraries\Studentica.Services.MassTransit.RabbitMq.Postgre\Studentica.Services.MassTransit.RabbitMq.Postgre.csproj", "{790D9E9C-F46E-4F61-B3CD-DECB237AFEC3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +41,6 @@ Global
 		{172FAD0E-33D5-49B1-9E83-C403E352019F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{172FAD0E-33D5-49B1-9E83-C403E352019F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{172FAD0E-33D5-49B1-9E83-C403E352019F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{872D34D7-6685-405C-BB8F-F5B48FD2ADFF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72DBABA6-CA78-44FD-802F-03B867719792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72DBABA6-CA78-44FD-802F-03B867719792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72DBABA6-CA78-44FD-802F-03B867719792}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -101,18 +89,6 @@ Global
 		{6BBE1EE5-E056-415F-8693-4E02205D2205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BBE1EE5-E056-415F-8693-4E02205D2205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BBE1EE5-E056-415F-8693-4E02205D2205}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CC7437B-A063-4E45-9858-FD3EA60CE30F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CC7437B-A063-4E45-9858-FD3EA60CE30F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CC7437B-A063-4E45-9858-FD3EA60CE30F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CC7437B-A063-4E45-9858-FD3EA60CE30F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91CA955F-DAEE-40B3-8362-864623D8946A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91CA955F-DAEE-40B3-8362-864623D8946A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91CA955F-DAEE-40B3-8362-864623D8946A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91CA955F-DAEE-40B3-8362-864623D8946A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{790D9E9C-F46E-4F61-B3CD-DECB237AFEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{790D9E9C-F46E-4F61-B3CD-DECB237AFEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{790D9E9C-F46E-4F61-B3CD-DECB237AFEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{790D9E9C-F46E-4F61-B3CD-DECB237AFEC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,9 +103,6 @@ Global
 		{6370BE0E-15CA-446B-8683-5CB856F65348} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{DB68FDD8-DF01-4074-9FE7-9B63C9C96BBB} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 		{6BBE1EE5-E056-415F-8693-4E02205D2205} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
-		{7CC7437B-A063-4E45-9858-FD3EA60CE30F} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
-		{91CA955F-DAEE-40B3-8362-864623D8946A} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
-		{790D9E9C-F46E-4F61-B3CD-DECB237AFEC3} = {228E84BB-E6EE-46E3-9E50-EE0D2F37E841}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB9D67EE-821D-4DB2-A734-323193C1CA03}

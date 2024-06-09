@@ -1,25 +1,34 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Studentica.Database.Common;
+using Studentica.Common.DTOs.Project;
+using Studentica.Common.DTOs.Requests.Project;
+using Studentica.Common.Enums;
 using Studentica.Database.Postgre.Models;
-using Studentica.Identity.Common;
 using Studentica.Identity.Common.Helpers;
+using Studentica.Identity.Common;
 using Studentica.Identity.Common.Models;
+using Studentica.Infrastructure.Database.Repository.Project;
+using Studentica.Services.Common.Exceptions;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Studentica.Infrastructure.Database.Repository.Identity
+namespace Studentica.Api.Services
 {
 
-    public class IdentityRepository : IIdentityRepository
+    public interface IIdentityService<T> where T : struct, IEquatable<T>, IComparable<T>
+    {
+        Task<(string, DateTime)?> Login(LoginModel model);
+        Task<(bool, string message)> Register(RegisterModel model);
+        Task<bool> Validate(string token);
+    }
+
+    public class IdentityService: IIdentityService<Guid>
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public IdentityRepository(
+        public IdentityService(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
@@ -29,7 +38,7 @@ namespace Studentica.Infrastructure.Database.Repository.Identity
             _configuration = configuration;
         }
 
-        public async Task<(string , DateTime)?> Login(LoginModel model)
+        public async Task<(string, DateTime)?> Login(LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username!);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password!))

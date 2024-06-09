@@ -18,14 +18,17 @@ namespace Studentica.Api.Controllers
 
         [HttpGet("{userId:guid}")]
         [Authorize]
-        public async Task<ActionResult<UserDto<Guid>>> GetByIdAsync(Guid userId)
+        public async Task<ActionResult<UserDto<Guid>>> GetByIdAsync(Guid? userId = null)
         {
-            return await _userService.Get(userId);
+            if (userId == null)
+                return await _userService.GetByIdentityId(GetUserId());
+            return await _userService.GetById(userId.Value);
         }
+
 
         [HttpGet]
         [Authorize]
-        public async Task<IReadOnlyCollection<UserDto<Guid>>> GetAllAsync([FromQuery] int count = int.MaxValue, [FromQuery] string? searchQuery=null)
+        public async Task<IReadOnlyCollection<UserDto<Guid>>> GetAllAsync([FromQuery] int count = int.MaxValue, [FromQuery] string? searchQuery = null)
         {
             return await _userService.GetAllAsync(count, searchQuery);
         }
@@ -34,7 +37,7 @@ namespace Studentica.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDto<Guid>>> PostAsync(UserCreateRequest request)
         {
-            var user = await _userService.Create(request, HttpContext);
+            var user = await _userService.Create(GetUserId(), request, HttpContext);
 
             var actionName = nameof(GetByIdAsync);
 

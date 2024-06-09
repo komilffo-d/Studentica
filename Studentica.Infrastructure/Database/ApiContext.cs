@@ -1,17 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Studentica.Database.Postgre.Converters;
 using Studentica.Database.Postgre.Models;
 using Studentica.Infrastructure.Database.Configuration;
 
 namespace Studentica.Infrastructure.Database
 {
-    public class ApiContext : DbContext
+    public class ApiContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<ProjectPostgreBase<Guid>> Projects { get; set; }
+        public DbSet<ProjectPostgreBase<Guid>> ProjectsData { get; set; }
 
-        public DbSet<UserPostgreBase<Guid>> Users { get; set; }
+        public DbSet<UserPostgreBase<Guid>> UsersData { get; set; }
 
-        public DbSet<RequestPostgreBase<Guid>> Requests { get; set; }
+        public DbSet<RequestPostgreBase<Guid>> RequestsData { get; set; }
 
         public ApiContext(DbContextOptions options) : base(options)
         {

@@ -16,7 +16,7 @@ namespace Studentica.Identity.Consumers.User
             _identityRepository = identityRepository;
         }
 
-        public override async Task Consume(ConsumeContext<UserCreated> context)
+        public override async Task Consume(ConsumeContext<UserCreated<Guid>> context)
         {
             await base.Consume(context);
 

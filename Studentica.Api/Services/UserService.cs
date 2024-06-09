@@ -1,39 +1,39 @@
-﻿using MassTransit;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Studentica.Common.DTOs.Converters;
-using Studentica.Common.DTOs.Request;
-using Studentica.Common.DTOs.Requests.Request;
 using Studentica.Common.DTOs.Requests.User;
 using Studentica.Common.DTOs.User;
-using Studentica.Common.Enums;
 using Studentica.Database.Postgre.Models;
-using Studentica.Identity.Common;
 using Studentica.Infrastructure.Database.Repository.User;
 using Studentica.Services.Common.Exceptions;
-using Studentica.Services.MassTransit.RabbitMq.Postgre.Publishers;
 using System.Linq.Expressions;
 
 namespace Studentica.Api.Services
 {
     public interface IUserService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        Task<UserDto<T>> Get(T userId);
+        Task<UserDto<T>> GetById(T userId);
+        Task<UserDto<T>> GetByIdentityId(T identityId);
         Task<IReadOnlyCollection<UserDto<T>>> GetAllAsync(int count = int.MaxValue, string? searchQuery = null);
-        Task<UserDto<T>> Create(UserCreateRequest request, HttpContext context);
+        Task<UserDto<T>> Create(T identityId, UserCreateRequest request, HttpContext context);
     }
     public class UserService<T> : IUserService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
         private readonly IUserRepository<T> _userRepository;
-        private readonly IPublishEndpoint _publishEndpoint;
-        public UserService(IUserRepository<T> userRepository, IPublishEndpoint publishEndpoint)
+
+        public UserService(IUserRepository<T> userRepository)
         {
             _userRepository = userRepository;
-            _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<UserDto<T>> Get(T userId)
+        public async Task<UserDto<T>> GetById(T userId)
         {
             var user = await _userRepository.GetAsync(userId) ?? throw new NotFoundException(ExceptionMessages.RequestNotFound);
+
+            return user.AsDto();
+        }
+        public async Task<UserDto<T>> GetByIdentityId(T identityId)
+        {
+            var user = await _userRepository.GetAsync(u => u.IdentityId.Equals(identityId)) ?? throw new NotFoundException(ExceptionMessages.RequestNotFound);
 
             return user.AsDto();
         }
@@ -52,26 +52,26 @@ namespace Studentica.Api.Services
             return await usersQuery.ToListAsync();
         }
 
-        public async Task<UserDto<T>> Create(UserCreateRequest request, HttpContext context)
+        public async Task<UserDto<T>> Create(T identityId, UserCreateRequest request, HttpContext context)
         {
             var requestEntity = new UserPostgreBase<T>()
             {
                 LastName = request.LastName,
                 FirstName = request.FirstName,
                 MiddleName = request.MiddleName,
-                NumberCourse= request.NumberCourse,
-                Group=request.Group,
-                Major=request.Major,
-                NameUniversity=request.NameUniversity,
-                CreatedDate=DateTimeOffset.Now,
+                NumberCourse = request.NumberCourse,
+                Group = request.Group,
+                Major = request.Major,
+                NameUniversity = request.NameUniversity,
+                CreatedDate = DateTimeOffset.Now,
                 UpdatedDate = DateTimeOffset.Now,
-                IsActive=true,
-                Role= request.Role,
+                IsActive = true,
+                Role = request.Role,
+                IdentityId = identityId,
                 Email = request.Email,
             };
             await _userRepository.CreateAsync(requestEntity);
 
-            await _publishEndpoint.PublishAlbumCreated(requestEntity, request.UserName, request.Password, request.RequestId);
 
             return requestEntity.AsDto();
         }

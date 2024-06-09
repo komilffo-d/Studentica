@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Studentica.Services.MassTransit.RabbitMq.Postgre.Consumers.User
 {
-    public abstract class UserCreatedConsumerBase : IConsumer<UserCreated>
+    public abstract class UserCreatedConsumerBase : IConsumer<UserCreated<Guid>>
     {
         private readonly IUserRepository<Guid> _userRepository;
 
@@ -20,7 +20,7 @@ namespace Studentica.Services.MassTransit.RabbitMq.Postgre.Consumers.User
             _userRepository = userRepository;
         }
 
-        public virtual async Task Consume(ConsumeContext<UserCreated> context)
+        public virtual async Task Consume(ConsumeContext<UserCreated<Guid>> context)
         {
             
         }

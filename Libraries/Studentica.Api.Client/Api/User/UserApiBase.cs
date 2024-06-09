@@ -14,9 +14,9 @@ namespace Studentica.Api.User
 
         }
 
-        public virtual async Task<UserDto<T>> Get(T userId)
+        public virtual async Task<UserDto<T>> Get(T? userId = null)
         {
-            var request = CreateRequest(additional: $"{userId}");
+            var request = CreateRequest(additional: $"{(userId == null ? string.Empty : $"{userId}")}");
 
             var response = await ExecuteRequest(request);
 

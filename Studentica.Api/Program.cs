@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Studentica.Api.Services;
 using Studentica.Database.Postgre.Helpers;
 using Studentica.Identity.Common;
@@ -7,7 +8,6 @@ using Studentica.Infrastructure.Database.Repository.Project;
 using Studentica.Infrastructure.Database.Repository.Request;
 using Studentica.Infrastructure.Database.Repository.User;
 using Studentica.Services.Common;
-using Studentica.Services.MassTransit.RabbitMq;
 
 namespace Studentica.Api
 {
@@ -18,13 +18,24 @@ namespace Studentica.Api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddPostgre<ApiContext>()
-                .AddScoped<IidentityRepository<Guid>, IdentityRepository<Guid>>()
+                .AddScoped<IProjectRepository<Guid>, ProjectRepository<Guid>>()
                 .AddScoped<IRequestRepository<Guid>, RequestRepository<Guid>>()
                 .AddScoped<IUserRepository<Guid>, UserRepository<Guid>>()
                 .AddScoped<IProjectService<Guid>, ProjectService<Guid>>()
                 .AddScoped<IRequestService<Guid>, RequestService<Guid>>()
                 .AddScoped<IUserService<Guid>, UserService<Guid>>()
-                .AddMassTransitWithRabbitMq(); 
+                .AddScoped<IIdentityService<Guid>, IdentityService>();
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 0;
+            }).AddEntityFrameworkStores<ApiContext>();
 
             IdentityHelper.SetKey(builder.Configuration.GetSettings<IdentitySettings>().Key);
 
