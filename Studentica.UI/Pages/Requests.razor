@@ -91,10 +91,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await UpdateRequests();
+        await GetRequestsAsync();
     }
 
-    private async Task UpdateRequests()
+    private async Task GetRequestsAsync()
     {
         // Задержка сделана нарочно,чтобы продемонстрировать компонент Skeleton
         await Task.Delay(1000);
@@ -111,7 +111,7 @@
 
         if (!result.Canceled)
         {
-            await UpdateRequests();
+            await GetRequestsAsync();
         }
     }
 }

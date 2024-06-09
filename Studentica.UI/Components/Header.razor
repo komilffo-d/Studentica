@@ -6,22 +6,26 @@
 <div class="header @(_isOpenList ? "header--open" : null)">
     <div class="header__inner">
         <div class="header-search">
-            <input type="text" class="header-search__field" placeholder="Поиск участников системы..." @onblur="_ => _isOpenList=false" @onfocus="_ => _isOpenList=true" />
+            <input type="text" class="header-search__field" placeholder="Поиск участников системы..." @onblur="_ => _isOpenList=false" @onfocus="_ => _isOpenList=true" @oninput="GetRequestsAsync" />
             <img src="/icons/search.svg" alt="Поиск" class="header-search__icon" />
         </div>
         @if (_isOpenList)
         {
             <div class="header-list">
                 <MudPaper>
-                    <MudList Clickable="true" Color="Color.Success">
-                        <MudListItem AdornmentColor="Color.Success">Чадим Вайников</MudListItem>
-                        <MudDivider />
-                        <MudListItem>Даниил Васильев</MudListItem>
-                        <MudDivider />
-                        <MudListItem>Виктория Владимировна</MudListItem>
-                        <MudDivider />
-                        <MudListItem>Босс</MudListItem>
-                    </MudList>
+                    @if(_users==null){
+
+                    }
+                    else
+                    {
+                        <MudList Clickable="true" Color="Color.Success">
+                            @foreach(var user in _users){
+                                <MudListItem AdornmentColor="Color.Success">@user.LastName @user.FirstName @user.MiddleName</MudListItem>
+                                <MudDivider />
+                            }
+                        </MudList>
+                    }
+
                 </MudPaper>
             </div>
         }
@@ -48,7 +52,22 @@
 </div>
 
 @code {
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
+    private IReadOnlyCollection<UserDto<Guid>>? _users = null;
     private bool _isOpenList = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetRequestsAsync();
+    }
+
+    private async Task GetRequestsAsync()
+    {
+        var usersTemp = await _apiCleint.UserApi.GetAll();
+        _users = usersTemp.Where(u => u.Role != UserRoles.Admin).ToList();
+    }
 
     private async Task Logout()
     {

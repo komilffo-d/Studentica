@@ -1,4 +1,5 @@
 ﻿using Studentica.Api.Client;
+using Studentica.Api.Identity;
 using Studentica.Api.Project;
 using Studentica.Api.Request;
 using Studentica.Api.User;
@@ -13,5 +14,8 @@ namespace Studentica.Api.Helpers
             new RequestApi<T>(client);
         public static IUserApi<T> GetDefaultUserApi<T>(this IApiClient<T> client) where T : struct, IEquatable<T>, IComparable<T> =>
             new UserApi<T>(client);
+        public static IIdentityApi<T> GetDefaultIdentityApi<T>(this IApiClient<T> client) where T : struct, IEquatable<T>, IComparable<T> =>
+            new IdentityApi<T>(client);
+
     }
 }

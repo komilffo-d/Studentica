@@ -2,6 +2,7 @@
 using Studentica.Api.Client.Models.Tokens;
 using Studentica.Api.Exceptions;
 using Studentica.Api.Helpers;
+using Studentica.Api.Identity;
 using Studentica.Api.Project;
 using Studentica.Api.Request;
 using Studentica.Api.User;
@@ -16,6 +17,7 @@ namespace Studentica.Api.Client
         public IProjectApi<T> ProjectApi { get; protected set; }
         public IRequestApi<T> RequestApi { get; protected set; }
         public IUserApi<T> UserApi { get; protected set; }
+        public IIdentityApi<T> IdentityApi { get; protected set; }
 
         private ApiClientBase(string gatewayPath)
         {
@@ -25,6 +27,7 @@ namespace Studentica.Api.Client
             ProjectApi = this.GetDefaultProjectApi<T>();
             RequestApi = this.GetDefaultRequestApi<T>();
             UserApi = this.GetDefaultUserApi<T>();
+            IdentityApi = this.GetDefaultIdentityApi<T>();
             RestClient = new RestClient(path);
 
             Token = new DefaultJwtTokenModel("");
@@ -48,6 +51,11 @@ namespace Studentica.Api.Client
         public void SetUserApi(IUserApi<T> userApi)
         {
             UserApi = userApi;
+        }
+
+        public void SetIdentityApi(IIdentityApi<T> identityApi)
+        {
+            IdentityApi = identityApi;
         }
     }
 }

@@ -29,10 +29,6 @@ namespace Studentica.UI.Services
 
             services.AddScoped<TokenServerAuthenticationStateProvider>();
             services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<TokenServerAuthenticationStateProvider>());
-            services.AddHttpClient("Ocelot", options =>
-            {
-                options.BaseAddress = new Uri("https://localhost:8000");
-            });
 
             return services;
         }

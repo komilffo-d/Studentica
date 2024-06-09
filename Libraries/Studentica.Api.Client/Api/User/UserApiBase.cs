@@ -7,9 +7,9 @@ using Studentica.Services.Common;
 
 namespace Studentica.Api.User
 {
-    public abstract class UserApiBase<T> : ApiBase<T>, IUserApi<T> where T : struct, IEquatable<T>, IComparable<T>
+    public abstract class IdentityApiBase<T> : ApiBase<T>, IUserApi<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        protected UserApiBase(IApiClient<T> client) : base(client, ServiceNames.Users)
+        protected IdentityApiBase(IApiClient<T> client) : base(client, ServiceNames.Users)
         {
 
         }

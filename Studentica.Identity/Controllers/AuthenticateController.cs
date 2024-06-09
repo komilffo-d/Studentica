@@ -6,11 +6,10 @@ using Studentica.Identity.Common.Helpers;
 using Studentica.Identity.Common.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace Studentica.Identity.Controllers
 {
-    [Route("api/authenticate")]
+    [Route("api/identity")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
@@ -31,7 +30,7 @@ namespace Studentica.Identity.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<ActionResult<ResponseModel>> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username!);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password!))
@@ -64,12 +63,16 @@ namespace Studentica.Identity.Controllers
                     Expiration = token.ValidTo
                 });
             }
-            return Unauthorized();
+            return Unauthorized(new ResponseModel
+            {
+                Status = "Ошибка",
+                Message = "Указаны неверные авторизационные данные!",
+            });
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> RegisterStudent([FromBody] RegisterModel model)
+        public async Task<ActionResult<ResponseModel>> Register([FromBody] RegisterModel model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username!);
             if (userExists != null)
@@ -111,20 +114,24 @@ namespace Studentica.Identity.Controllers
                     break;
             }
 
-            return Ok(new ResponseModel { Status = "Успешно!", Message = "Пользователь успешно зарегестрирован!" });
+            return StatusCode(StatusCodes.Status200OK, new ResponseModel { Status = "Успешно", Message = "Пользователь успешно зарегестрирован!" });
         }
 
         [HttpGet]
         [Route("validate")]
-        public async Task<IActionResult> Validate([FromQuery] string token)
+        public async Task<ActionResult<string>> Validate([FromQuery] string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var validationParameters = IdentityHelper.GetValidationParameters();
             TokenValidationResult validationResult = await tokenHandler.ValidateTokenAsync(token, validationParameters);
             if (!validationResult.IsValid)
-                return Forbid();
-            return Ok(token);
-
+                return StatusCode(StatusCodes.Status403Forbidden, new ResponseModel { Status = "Ошибка", Message = "Токен не является достоверным!" });
+            return StatusCode(StatusCodes.Status200OK, new ResponseModel
+            {
+                Status = "Успешно",
+                Message = "Токен прошёл валидацию!",
+                Token = token,
+            });
 
         }
 

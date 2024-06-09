@@ -95,8 +95,10 @@
             </div>
         </DialogContent>
         <DialogActions>
-            <MudButton Color="Color.Default" Variant="Variant.Filled"  Disabled="IsLoadedCancel || IsLoadedCreate" OnClick="Close"> Отмена</MudButton>
-            <MudButton Color="Color.Error" Variant="Variant.Filled" OnClick="CancelRequestAsync" Disabled="IsLoadedCancel || IsLoadedCreate">
+            <button class="custom-button custom-button-white" type="button" @onclick="Close" disabled="@(IsLoadedCancel || IsLoadedCreate)">
+                <span>Отмена</span>
+            </button>
+            <button class="custom-button custom-button-red" type="button" @onclick="CancelRequestAsync" disabled="@(IsLoadedCancel || IsLoadedCreate)">
                 @if (IsLoadedCancel)
                 {
                     <div class="loader loader--red"></div>
@@ -105,8 +107,8 @@
                 {
                     <span>Отклонить заявку</span>
                 }
-                </MudButton>
-            <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="CreateUserAsync" Disabled="IsLoadedCreate || IsLoadedCancel">
+            </button>
+            <button class="custom-button custom-button-green" type="button" @onclick="CreateUserAsync" disabled="@(IsLoadedCancel || IsLoadedCreate)">
                 @if (IsLoadedCreate)
                 {
                     <div class="loader loader--red"></div>
@@ -115,7 +117,7 @@
                 {
                     <span>Создать пользователя</span>
                 }
-            </MudButton>
+            </button>
         </DialogActions>
     </MudDialog>
 </div>
@@ -202,8 +204,7 @@
         [Required(ErrorMessage = "Требуется указать отчество пользователя")]
         public string MiddleName { get; set; } = null!;
 
-        [RegularExpression(@"^\d+$", ErrorMessage ="Номер курса должен состоять только из цифр")]
-        [Range(1, 10,ErrorMessage ="Курс может иметь значение только от 1 до 10")]
+        [RegularExpression(@"^[1-6]$", ErrorMessage ="Номер курса должен состоять только из цифр и быть в промежутке от 1 до 6")]
         public string? NumberCourse { get; set; }
 
         public string? Group { get; set; }

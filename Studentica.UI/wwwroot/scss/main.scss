@@ -98,9 +98,14 @@ input {
             color: #FFFFFF;
         }
 
-        .custom-button-white {
+        &.custom-button-white {
             background: #FFFFFF;
             color: #D60A0B;
+        }
+
+        &.custom-button-green {
+            background: #218640;
+            color: #FFFFFF;
         }
 
         &.custom-button-thin {
@@ -222,7 +227,6 @@ input {
             opacity: 0.4;
             background-color: #dddddd;
         }
-        
     }
 }
 
