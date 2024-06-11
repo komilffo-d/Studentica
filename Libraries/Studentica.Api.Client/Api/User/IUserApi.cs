@@ -5,7 +5,9 @@ namespace Studentica.Api.User
 {
     public interface IUserApi<T> where T : struct, IEquatable<T>, IComparable<T>
     {
-        Task<UserDto<T>> Get(T? userId=null);
+        Task<UserDto<T>> Get(T userId);
+
+        Task<UserDto<T>> GetCurrent();
 
         Task<IReadOnlyCollection<UserDto<T>>> GetAll(int count = int.MaxValue, string? searchQuery = null);
 

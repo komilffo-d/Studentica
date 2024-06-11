@@ -8,13 +8,14 @@
 </SectionContent>
 <div class="account">
     <div class="account__inner">
-        <div class="account-avatar">
-            <MudAvatar Style="height:364px; width:364px;">
-                <MudImage Src="/images/avatar.jpg"></MudImage>
-            </MudAvatar>
-        </div>
+
         @if (_account != null)
         {
+            <div class="account-avatar">
+                <MudAvatar Style="height:364px; width:364px;">
+                    <MudImage Src="/images/logo-student.png" Alt="Логотип пользователя"></MudImage>
+                </MudAvatar>
+            </div>
             <div class="account-info">
                 <div class="account-info-primary">
                     <div class="account-info-primary__name">@_account.LastName @_account.FirstName @_account.MiddleName</div>
@@ -32,7 +33,16 @@
                             </tr>
                             <tr class="account-info-secondary__table-row">
                                 <td class="account-info-secondary__table-row__cell">Группа:</td>
-                                <td class="account-info-secondary__table-row__cell">@_account.Group</td>
+                                <td class="account-info-secondary__table-row__cell">
+                                    @if(_account.Group==null || _account.Group=="")
+                                    {
+                                        <span>-</span>
+                                    }
+                                    else
+                                    {
+                                        @_account.Group
+                                    }
+                                   </td>
                             </tr>
                             <tr class="account-info-secondary__table-row">
                                 <td class="account-info-secondary__table-row__cell">Специальность:</td>
@@ -44,7 +54,16 @@
                             </tr>
                             <tr class="account-info-secondary__table-row">
                                 <td class="account-info-secondary__table-row__cell">Номер курса:</td>
-                                <td class="account-info-secondary__table-row__cell">@_account.NumberCourse</td>
+                                <td class="account-info-secondary__table-row__cell">
+                                    @if (_account.NumberCourse == null)
+                                    {
+                                        <span>-</span>
+                                    }
+                                    else
+                                    {
+                                        @_account.NumberCourse
+                                    }
+                                </td>
                             </tr>
                             <tr class="account-info-secondary__table-row">
                                 <td class="account-info-secondary__table-row__cell">Принадлежность по роли в системе:</td>
@@ -72,18 +91,21 @@
                 </div>
             </div>
         }
+        else
+        {
+            <div class="loader loader--red"></div>
+        }
+
 
     </div>
 </div>
 
 @code {
-    [CascadingParameter]
+    [CascadingParameter(Name ="MainLayout")]
     public LayoutBase? Layout { get; set; }
 
-    [Inject(Key = "ApiClientGuid")]
-    private IApiClient<Guid> _apiCleint { get; init; } = null!;
-
-    private UserDto<Guid>? _account = null!;
+    [CascadingParameter(Name = "Account")]
+    private UserDto<Guid> _account { get; set; } = null!;
 
     protected override void OnInitialized()
     {
@@ -95,12 +117,4 @@
             };
 
     }
-
-    protected override async Task OnInitializedAsync()
-    {
-        _account=await _apiCleint.UserApi.Get();
-        await InvokeAsync(StateHasChanged);
-    }
-
-
 }

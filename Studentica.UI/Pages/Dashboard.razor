@@ -85,7 +85,7 @@
     </DashboardLayoutPanels>
 </SfDashboardLayout>
 @code {
-    [CascadingParameter]
+    [CascadingParameter(Name = "MainLayout")]
     public LayoutBase? Layout { get; set; }
 
     private double[] _dataChartDonutSex = { 59,41 };

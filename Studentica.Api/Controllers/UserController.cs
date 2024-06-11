@@ -18,13 +18,18 @@ namespace Studentica.Api.Controllers
 
         [HttpGet("{userId:guid}")]
         [Authorize]
-        public async Task<ActionResult<UserDto<Guid>>> GetByIdAsync(Guid? userId = null)
+        public async Task<ActionResult<UserDto<Guid>>> GetByIdAsync(Guid userId)
         {
-            if (userId == null)
-                return await _userService.GetByIdentityId(GetUserId());
-            return await _userService.GetById(userId.Value);
+            return await _userService.GetById(userId);
         }
 
+        [Route("current")]
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto<Guid>>> GetByIdentityIdAsync()
+        {
+            return await _userService.GetByIdentityId(GetUserId());
+        }
 
         [HttpGet]
         [Authorize]

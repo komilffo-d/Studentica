@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Studentica.Api.Services;
 using Studentica.Identity.Common.Models;
 
@@ -40,15 +41,16 @@ namespace Studentica.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         [Route("register")]
         public async Task<ActionResult<ResponseModel>> Register([FromBody] RegisterModel model)
         {
             var result = await _identityService.Register(model);
 
-            if (result.Item1 == false)
-                return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel { Status = "Ошибка", Message = result.Item2 });
+            if (result.Item2 == false)
+                return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel { Status = "Ошибка", Message = result.Item3 });
 
-            return StatusCode(StatusCodes.Status200OK, new ResponseModel { Status = "Успешно", Message = result.Item2 });
+            return StatusCode(StatusCodes.Status200OK, new ResponseModel { Status = "Успешно", Message = result.Item3 });
         }
 
         [HttpGet]

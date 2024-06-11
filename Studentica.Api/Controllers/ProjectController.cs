@@ -30,7 +30,7 @@ namespace Studentica.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProjectDto<Guid>>> PostAsync(ProjectCreateRequest request)
+        public async Task<ActionResult<ProjectDto<Guid>>> PostAsync(ProjectCreateRequest<Guid> request)
         {
             var project = await _projectService.Create(GetUserId(), request, HttpContext);
 

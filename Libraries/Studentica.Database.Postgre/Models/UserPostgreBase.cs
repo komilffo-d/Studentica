@@ -8,7 +8,7 @@ namespace Studentica.Database.Postgre.Models
         List<ProjectPostgreBase<T>> Projects { get; set; }
         DateTimeOffset CreatedDate { get; set; }
         DateTimeOffset UpdatedDate { get; set; }
-        T IdentityId { get; set; }
+        string IdentityId { get; set; }
         bool IsActive { get; set; }
     }
 
@@ -17,7 +17,7 @@ namespace Studentica.Database.Postgre.Models
         public List<ProjectPostgreBase<T>> Projects { get; set; } = new();
         public DateTimeOffset CreatedDate { get; set; }
         public DateTimeOffset UpdatedDate { get; set; }
-        public T IdentityId { get; set; }
+        public string IdentityId { get; set; }
         public bool IsActive { get; set; }
     }
 }

@@ -22,17 +22,24 @@
                 <Breadcrumbs Items="Links"/>
             </div>
 
-            <CascadingValue Value="this">
-                @Body
+            <CascadingValue Value="_account" Name="Account">
+                <CascadingValue Value="this" Name="MainLayout">
+                    @Body
+                </CascadingValue>
             </CascadingValue>
+
         </div>
     </main>
 </div>
 <ReconnectDialog></ReconnectDialog>
 @code
 {
+    [Inject(Key = "ApiClientGuid")]
+    private IApiClient<Guid> _apiCleint { get; init; } = null!;
+
     private string _classMainContent = "main-content main-content--shift";
-    private Dictionary<string,object> _attributeNavBar = new() { {"class", "navbar navbar--opened"} };
+    private Dictionary<string, object> _attributeNavBar = new() { { "class", "navbar navbar--opened" } };
+    private UserDto<Guid>? _account = null!;
 
     private void ToggleNavbar(bool isOpen)
     {
@@ -50,6 +57,10 @@
         
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        _account = await _apiCleint.UserApi.GetCurrent();
+    }
 
     internal override List<BreadcrumbItem> Links { 
         get => _links; 

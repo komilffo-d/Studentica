@@ -9,6 +9,6 @@ namespace Studentica.Api.Project
 
         Task<IReadOnlyCollection<ProjectDto<T>>> GetAll(int count = int.MaxValue);
 
-        Task<ProjectDto<T>> Create(ProjectCreateRequest projectCreateRequest);
+        Task<ProjectDto<T>> Create(ProjectCreateRequest<T> projectCreateRequest);
     }
 }

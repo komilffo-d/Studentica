@@ -2,7 +2,10 @@
 using Studentica.Common.DTOs.Converters;
 using Studentica.Common.DTOs.Requests.User;
 using Studentica.Common.DTOs.User;
+using Studentica.Common.Enums;
 using Studentica.Database.Postgre.Models;
+using Studentica.Identity.Common.Models;
+using Studentica.Infrastructure.Database.Repository.Request;
 using Studentica.Infrastructure.Database.Repository.User;
 using Studentica.Services.Common.Exceptions;
 using System.Linq.Expressions;
@@ -19,10 +22,14 @@ namespace Studentica.Api.Services
     public class UserService<T> : IUserService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
         private readonly IUserRepository<T> _userRepository;
+        private readonly IIdentityService<Guid> _identityService;
+        private readonly IRequestRepository<Guid> _requestRepository;
 
-        public UserService(IUserRepository<T> userRepository)
+        public UserService(IUserRepository<T> userRepository, IIdentityService<Guid> identityService, IRequestRepository<Guid> requestRepository)
         {
             _userRepository = userRepository;
+            _identityService = identityService;
+            _requestRepository = requestRepository;
         }
 
         public async Task<UserDto<T>> GetById(T userId)
@@ -33,7 +40,7 @@ namespace Studentica.Api.Services
         }
         public async Task<UserDto<T>> GetByIdentityId(T identityId)
         {
-            var user = await _userRepository.GetAsync(u => u.IdentityId.Equals(identityId)) ?? throw new NotFoundException(ExceptionMessages.RequestNotFound);
+            var user = await _userRepository.GetAsync(u => u.IdentityId.Equals(identityId.ToString())) ?? throw new NotFoundException(ExceptionMessages.RequestNotFound);
 
             return user.AsDto();
         }
@@ -54,7 +61,9 @@ namespace Studentica.Api.Services
 
         public async Task<UserDto<T>> Create(T identityId, UserCreateRequest request, HttpContext context)
         {
-            var requestEntity = new UserPostgreBase<T>()
+            var identityTuple= await _identityService.Register(new RegisterModel() { Username = request.UserName, Password = request.Password, Role = request.Role });
+
+            var userEntity = new UserPostgreBase<T>()
             {
                 LastName = request.LastName,
                 FirstName = request.FirstName,
@@ -67,13 +76,21 @@ namespace Studentica.Api.Services
                 UpdatedDate = DateTimeOffset.Now,
                 IsActive = true,
                 Role = request.Role,
-                IdentityId = identityId,
+                IdentityId = identityTuple.Item1!.Id,
                 Email = request.Email,
             };
-            await _userRepository.CreateAsync(requestEntity);
 
+            await _userRepository.CreateAsync(userEntity);
 
-            return requestEntity.AsDto();
+            var requestEntity = await _requestRepository.GetAsync(request.RequestId);
+            
+            if (requestEntity!= null)
+            {
+                requestEntity.StatusRequest = StatusRequest.ACCEPTED;
+                await _requestRepository.UpdateAsync(request.RequestId, requestEntity);
+            }
+                
+            return userEntity.AsDto();
         }
     }
 }

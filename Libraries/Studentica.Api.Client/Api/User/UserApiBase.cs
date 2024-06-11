@@ -14,16 +14,25 @@ namespace Studentica.Api.User
 
         }
 
-        public virtual async Task<UserDto<T>> Get(T? userId = null)
+        public virtual async Task<UserDto<T>> Get(T userId )
         {
-            var request = CreateRequest(additional: $"{(userId == null ? string.Empty : $"{userId}")}");
+            var request = CreateRequest(additional:  $"{userId}");
 
             var response = await ExecuteRequest(request);
 
             return response.Deserialize<UserDto<T>>();
         }
 
-        public async Task<IReadOnlyCollection<UserDto<T>>> GetAll(int count = int.MaxValue, string? searchQuery = null)
+        public virtual async Task<UserDto<T>> GetCurrent()
+        {
+            var request = CreateRequest(additional: $"current");
+
+            var response = await ExecuteRequest(request);
+
+            return response.Deserialize<UserDto<T>>();
+        }
+
+        public virtual async Task<IReadOnlyCollection<UserDto<T>>> GetAll(int count = int.MaxValue, string? searchQuery = null)
         {
             var request = CreateRequest(additional: $"?{nameof(count)}={count}{(searchQuery == null ? "" : $"&{nameof(searchQuery)}={searchQuery}")}");
             var response = await ExecuteRequest(request);
@@ -37,6 +46,7 @@ namespace Studentica.Api.User
             var response = await ExecuteRequest(request);
             return response.Deserialize<UserDto<T>>();
         }
+
 
     }
 }

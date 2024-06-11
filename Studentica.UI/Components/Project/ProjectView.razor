@@ -15,8 +15,7 @@
         </div>
         <div class="project-view-body">
             <div class="project-view-body__inner">
-                Мы вынуждены отталкиваться от того, что глубокий уровень погружения предопределяет высокую востребованность переосмысления внешнеэкономических политик. Господа, синтетическое тестирование однозначно определяет каждого участника как способного принимать собственные решения касаемо первоочередных требований. Господа, новая модель организационной деятельности требует от нас анализа соответствующих условий активизации.
-                Мы вынуждены отталкиваться от того, что глубокий уровень погружения предопределяет высокую востребованность переосмысления внешнеэкономических политик. Господа, синтетическое тестирование однозначно определяет каждого участника как способного принимать собственные решения касаемо первоочередных требований. Господа, новая модель организационной деятельности требует от нас анализа соответствующих условий активизации.
+                @Instance.Description
             </div>
         </div>
         <div class="project-view-footer">
@@ -26,35 +25,21 @@
                         <MudIcon Icon="@Icons.Material.Rounded.HourglassBottom" Color="Color.Error"></MudIcon>
                     </div>
                     <div class="project-view-footer__info-time__value">
-                        05 Апреля 2025
+                        @Instance.EndDate.ToString("d MMMM yyyy")
                     </div>
                 </div>
                 <div class="project-view-footer__info-avatars">
-                    <MudAvatarGroup Max="4" Spacing="3" MaxColor="Color.Error">
-                        <MudAvatar Color="Color.Info" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
+
+                    <MudAvatarGroup Max="5" Spacing="3" MaxColor="Color.Success">
+                        <MudAvatar Color="RandomColorAvatar()" Variant="Variant.Filled">
+                            @_account.FirstName.FirstOrDefault()
                         </MudAvatar>
-                        <MudAvatar Color="Color.Error" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
-                        <MudAvatar Color="Color.Surface" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
-                        <MudAvatar Color="Color.Dark" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
-                        <MudAvatar Color="Color.Success" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
-                        <MudAvatar Color="Color.Tertiary" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
-                        <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
-                        <MudAvatar Color="Color.Default" Variant="Variant.Filled">
-                            <MudIcon Color="Color.Secondary" Icon="@Icons.Material.Filled.Favorite" Size="Size.Large" />
-                        </MudAvatar>
+                        @foreach (var member in Instance?.Members)
+                        {
+                            <MudAvatar Color="RandomColorAvatar()" Variant="Variant.Filled">
+                                @member.FirstName.FirstOrDefault()
+                            </MudAvatar>
+                        }
                     </MudAvatarGroup>
                 </div>
             </div>
@@ -74,11 +59,23 @@
     [Parameter]
     public ProjectDto<Guid> Instance { get; set; }
 
+    [CascadingParameter(Name = "Account")]
+    private UserDto<Guid> _account { get; set; } = null!;
+
     [Parameter]
     public EventCallback<Guid> OnToDetailPage {get;set;}
 
     [Parameter]
     public EventCallback<Guid> OnEdit { get; set; }
 
+    private Color RandomColorAvatar()
+    {
+        int min = Enum.GetValues(typeof(Color)).Cast<int>().Min();
+        int max = Enum.GetValues(typeof(Color)).Cast<int>().Max();
+        Random random=new Random();
+        var colorAvatar=(Color)random.Next(min, max);
+        return colorAvatar;
+    }
+  
 
 }

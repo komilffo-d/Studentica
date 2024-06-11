@@ -38,7 +38,7 @@
     </div>
 </div>
 @code {
-    [CascadingParameter]
+    [CascadingParameter(Name = "MainLayout")]
     public LayoutBase? Layout { get; set; }
 
     [Inject(Key = "ApiClientGuid")]

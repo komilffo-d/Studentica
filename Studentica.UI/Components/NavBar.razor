@@ -25,9 +25,6 @@
 
 
             <AuthorizeView Roles="@string.Format("{0},{1}",@UserRoles.Student.ToString(),@UserRoles.Teacher.ToString())">
-                <MudNavLink Href="/kanban" Class="navbar__item" Icon="@Icons.Material.Sharp.ViewKanban" IconColor="Color.Inherit">
-                    Kanban Доска
-                </MudNavLink>
                 <MudNavGroup Title="Проекты" Class="navbar__group" Icon="@Icons.Material.Sharp.Cases" IconColor="Color.Inherit">
                     <MudNavLink Href="/project" Class="navbar__item" Icon="@Icons.Material.Filled.ViewList" Color="Color.Inherit" IconColor="Color.Inherit">
                         Список
@@ -36,9 +33,6 @@
                         Создать проект
                     </MudNavLink>
                 </MudNavGroup>
-                <MudNavLink Href="/friends" Class="navbar__item" Icon="@Icons.Material.Filled.EmojiPeople" IconColor="Color.Inherit">
-                    Друзья
-                </MudNavLink>
             </AuthorizeView>
 
             <MudNavLink Href="/account" Class="navbar__item" Icon="@Icons.Material.Filled.AccountBox" IconColor="Color.Inherit">

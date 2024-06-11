@@ -30,7 +30,7 @@ namespace Studentica.Api.Project
             return response.Deserialize<IReadOnlyCollection<ProjectDto<T>>>();
 
         }
-        public virtual async Task<ProjectDto<T>> Create(ProjectCreateRequest projectCreateRequest)
+        public virtual async Task<ProjectDto<T>> Create(ProjectCreateRequest<T> projectCreateRequest)
         {
             var request = CreateRequest(Method.Post);
             request.AddJsonBody(projectCreateRequest);

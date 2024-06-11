@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Studentica.Infrastructure.Database;
@@ -11,9 +12,11 @@ using Studentica.Infrastructure.Database;
 namespace Studentica.Infrastructure.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240611194947_AddExplicitThirdEntityForRelationProjectXUser")]
+    partial class AddExplicitThirdEntityForRelationProjectXUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +233,7 @@ namespace Studentica.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Projects_XRef_Users", (string)null);
+                    b.ToTable("Projects_XRef_Users");
                 });
 
             modelBuilder.Entity("Studentica.Database.Postgre.Models.ProjectPostgreBase<System.Guid>", b =>
@@ -261,7 +264,7 @@ namespace Studentica.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectsData", (string)null);
+                    b.ToTable("ProjectsData");
                 });
 
             modelBuilder.Entity("Studentica.Database.Postgre.Models.RequestPostgreBase<System.Guid>", b =>
@@ -308,7 +311,7 @@ namespace Studentica.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequestsData", (string)null);
+                    b.ToTable("RequestsData");
                 });
 
             modelBuilder.Entity("Studentica.Database.Postgre.Models.UserPostgreBase<System.Guid>", b =>
@@ -365,7 +368,7 @@ namespace Studentica.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsersData", (string)null);
+                    b.ToTable("UsersData");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

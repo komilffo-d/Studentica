@@ -18,7 +18,7 @@ namespace Studentica.Api.Services
     public interface IIdentityService<T> where T : struct, IEquatable<T>, IComparable<T>
     {
         Task<(string, DateTime)?> Login(LoginModel model);
-        Task<(bool, string message)> Register(RegisterModel model);
+        Task<(IdentityUser?, bool, string message)> Register(RegisterModel model);
         Task<bool> Validate(string token);
     }
 
@@ -68,11 +68,11 @@ namespace Studentica.Api.Services
             return null;
         }
 
-        public async Task<(bool, string message)> Register(RegisterModel model)
+        public async Task<(IdentityUser?,bool, string message)> Register(RegisterModel model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username!);
             if (userExists != null)
-                return (false, "Пользователь уже существует!");
+                return (null, false, "Пользователь уже существует!");
 
             IdentityUser user = new()
             {
@@ -82,7 +82,7 @@ namespace Studentica.Api.Services
             };
             var result = await _userManager.CreateAsync(user, model.Password!);
             if (!result.Succeeded)
-                return (false, "Ошибка создания пользователя! Проверьре данные регистрации!");
+                return (null,false, "Ошибка создания пользователя! Проверьре данные регистрации!");
 
             switch (model.Role)
             {
@@ -110,7 +110,7 @@ namespace Studentica.Api.Services
                     break;
             }
 
-            return (true, "Пользователь успешно зарегестрирован!");
+            return (user, true, "Пользователь успешно зарегестрирован!");
         }
 
         public async Task<bool> Validate(string token)
