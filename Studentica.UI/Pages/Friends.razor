@@ -1,0 +1,83 @@
+﻿@page "/friends"
+@attribute [Authorize(Roles = "Student, Teacher")]
+<PageTitle>Друзья</PageTitle>
+<SectionContent SectionName="SupstringSection">
+    Друзья
+</SectionContent>
+
+<MudTabs Elevation="2" Rounded="true" Centered="true" Color="@Color.Success">
+    <MudTabPanel Text="Ваши друзья">
+        <MudDataGrid Items="@Elements">
+            <Columns>
+                <PropertyColumn Property="x => x.Name" Title="Имя" />
+                <PropertyColumn Property="x => x.Surname" Title="Фамилия" />
+                <PropertyColumn Property="x => x.MiddleName" Title="Отчество" />
+                <PropertyColumn Property="x => x.TypeParty" Title="Статус" />
+            </Columns>
+        </MudDataGrid>
+    </MudTabPanel>
+    <MudTabPanel Text="Текущие заявки" BadgeDot="true" BadgeColor="Color.Success">
+    </MudTabPanel>
+    <MudTabPanel Text="Отклонённые заявки">
+    </MudTabPanel>
+</MudTabs>
+
+
+
+@code {
+    [CascadingParameter(Name = "MainLayout")]
+    public LayoutBase? Layout { get; set; }
+
+    private IEnumerable<Element> Elements = new List<Element>()
+    {
+        new Element()
+        {
+            Name="Максим",
+            Surname="Воеводин",
+            MiddleName="Юрьевич",
+            TypeParty="Студент"
+        },
+        new Element()
+        {
+            Name="Чайников",
+            Surname="Вадим",
+            MiddleName="Андреевич",
+            TypeParty="Студент"
+        },
+        new Element()
+        {
+            Name="Виктория",
+            Surname="Салий",
+            MiddleName="Владимировна",
+            TypeParty="Преподаватель"
+        },
+        new Element()
+        {
+            Name="Иван",
+            Surname="Попков",
+            MiddleName="Артёмьевич",
+            TypeParty="Студент"
+        }
+
+    };
+
+    private class Element
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string MiddleName { get; set; }
+        public string TypeParty { get; set; }
+    }
+    protected override void OnInitialized()
+    {
+        if (Layout is not null)
+            Layout.Links = new List<BreadcrumbItem>
+            {
+                new BreadcrumbItem("Домашняя страница", href: "/", disabled: false),
+                new BreadcrumbItem("Друзья", href: "/friends", disabled: true),
+            };
+
+    }
+
+
+}
