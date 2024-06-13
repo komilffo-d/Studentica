@@ -118,4 +118,8 @@
     <UpToDateCheckInput Remove="components\dialogs\DialogRequest.razor.scss" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="pages\project\ProjectDetail.razor.scss" />
+  </ItemGroup>
+
 </Project>

@@ -301,7 +301,13 @@ a {
         margin:10px 0;
     }
 }
-
+.e {
+    &-cloned {
+        &-card {
+            animation: tiltShaking 0.3s infinite;
+        }
+    }
+}
 @keyframes rotation {
     0% {
         transform: rotate(0deg);
@@ -320,5 +326,26 @@ a {
     100% {
         transform: rotate(-360deg);
     }
-} 
+}
 
+@keyframes tiltShaking {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(0eg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}

@@ -1,0 +1,123 @@
+@use 'mixins' as mix;
+
+.card {
+    background: #FFFF00c2;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+
+    &-form {
+        @include mix.montserrat-font(400);
+
+        ::deep &__field {
+            input {
+                font-size: 1.4rem;
+            }
+        }
+
+        &-group {
+            margin-bottom:10px;
+            &:last-child{
+                margin-bottom:0px;
+            }
+            &-inline {
+                display: flex;
+                column-gap: 40px;
+                align-items: center;
+            }
+        }
+    }
+
+    &__inner {
+        padding: 20px;
+    }
+
+    &-spring {
+        background-image: url("/images/spring.png");
+        background-size: contain;
+        height: 20px;
+        background-repeat: repeat-x;
+        margin: 5px 10px 0;
+    }
+
+    &-header {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+
+        &__icon {
+            line-height: 0;
+        }
+
+        &__title {
+            @include mix.montserrat-font(700);
+            font-size: 1.2rem;
+        }
+    }
+
+    &-body {
+        &__desc {
+            @include mix.montserrat-font(500);
+            line-height: 1.5;
+            font-size: 1rem;
+            padding: 10px 0;
+        }
+
+        &-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-time {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            @include mix.montserrat-font(500);
+            font-size: 0.9rem;
+
+            &__start {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                gap: 7px;
+
+                &__icon {
+                    line-height: 0;
+                }
+
+                &__value {
+                }
+            }
+
+            &__end {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                justify-content: flex-end;
+                gap: 7px;
+
+                &__icon {
+                    line-height: 0;
+                }
+
+                &__value {
+                }
+            }
+        }
+    }
+
+    &-footer {
+        &-tag {
+            background: black;
+            border-radius: 30px;
+            padding: 0 20px;
+
+            &s {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+        }
+    }
+}

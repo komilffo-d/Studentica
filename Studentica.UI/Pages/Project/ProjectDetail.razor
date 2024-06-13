@@ -1,21 +1,153 @@
 ﻿@page "/project/detail/{id:guid}"
+@using System.ComponentModel
+@using System.Runtime.CompilerServices
 @attribute [Authorize(Roles = "Student, Teacher")]
 <PageTitle>Страница проекта</PageTitle>
 <SectionContent SectionName="SupstringSection">
     Детальная страница проектов
 </SectionContent>
 
-<SfKanban TValue="TasksModel" KeyField="Status" DataSource="Tasks">
-    <KanbanColumns>
-        <KanbanColumn HeaderText="Очередь" KeyField="@(new List<string>() {"Open"})"></KanbanColumn>
-        <KanbanColumn HeaderText="В процессе" KeyField="@(new List<string>() {"InProgress"})"></KanbanColumn>
-        <KanbanColumn HeaderText="Тестирование" KeyField="@(new List<string>() {"Testing"})"></KanbanColumn>
-        <KanbanColumn HeaderText="Выполнено" KeyField="@(new List<string>() {"Close"})"></KanbanColumn>
+<SfKanban TValue="TasksModel"  KeyField="Status" DataSource="Tasks" >
+    <KanbanColumns >
+        <KanbanColumn AllowToggle="true" AllowAdding="true" HeaderText="Очередь" KeyField="@(new List<string>() {TaskStatus.OPEN.GetStringValue()})"></KanbanColumn>
+        <KanbanColumn HeaderText="В процессе" KeyField="@(new List<string>() {TaskStatus.INPROGRESS.GetStringValue()})"></KanbanColumn>
+        <KanbanColumn HeaderText="Тестирование" KeyField="@(new List<string>() {TaskStatus.TESTING.GetStringValue()})"></KanbanColumn>
+        <KanbanColumn AllowAdding="false" AllowDrag="false" AllowDrop="true" HeaderText="Выполнено" KeyField="@(new List<string>() {TaskStatus.CLOSE.GetStringValue()})"></KanbanColumn>
     </KanbanColumns>
-    <KanbanCardSettings HeaderField="Title" ContentField="Summary"></KanbanCardSettings>
+    <KanbanCardSettings HeaderField="Title" ContentField="Summary" TagsField="Tags">
+        <Template>
+            @{
+                TasksModel model = (TasksModel)context;
+                <MudPaper Style="margin:15px;box-shadow: 8px 8px 8px 0px rgba(34, 60, 80, 0.2); border-radius:10px;">
+                    <div class="card">
+                        <div class="card-spring"></div>
+                        <div class="card__inner">
+                            <div class="card-header">
+                                <div class="card-header__icon">
+                                   @if(model.Status==TaskStatus.OPEN.GetStringValue()){   
+                                        <MudIcon Icon="@Icons.Material.Filled.RadioButtonChecked" Color="Color.Error" />
+                                    }
+                                    else if (model.Status == TaskStatus.INPROGRESS.GetStringValue()|| model.Status == TaskStatus.TESTING.GetStringValue())
+                                    {
+                                        <MudIcon Icon="@Icons.Material.Filled.RadioButtonChecked" Color="Color.Warning" />
+                                    }
+                                    else if (model.Status == TaskStatus.CLOSE.GetStringValue())
+                                    {
+                                        <MudIcon Icon="@Icons.Material.Filled.RadioButtonChecked" Color="Color.Success" />
+                                    }
+
+                                </div>
+                                <div class="card-header__title">
+                                    @model.Title
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body__desc">
+                                    @model.Summary
+                                </div>
+                                <div class="card-body-time">
+                                    <div class="card-body-time__start">
+                                        <div class="card-body-time__start__icon">
+                                            <MudIcon Icon="@Icons.Material.Filled.AccessTime" Color="Color.Error" />
+                                        </div>
+                                        <div class="card-body-time__start__value">
+                                            @model.CreateDate.Date.ToString("d MMMM yyyy")
+                                        </div>
+                                    </div>
+                                    <div class="card-body-arrow">
+                                        <MudIcon Icon="@Icons.Material.Filled.ArrowRightAlt" Color="Color.Error" />
+                                    </div>
+                                    <div class="card-body-time__end">
+                                        <div class="card-body-time__end__icon">
+                                            <MudIcon Icon="@Icons.Material.Filled.AccessTime" Color="Color.Error" />
+                                        </div>
+                                        <div class="card-body-time__end__value">
+                                            @model.EndDate.Date.ToString("d MMMM yyyy")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-footer-tags">
+                                    @foreach (var item in model.Tags)
+                                    {
+                                        <div class="card-footer-tag" style="background-color: @item.Color">
+                                            @item.Tag
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </MudPaper>
+            }
+        </Template>
+    </KanbanCardSettings>
+    <KanbanDialogSettings Width="500px">
+        <Template>
+            @{
+                TasksModel model = (TasksModel)context;
+                <div class="card-form">
+                    <div class="card-form__inner">
+                        <div class="card-form-group">
+                            <MudInputLabel Class="custom-label">Заголовок</MudInputLabel>
+                            <MudTextField Variant="Variant.Filled" Class="card-form__field" @bind-Value="model.Title"></MudTextField>
+                        </div>
+                        <div class="card-form-group">
+                            <MudInputLabel Class="custom-label">Описание</MudInputLabel>
+                            <MudTextField Variant="Variant.Text" Class="card-form__field" @bind-Value="model.Summary"></MudTextField>
+                        </div>
+                        <div class="card-form-group">
+                            <MudInputLabel Class="custom-label">Статус</MudInputLabel>
+                            <MudSelect Variant="Variant.Outlined" T="string" Placeholder="Статус" @bind-Value="model.Status">
+                                @foreach(var status in Enum.GetValues<TaskStatus>()){
+                                    var statusString = status.GetStringValue();
+                                    <MudSelectItem T="string" Value="@statusString">@statusString</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </div>
+                        <div class="card-form-group">
+                            <MudInputLabel Class="custom-label">Дата начала</MudInputLabel>
+                            <MudDatePicker Disabled="true" Class="card-form__field" Date="@model.CreateDate.Date" DateFormat="dd MMMM, yyyy" TitleDateFormat="dd MMMM, yyyy"></MudDatePicker>
+                        </div>
+                        <div class="card-form-group">
+                            <MudInputLabel Class="custom-label">Дата окончания</MudInputLabel>
+                            <MudDatePicker Class="card-form__field" PickerVariant="PickerVariant.Dialog"
+                                           DateFormat="dd MMMM, yyyy"
+                                           TitleDateFormat="dd MMMM, yyyy"
+                                           Margin="Margin.Dense"
+                                           Date="model.EndDate.Date"
+                                           DateChanged="(dateTime) => model.EndDate=new DateTimeOffset(dateTime!.Value)"
+                                           Editable="false"
+                                           Clearable="false"
+                                           Placeholder="Выберите дату окончания задачи"></MudDatePicker>
+                        </div>
+                        <div class="card-form-group">
+                            <MudInputLabel Class="custom-label">Теги к задаче</MudInputLabel>
+                        </div>
+                        <MudDivider Style="border-color:#218640;" DividerType="DividerType.Inset"></MudDivider>
+                        @for (int i = 0; i < model.Tags.Count; i++)
+                        {
+                            var item = model.Tags[i];
+                            var index = i;
+                            <div class="card-form-group card-form-group-inline">
+                                <MudTextField Class="card-form__field" @bind-Value="item.Tag"></MudTextField>
+                                <MudColorPicker Class="card-form__field" ColorPickerView="ColorPickerView.Palette" Label="Цвет тега" @bind-Text="item.Color" Placeholder="Выберите цвет тега" PickerVariant="PickerVariant.Dialog" />
+                                <MudButton Color="Color.Error" OnClick="()=> model.Tags.RemoveAt(index)" Variant="Variant.Filled">Удалить тег</MudButton>
+                            </div>
+                        }
+                        <div class="card-form-group">
+                            <MudButton Color="Color.Success" OnClick="()=> model.Tags.Add(new TasksModel.TagItem())" FullWidth="true" Variant="Variant.Filled">Добавить тег</MudButton>
+                        </div>
+                    </div>
+                </div>
+            }
+        </Template>
+    </KanbanDialogSettings>
 </SfKanban>
+<MudButton Color="Color.Success" OnClick="async ()=> {Tasks.Add(new TasksModel()); await InvokeAsync(StateHasChanged);}" FullWidth="true" Variant="Variant.Filled">Добавить задачу</MudButton>
 @code {
-    
+
     [Parameter]
     public Guid Id { get; set; }
 
@@ -34,24 +166,96 @@
             };
 
     }
-    public List<TasksModel> Tasks = new List<TasksModel>()
+    protected override async Task OnInitializedAsync()
     {
-        new TasksModel { Id = "Задача 1", Title = "BLAZ-29001", Status = "Open", Summary = "Проанализировать экономическую эффективность дипломного проекта" },
-        new TasksModel { Id = "Задача 2", Title = "BLAZ-29002", Status = "Open", Summary = "Изучить последствия внедрения проекта в предприятие." },
-        new TasksModel { Id = "Задача 3", Title = "BLAZ-29003", Status = "InProgress", Summary = "Улучшить производительность приложения." },
-        new TasksModel { Id = "Задача 4", Title = "BLAZ-29004", Status = "Testing", Summary = "Исправление ошибок аутентификации." },
-        new TasksModel { Id = "Задача 5", Title = "BLAZ-29005", Status = "Testing", Summary = "Собственные стилизованные статусы потери содинения, неудачных попыток и отказа сервера." },
-        new TasksModel { Id = "Задача 6", Title = "BLAZ-29006", Status = "Close", Summary = "Анализ MS SQL 2022." },
-        new TasksModel { Id = "Задача 7", Title = "BLAZ-29007", Status = "Close", Summary = "Изучение Grid компонента." },
-        new TasksModel { Id = "Задача 8", Title = "BLAZ-29008", Status = "Close", Summary = "Хранение изначальных данных компонента на сервере." }
-    };
-
-    public class TasksModel
-    {
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public string Status { get; set; }
-        public string Summary { get; set; }
+        Tasks.CollectionChanged += Task_CollectionChanged;
+        Tasks.PropertyChanged(Task_PropertyChanged);
     }
 
+    private void Task_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        Console.WriteLine($"Коллекция изменена. Количество {Tasks.Count}");
+    }
+
+    private void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        Console.WriteLine($"Коллекция изменена. Количество {Tasks.Count}");
+    }
+    public ObservableCollection<TasksModel> Tasks = new ObservableCollection<TasksModel>()
+    {
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29001", Status = TaskStatus.OPEN.GetStringValue(), Summary = "Проанализировать экономическую эффективность дипломного проекта" },
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29002", Status = TaskStatus.OPEN.GetStringValue(), Summary = "Изучить последствия внедрения проекта в предприятие." },
+        new TasksModel {Id = Guid.NewGuid(), Title = "BLAZ-29003", Status = TaskStatus.INPROGRESS.GetStringValue(), Summary = "Улучшить производительность приложения." },
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29004", Status = TaskStatus.TESTING.GetStringValue(), Summary = "Исправление ошибок аутентификации." },
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29005", Status = TaskStatus.TESTING.GetStringValue(), Summary = "Собственные стилизованные статусы потери содинения, неудачных попыток и отказа сервера." },
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29006", Status = TaskStatus.CLOSE.GetStringValue(), Summary = "Анализ MS SQL 2022." },
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29007", Status = TaskStatus.CLOSE.GetStringValue(), Summary = "Изучение Grid компонента." },
+        new TasksModel { Id = Guid.NewGuid(), Title = "BLAZ-29008", Status = TaskStatus.CLOSE.GetStringValue(), Summary = "Хранение изначальных данных компонента на сервере." }
+    };
+
+    public class TasksModel : INotifyPropertyChanged
+    {
+        private List<TagItem> _tags = new();
+        private string _summary = null!;
+
+
+        public Guid Id { get; set; }
+        public string Title { get; set; } = null!;
+        public string Status { get; set; } = null!;
+        public string Summary
+        { 
+            get { return _summary; }
+            set
+            {
+                _summary=value;
+                OnPropertyChanged("Summary");
+            }
+        }
+        public DateTimeOffset CreateDate { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset EndDate { get; set; } = DateTimeOffset.Now.AddDays(7);
+        public List<TagItem> Tags
+        { 
+            get{ return _tags; } 
+            set
+            {
+                _tags=value;
+                OnPropertyChanged("Tags");
+            }       
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+        public class TagItem
+        {
+
+            public TagItem()
+            {
+
+            }
+
+            public TagItem(string tag, string color) : this()
+            {
+                Tag = tag;
+                Color = color;
+            }
+            public string Tag { get; set; } = null!;
+
+            public string Color { get; set; } = null!;
+        }
+    }
+    public enum TaskStatus:sbyte
+    {
+        [StringValue("Открыта")]
+        OPEN=1,
+        [StringValue("В процессе")]
+        INPROGRESS,
+        [StringValue("Тестирование")]
+        TESTING,
+        [StringValue("Закрыта")]
+        CLOSE
+    }
 }
